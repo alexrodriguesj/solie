@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+:root {
+  /* Solie Brand Colors */
+  --solie-beige: #E5DDD3;
+  --solie-beige-light: #F5F1ED;
+  --solie-beige-dark: #D4C9BC;
+
+  /* Blue palette (comentado para uso futuro)
+  --solie-blue: #7A9BA8;
+  --solie-blue-light: #9BB5BF;
+  --solie-blue-dark: #5A7B88;
+  */
+
+  /* Green palette (ativa) */
+  --solie-green: #4B644F;
+  --solie-green-light: #6B846F;
+  --solie-green-dark: #3A4F3D;
+
+  /* Neutrals */
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+  --muted: #6b7280;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-solie-beige: var(--solie-beige);
+  --color-solie-beige-light: var(--solie-beige-light);
+  --color-solie-beige-dark: var(--solie-beige-dark);
+  --color-solie-green: var(--solie-green);
+  --color-solie-green-light: var(--solie-green-light);
+  --color-solie-green-dark: var(--solie-green-dark);
+  --color-muted: var(--muted);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--solie-beige-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--solie-green);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--solie-green-dark);
+}
