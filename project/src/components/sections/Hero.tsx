@@ -81,44 +81,45 @@ export function Hero() {
 
           {/* Content */}
           <div className="relative h-full flex items-center">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex justify-end">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex justify-center md:justify-end">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.6 }}
-                className="max-w-2xl text-right mt-100"
+                className="max-w-2xl text-center md:text-right"
               >
                 {/* Logo */}
                 <motion.div
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="mb-8 flex justify-end"
+                  className="mb-6 md:mb-8 flex justify-center md:justify-end"
                 >
                   <Image
                     src="/images/logo-light.png"
                     alt="Soliê Pilates"
                     width={240}
                     height={86}
+                    className="w-40 md:w-60"
                     priority
                   />
                 </motion.div>
 
                 {/* Title */}
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-solie-beige leading-tight mb-2">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-light text-solie-beige leading-tight mb-1 md:mb-2">
                   <span className="italic">{slides[currentSlide].title}</span>
                 </h1>
-                <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-solie-beige leading-tight mb-6">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-solie-beige leading-tight mb-4 md:mb-6">
                   {slides[currentSlide].subtitle}
                 </h2>
 
                 {/* Description */}
-                <p className="text-lg md:text-xl text-solie-beige/90 mb-8">
+                <p className="text-base md:text-xl text-solie-beige/90 mb-6 md:mb-8 px-4 md:px-0">
                   {slides[currentSlide].description}
                 </p>
 
                 {/* CTAs */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-end">
+                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center md:justify-end px-4 md:px-0">
                   <Button
                     variant="secondary"
                     size="lg"

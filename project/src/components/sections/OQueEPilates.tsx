@@ -27,7 +27,7 @@ const iconMap: Record<string, React.ElementType> = {
 
 export function OQueEPilates() {
   return (
-    <section id="pilates" className="py-20 bg-solie-beige-light">
+    <section id="pilates" className="py-12 md:py-20 bg-solie-beige-light">
       <Container>
         {/* Header */}
         <motion.div
@@ -35,19 +35,19 @@ export function OQueEPilates() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-8 md:mb-16 px-4"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-solie-green mb-4">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-solie-green mb-3 md:mb-4">
             Para quem é o Pilates?
           </h2>
-          <p className="text-lg text-muted max-w-2xl mx-auto">
+          <p className="text-base md:text-lg text-muted max-w-2xl mx-auto">
             O Pilates é indicado para todas as idades e condições físicas.
             Descubra como podemos ajudar você
           </p>
         </motion.div>
 
         {/* Cards Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 px-2 md:px-0">
           {oQueEPilates.map((item, index) => {
             const Icon = iconMap[item.icon];
             return (
@@ -88,7 +88,7 @@ export function OQueEPilates() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center mt-12"
+          className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center mt-8 md:mt-12 px-4 md:px-0"
         >
           <Button
             variant="primary"

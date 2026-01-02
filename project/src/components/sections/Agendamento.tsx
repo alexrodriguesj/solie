@@ -33,8 +33,8 @@ const diasSemanaMap: Record<number, string> = {
   6: "Sábado",
 };
 
-// Gera as datas da semana (segunda a sábado)
-// Se hoje for domingo, mostra a próxima semana
+// Gera as datas de 2 semanas (segunda a sábado)
+// Se hoje for domingo, mostra a partir da próxima semana
 function getProximasDatas() {
   const datas: { dia: string; data: Date; label: string; passado: boolean }[] = [];
   const hoje = new Date();
@@ -48,13 +48,23 @@ function getProximasDatas() {
   const diasAteSegunda = diaSemanaHoje === 0 ? 1 : 1 - diaSemanaHoje;
   segunda.setDate(hoje.getDate() + diasAteSegunda);
 
-  // Gera de segunda (1) a sábado (6)
-  for (let i = 0; i < 6; i++) {
+  // Gera 2 semanas: de segunda a sábado (pulando domingos)
+  let diasAdicionados = 0;
+  let offset = 0;
+
+  while (diasAdicionados < 12) {
     const data = new Date(segunda);
-    data.setDate(segunda.getDate() + i);
+    data.setDate(segunda.getDate() + offset);
     data.setHours(0, 0, 0, 0);
 
     const diaSemana = data.getDay();
+
+    // Pula domingos
+    if (diaSemana === 0) {
+      offset++;
+      continue;
+    }
+
     const diaNome = diasSemanaMap[diaSemana];
     const dataFormatada = data.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
 
@@ -64,6 +74,9 @@ function getProximasDatas() {
       label: `${diaNome.substring(0, 3)} ${dataFormatada}`,
       passado: data < hoje,
     });
+
+    diasAdicionados++;
+    offset++;
   }
 
   return datas;
@@ -249,7 +262,7 @@ Por favor, confirme a disponibilidade!`;
   };
 
   return (
-    <section id="agendamento" className="py-20 bg-solie-green">
+    <section id="agendamento" className="py-12 md:py-20 bg-solie-green">
       <Container size="md">
         {/* Header */}
         <motion.div
@@ -257,12 +270,12 @@ Por favor, confirme a disponibilidade!`;
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-8 md:mb-12 px-4"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-3 md:mb-4">
             Agende sua Aula Experimental
           </h2>
-          <p className="text-lg text-white/80 max-w-xl mx-auto">
+          <p className="text-base md:text-lg text-white/80 max-w-xl mx-auto">
             Preencha seus dados e escolha o melhor horário
           </p>
 

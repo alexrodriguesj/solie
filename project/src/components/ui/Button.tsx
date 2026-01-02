@@ -26,10 +26,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               variant === "outline",
             "bg-[#25D366] text-white hover:bg-[#128C7E] focus:ring-[#25D366]":
               variant === "whatsapp",
-            // Sizes
-            "px-4 py-2 text-sm": size === "sm",
-            "px-6 py-3 text-base": size === "md",
-            "px-8 py-4 text-lg": size === "lg",
+            // Sizes - min-h-[44px] para área de toque adequada em mobile
+            "px-4 py-2.5 text-sm min-h-[40px]": size === "sm",
+            "px-6 py-3 text-base min-h-[44px]": size === "md",
+            "px-8 py-3.5 text-base md:text-lg min-h-[48px]": size === "lg",
           },
           className
         )}
