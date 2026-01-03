@@ -9,7 +9,7 @@ import { Calendar, Clock, Users, MessageCircle, Loader2, User, Phone, Target, Ch
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { siteConfig, ctaFinal } from "@/data/content";
-import { formatWhatsAppLink } from "@/lib/utils";
+import { formatWhatsAppLink, analytics } from "@/lib/utils";
 
 // URL da planilha publicada como CSV (aba "agenda" - gid=0)
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/1r5rfUjJdxYfLcjqnl13mwxvpkTdo7UtCHDVHtEOqTE0/export?format=csv&gid=0";
@@ -209,6 +209,9 @@ export function Agendamento() {
   const onFormSubmit = (data: FormData) => {
     setFormData(data);
 
+    // Evento GA: início do agendamento
+    analytics.inicioAgendamento(data.objective);
+
     // Salva o contato na planilha (aba "contatos")
     try {
       const contatoData = {
@@ -236,6 +239,14 @@ export function Agendamento() {
 
   const handleAgendar = () => {
     if (!horarioSelecionado || !formData || !dataSelecionada) return;
+
+    // Eventos GA: clique WhatsApp + agendamento enviado
+    analytics.cliqueWhatsapp("agendamento");
+    analytics.agendamentoEnviado(
+      dataSelecionada.label,
+      horarioSelecionado,
+      formData.objective
+    );
 
     const dataFormatada = dataSelecionada.data.toLocaleDateString("pt-BR", {
       weekday: "long",
@@ -437,7 +448,12 @@ Por favor, confirme a disponibilidade!`;
                           {horariosDoDia.map(h => (
                             <button
                               key={`${h.data}-${h.horario}`}
-                              onClick={() => h.vagas > 0 && setHorarioSelecionado(h.horario)}
+                              onClick={() => {
+                                if (h.vagas > 0) {
+                                  setHorarioSelecionado(h.horario);
+                                  analytics.selecaoHorario(dataSelecionada?.label || "", h.horario);
+                                }
+                              }}
                               disabled={h.vagas === 0}
                               className={`p-3 rounded-xl border-2 transition-all ${
                                 horarioSelecionado === h.horario

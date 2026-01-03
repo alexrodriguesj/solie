@@ -8,7 +8,7 @@ import { Send } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { ctaFinal, siteConfig } from "@/data/content";
-import { formatWhatsAppLink } from "@/lib/utils";
+import { formatWhatsAppLink, analytics } from "@/lib/utils";
 
 const formSchema = z.object({
   name: z.string().min(2, "Nome é obrigatório"),
@@ -29,6 +29,9 @@ export function CTAFinal() {
   });
 
   const onSubmit = (data: FormData) => {
+    // Evento GA: clique no WhatsApp via formulário CTA
+    analytics.cliqueWhatsapp("formulario_cta");
+
     const message = `Olá! Meu nome é ${data.name}.
 
 Tenho interesse em aulas de Pilates.

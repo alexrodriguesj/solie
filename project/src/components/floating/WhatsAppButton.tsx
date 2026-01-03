@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import { siteConfig } from "@/data/content";
-import { formatWhatsAppLink } from "@/lib/utils";
+import { formatWhatsAppLink, analytics } from "@/lib/utils";
 
 export function WhatsAppButton() {
   return (
@@ -14,6 +14,7 @@ export function WhatsAppButton() {
       )}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() => analytics.cliqueWhatsapp("botao_flutuante")}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 1, type: "spring", stiffness: 200 }}
