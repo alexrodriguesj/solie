@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/data/content";
 import { formatWhatsAppLink } from "@/lib/utils";
+import { useBanner } from "@/contexts/BannerContext";
 
 const slides = [
   {
@@ -32,6 +33,7 @@ const slides = [
 export function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const { isBannerVisible } = useBanner();
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -53,8 +55,13 @@ export function Hero() {
     return () => clearInterval(interval);
   }, [isAutoPlaying, nextSlide]);
 
+  // Padding extra quando o banner está visível (44px mobile, 52px desktop)
+  const paddingTop = isBannerVisible
+    ? "pt-[calc(4rem+44px)] md:pt-[calc(5rem+52px)]"
+    : "pt-16 md:pt-20";
+
   return (
-    <section className="relative h-screen w-full overflow-hidden pt-16 md:pt-20">
+    <section className={`relative h-screen w-full overflow-hidden ${paddingTop}`}>
       {/* Slides */}
       <AnimatePresence mode="wait">
         <motion.div

@@ -9,10 +9,13 @@ import {
 } from "@/components/sections";
 import { WhatsAppButton } from "@/components/floating";
 import { Header } from "@/components/Header";
+import { PromoBanner } from "@/components/PromoBanner";
+import { BannerProvider } from "@/contexts/BannerContext";
 
 export default function Home() {
   return (
-    <>
+    <BannerProvider>
+      <PromoBanner />
       <Header />
       <Hero />
       <Diferenciais />
@@ -22,6 +25,6 @@ export default function Home() {
       <Agendamento />
       <Footer />
       <WhatsAppButton />
-    </>
+    </BannerProvider>
   );
 }

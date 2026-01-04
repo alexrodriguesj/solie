@@ -5,9 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, MessageCircle } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, formatWhatsAppLink } from "@/lib/utils";
 import { siteConfig } from "@/data/content";
-import { formatWhatsAppLink } from "@/lib/utils";
+import { useBanner } from "@/contexts/BannerContext";
 
 const navItems = [
   { label: "Início", href: "#" },
@@ -18,9 +18,14 @@ const navItems = [
   { label: "Agendar", href: "#agendamento" },
 ];
 
+// Altura do banner promocional
+const BANNER_HEIGHT = "44px";
+const BANNER_HEIGHT_SM = "52px";
+
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { isBannerVisible } = useBanner();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,11 +39,14 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out",
+        "fixed left-0 right-0 z-50 transition-all duration-300 ease-in-out",
         isScrolled
           ? "bg-solie-green shadow-lg border-b-4 border-solie-beige/20"
           : "bg-solie-green/95 backdrop-blur-sm"
       )}
+      style={{
+        top: isBannerVisible ? `var(--banner-height, ${BANNER_HEIGHT})` : "0",
+      }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div

@@ -17,6 +17,10 @@
   --solie-green-light: #6B846F;
   --solie-green-dark: #3A4F3D;
 
+  /* Accent - Terracota/Marsala para destaques */
+  --solie-accent: #A85454;
+  --solie-accent-dark: #8B4545;
+
   /* Neutrals */
   --background: #ffffff;
   --foreground: #1a1a1a;
@@ -32,6 +36,8 @@
   --color-solie-green: var(--solie-green);
   --color-solie-green-light: var(--solie-green-light);
   --color-solie-green-dark: var(--solie-green-dark);
+  --color-solie-accent: var(--solie-accent);
+  --color-solie-accent-dark: var(--solie-accent-dark);
   --color-muted: var(--muted);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
