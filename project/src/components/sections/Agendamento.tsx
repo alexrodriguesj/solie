@@ -242,6 +242,7 @@ export function Agendamento() {
 
     // Eventos GA: clique WhatsApp + agendamento enviado
     analytics.cliqueWhatsapp("agendamento");
+    analytics.metaContact("agendamento");
     analytics.agendamentoEnviado(
       dataSelecionada.label,
       horarioSelecionado,

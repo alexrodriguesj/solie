@@ -18,6 +18,7 @@ export function formatWhatsAppLink(phone: string, message?: string): string {
 declare global {
   interface Window {
     gtag?: (...args: unknown[]) => void;
+    fbq?: (...args: unknown[]) => void;
   }
 }
 
@@ -39,5 +40,10 @@ export const analytics = {
   },
   agendamentoEnviado: (dia: string, horario: string, objetivo: string) => {
     trackEvent("agendamento_enviado", { dia, horario, objetivo });
+  },
+  metaContact: (origem: string) => {
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq("track", "Contact", { content_category: origem });
+    }
   },
 };

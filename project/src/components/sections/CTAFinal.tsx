@@ -31,6 +31,7 @@ export function CTAFinal() {
   const onSubmit = (data: FormData) => {
     // Evento GA: clique no WhatsApp via formulário CTA
     analytics.cliqueWhatsapp("formulario_cta");
+    analytics.metaContact("formulario_cta");
 
     const message = `Olá! Meu nome é ${data.name}.
 

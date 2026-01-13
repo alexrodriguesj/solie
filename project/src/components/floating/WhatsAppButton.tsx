@@ -14,7 +14,10 @@ export function WhatsAppButton() {
       )}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={() => analytics.cliqueWhatsapp("botao_flutuante")}
+      onClick={() => {
+        analytics.cliqueWhatsapp("botao_flutuante");
+        analytics.metaContact("botao_flutuante");
+      }}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 1, type: "spring", stiffness: 200 }}

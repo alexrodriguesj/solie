@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, MessageCircle } from "lucide-react";
-import { cn, formatWhatsAppLink } from "@/lib/utils";
+import { cn, formatWhatsAppLink, analytics } from "@/lib/utils";
 import { siteConfig } from "@/data/content";
 import { useBanner } from "@/contexts/BannerContext";
 
@@ -85,15 +85,16 @@ export function Header() {
               </Link>
             ))}
             <button
-              onClick={() =>
+              onClick={() => {
+                analytics.metaContact("header_desktop");
                 window.open(
                   formatWhatsAppLink(
                     siteConfig.whatsapp,
                     "Olá! Gostaria de agendar uma aula experimental."
                   ),
                   "_blank"
-                )
-              }
+                );
+              }}
               className={cn(
                 "flex items-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full font-medium transition-all duration-300",
                 isScrolled ? "px-4 py-2 text-xs" : "px-5 py-2.5 text-sm"
@@ -143,6 +144,7 @@ export function Header() {
                 <button
                   onClick={() => {
                     setIsMenuOpen(false);
+                    analytics.metaContact("header_mobile");
                     window.open(
                       formatWhatsAppLink(
                         siteConfig.whatsapp,

@@ -1,9 +1,9 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Gift, X, Instagram } from "lucide-react";
+import { Sparkles, X, MessageCircle } from "lucide-react";
 import { siteConfig } from "@/data/content";
-import { trackEvent } from "@/lib/utils";
+import { trackEvent, formatWhatsAppLink, analytics } from "@/lib/utils";
 import { useBanner } from "@/contexts/BannerContext";
 
 export function PromoBanner() {
@@ -11,12 +11,19 @@ export function PromoBanner() {
 
   const handleClose = () => {
     setIsBannerVisible(false);
-    trackEvent("promo_banner_closed", { categoria: "engagement", campanha: "sorteio_inauguracao" });
+    trackEvent("promo_banner_closed", { categoria: "engagement", campanha: "promo_janeiro" });
   };
 
   const handleClick = () => {
-    trackEvent("promo_banner_click", { categoria: "engagement", campanha: "sorteio_inauguracao" });
-    window.open("https://www.instagram.com/soliepilates/p/DTDYQmmDkIA/", "_blank");
+    trackEvent("promo_banner_click", { categoria: "engagement", campanha: "promo_janeiro" });
+    analytics.metaContact("promo_banner");
+    window.open(
+      formatWhatsAppLink(
+        siteConfig.whatsapp,
+        "Olá! Vi a promoção de Janeiro no site e quero garantir meu desconto!"
+      ),
+      "_blank"
+    );
   };
 
   return (
@@ -34,24 +41,24 @@ export function PromoBanner() {
             <div className="flex items-center justify-between py-2.5 sm:py-3 gap-3">
               {/* Content */}
               <div className="flex-1 flex items-center justify-center gap-2 sm:gap-3">
-                <Gift className="w-5 h-5 sm:w-6 sm:h-6 text-solie-beige-light flex-shrink-0 animate-pulse" />
+                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-solie-beige-light flex-shrink-0 animate-pulse" />
 
                 <p className="text-white text-xs sm:text-sm font-medium text-center">
                   <span className="hidden sm:inline">
-                    <strong>SORTEIO DE INAUGURACAO:</strong> Ganhe 1 mes gratis de Pilates!
+                    <strong>PROMOÇÃO DE JANEIRO:</strong> Garanta desconto especial na sua mensalidade!
                   </span>
                   <span className="sm:hidden">
-                    <strong>SORTEIO:</strong> Ganhe 1 mes gratis!
+                    <strong>JANEIRO:</strong> Desconto na mensalidade!
                   </span>
                 </p>
 
                 <button
                   onClick={handleClick}
-                  className="flex items-center gap-1.5 bg-white hover:bg-solie-beige-light text-red-700 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all hover:scale-105 flex-shrink-0"
+                  className="flex items-center gap-1.5 bg-[#25D366] hover:bg-[#128C7E] text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all hover:scale-105 flex-shrink-0"
                 >
-                  <Instagram className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  <span className="hidden sm:inline">PARTICIPAR</span>
-                  <span className="sm:hidden">IR</span>
+                  <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <span className="hidden sm:inline">QUERO MEU DESCONTO</span>
+                  <span className="sm:hidden">QUERO</span>
                 </button>
               </div>
 
