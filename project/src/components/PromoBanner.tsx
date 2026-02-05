@@ -11,16 +11,16 @@ export function PromoBanner() {
 
   const handleClose = () => {
     setIsBannerVisible(false);
-    trackEvent("promo_banner_closed", { categoria: "engagement", campanha: "promo_janeiro" });
+    trackEvent("promo_banner_closed", { categoria: "engagement", campanha: "promo_fevereiro" });
   };
 
   const handleClick = () => {
-    trackEvent("promo_banner_click", { categoria: "engagement", campanha: "promo_janeiro" });
+    trackEvent("promo_banner_click", { categoria: "engagement", campanha: "promo_fevereiro" });
     analytics.metaContact("promo_banner");
     window.open(
       formatWhatsAppLink(
         siteConfig.whatsapp,
-        "Olá! Vi a promoção de Janeiro no site e quero garantir meu desconto!"
+        "Olá! Vi a promoção de Fevereiro no site e quero garantir meu desconto!"
       ),
       "_blank"
     );
@@ -45,10 +45,10 @@ export function PromoBanner() {
 
                 <p className="text-white text-xs sm:text-sm font-medium text-center">
                   <span className="hidden sm:inline">
-                    <strong>PROMOÇÃO DE JANEIRO:</strong> Garanta desconto especial na sua mensalidade!
+                    <strong>PROMOÇÃO DE FEVEREIRO:</strong> Traga sua amiga e ganhe descontos em dobro!
                   </span>
                   <span className="sm:hidden">
-                    <strong>JANEIRO:</strong> Desconto na mensalidade!
+                    <strong>FEVEREIRO:</strong> Traga sua amiga!
                   </span>
                 </p>
 
