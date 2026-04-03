@@ -32,4 +32,29 @@ export const avaliacoes = [
     rating: 5,
     text: "A fisioterapeuta Dra Giovanna é uma excelente profissional, muito comprometida com seus alunos. Fiz 3 anos de aula de Pilates com ela em outro estúdio, tinha muita dor no joelho, dor nas costas, melhorou 100%, sinto falta de suas aulas.",
   },
+  {
+    name: "Maria da Penha Amorim",
+    rating: 5,
+    text: "Espaço super acolhedor onde percebe-se que cada detalhe foi pensado com muito carinho. Atendimento impecável e com muito profissionalismo. Na primeira aula já estava com muita dor e a percebi no dia seguinte uma melhora importante.",
+  },
+  {
+    name: "Irmgard Nakazoni",
+    rating: 5,
+    text: "É evidente o cuidado, atenção e o profissionalismo desde o primeiro contato até as orientações na execução dos movimentos. O espaço é lindo e muito agradável. O melhor estúdio que eu já frequentei.",
+  },
+  {
+    name: "Milena Massae Yamashita",
+    rating: 5,
+    text: "O studio tem um ambiente acolhedor e as profissionais são muito atenciosas e capacitadas! Fazer pilates na Soliê sido meu momento semanal de autocuidado e fortalecimento, recomendo muito!",
+  },
+  {
+    name: "Anna Hauki",
+    rating: 5,
+    text: "Comecei com o pé direito. A instrutora é muito atenciosa. O ambiente é bom, as meninas são gentis e amáveis.",
+  },
+  {
+    name: "Léia Silva",
+    rating: 5,
+    text: "Quero deixar aqui minha avaliação do estúdio Soliê Pilates. As meninas são extremamente atenciosas, queridas e muito profissionais. Dá pra perceber a experiência e o cuidado em cada atendimento, sempre respeitando nossos limites e incentivando a evoluir. É um ambiente acolhedor, onde a gente se sente bem e motivada a voltar sempre. Eu amo!",
+  },
 ];
