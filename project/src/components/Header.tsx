@@ -15,7 +15,7 @@ const navItems = [
   { label: "Pilates", href: "#pilates" },
   { label: "Studio", href: "#studio" },
   { label: "Avaliações", href: "#avaliacoes" },
-  { label: "Agendar", href: "#agendamento" },
+  // { label: "Agendar", href: "#agendamento" },
 ];
 
 // Altura do banner promocional
@@ -101,7 +101,7 @@ export function Header() {
               )}
             >
               <MessageCircle className={cn(isScrolled ? "w-3.5 h-3.5" : "w-4 h-4")} />
-              Fale Conosco
+              Agende sua Aula
             </button>
           </nav>
 

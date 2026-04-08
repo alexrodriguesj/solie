@@ -77,7 +77,7 @@ export function ConhecaStudio() {
               Conheça nosso Studio
             </h2>
             <p className="text-base md:text-lg text-muted max-w-2xl mx-auto">
-              Um espaço projetado para seu conforto e bem-estar
+              No coração do Água Verde, um espaço íntimo criado para cuidar de você
             </p>
           </motion.div>
 
@@ -243,7 +243,7 @@ export function ConhecaStudio() {
                     Como chegar
                   </Button>
                 </a>
-                <Button
+                {/* <Button
                   variant="primary"
                   size="md"
                   onClick={() =>
@@ -251,22 +251,23 @@ export function ConhecaStudio() {
                   }
                 >
                   Agende sua Aula
-                </Button>
+                </Button> */}
                 <Button
                   variant="whatsapp"
-                  size="md"
+                  size="lg"
+                  className="text-lg md:text-xl px-8 md:px-10 py-4 md:py-5"
                   onClick={() =>
                     window.open(
                       formatWhatsAppLink(
                         siteConfig.whatsapp,
-                        "Olá! Gostaria de saber mais sobre as aulas de Pilates."
+                        "Olá! Gostaria de agendar uma aula experimental de Pilates."
                       ),
                       "_blank"
                     )
                   }
                 >
-                  <MessageCircle className="w-5 h-5" />
-                  Fale Conosco
+                  <MessageCircle className="w-6 h-6" />
+                  Agende sua Aula
                 </Button>
               </div>
             </motion.div>

@@ -1,29 +1,74 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
-  Activity,
+  SplineIcon as Spine,
+  PersonStanding,
   Zap,
   Brain,
   Baby,
   Dumbbell,
-  Bone,
   MessageCircle,
 } from "lucide-react";
-import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { oQueEPilates, siteConfig } from "@/data/content";
 import { formatWhatsAppLink } from "@/lib/utils";
 
+const videos = ["/videos/01.mp4", "/videos/02.mp4", "/videos/03.mp4"];
+
 const iconMap: Record<string, React.ElementType> = {
-  Spine: Bone,
-  Activity,
+  Spine,
+  Activity: PersonStanding,
   Zap,
   Brain,
   Baby,
   Dumbbell,
 };
+
+function VideoCard({ src, index }: { src: string; index: number }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.15 }}
+      className="overflow-hidden rounded-2xl shadow-md aspect-[5/6]"
+    >
+      <video
+        ref={videoRef}
+        src={src}
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        className="w-full h-full object-cover"
+      />
+    </motion.div>
+  );
+}
 
 export function OQueEPilates() {
   return (
@@ -42,9 +87,17 @@ export function OQueEPilates() {
           </h2>
           <p className="text-base md:text-lg text-muted max-w-2xl mx-auto">
             O Pilates é indicado para todas as idades e condições físicas.
+            <br />
             Descubra como podemos ajudar você
           </p>
         </motion.div>
+
+        {/* Videos */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 px-2 md:px-0 mb-8 md:mb-12">
+          {videos.map((src, index) => (
+            <VideoCard key={src} src={src} index={index} />
+          ))}
+        </div>
 
         {/* Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 px-2 md:px-0">
@@ -57,26 +110,25 @@ export function OQueEPilates() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                whileHover={{ y: -8 }}
+                className="[perspective:800px]"
               >
-                <Card
-                  variant="outlined"
-                  className="h-full border-2 border-solie-beige hover:border-solie-green transition-colors duration-300"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-solie-green/10 flex items-center justify-center flex-shrink-0">
-                      {Icon && (
-                        <Icon className="w-6 h-6 text-solie-green" />
-                      )}
+                <div className="group relative w-full h-full cursor-pointer [transform-style:preserve-3d] transition-transform duration-500 [&:hover]:[transform:rotateY(180deg)]">
+                  {/* Front */}
+                  <div className="[backface-visibility:hidden] rounded-xl bg-white border-2 border-solie-beige shadow-sm p-5 flex flex-col items-center justify-center text-center gap-3">
+                    <div className="w-14 h-14 rounded-xl bg-solie-green/10 flex items-center justify-center">
+                      {Icon && <Icon className="w-7 h-7 text-solie-green" />}
                     </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-foreground mb-1">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-muted">{item.description}</p>
-                    </div>
+                    <h3 className="text-base md:text-lg font-semibold text-foreground">
+                      {item.title}
+                    </h3>
                   </div>
-                </Card>
+                  {/* Back */}
+                  <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-xl bg-solie-accent shadow-sm p-5 flex items-center justify-center text-center">
+                    <p className="text-sm md:text-base text-white leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
               </motion.div>
             );
           })}
@@ -90,7 +142,7 @@ export function OQueEPilates() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center mt-8 md:mt-12 px-4 md:px-0"
         >
-          <Button
+          {/* <Button
             variant="primary"
             size="lg"
             onClick={() =>
@@ -98,22 +150,23 @@ export function OQueEPilates() {
             }
           >
             Agende sua Aula
-          </Button>
+          </Button> */}
           <Button
             variant="whatsapp"
             size="lg"
+            className="text-lg md:text-xl px-8 md:px-10 py-4 md:py-5"
             onClick={() =>
               window.open(
                 formatWhatsAppLink(
                   siteConfig.whatsapp,
-                  "Olá! Gostaria de saber mais sobre as aulas de Pilates."
+                  "Olá! Gostaria de agendar uma aula experimental de Pilates."
                 ),
                 "_blank"
               )
             }
           >
-            <MessageCircle className="w-5 h-5" />
-            Fale Conosco
+            <MessageCircle className="w-6 h-6" />
+            Agende sua Aula
           </Button>
         </motion.div>
       </Container>

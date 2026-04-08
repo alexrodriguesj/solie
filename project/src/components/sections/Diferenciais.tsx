@@ -1,29 +1,126 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import {
-  UserCheck,
-  Target,
-  Heart,
-  Sparkles,
-  GraduationCap,
+  Stethoscope,
+  Users,
+  ShieldCheck,
+  HeartHandshake,
+  TrendingUp,
   Clock,
   MessageCircle,
+  Play,
+  Pause,
+  Volume2,
+  VolumeX,
 } from "lucide-react";
-import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { diferenciais, siteConfig } from "@/data/content";
 import { formatWhatsAppLink } from "@/lib/utils";
 
 const iconMap: Record<string, React.ElementType> = {
-  UserCheck,
-  Target,
-  Heart,
-  Sparkles,
-  GraduationCap,
+  Stethoscope,
+  Users,
+  ShieldCheck,
+  HeartHandshake,
+  TrendingUp,
   Clock,
 };
+
+function VideoInstitucional() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+          setIsPlaying(true);
+        } else {
+          video.pause();
+          setIsPlaying(false);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  const togglePlay = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.paused) {
+      video.play();
+      setIsPlaying(true);
+    } else {
+      video.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  const toggleMute = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = !video.muted;
+    setIsMuted(video.muted);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className="relative h-full"
+    >
+      <div className="relative overflow-hidden rounded-2xl shadow-lg group h-full">
+        <video
+          ref={videoRef}
+          src="/videos/video-institucional.mp4"
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className="w-full h-full object-cover"
+        />
+        {/* Controls overlay */}
+        <div className="absolute bottom-0 left-0 right-0 p-3 flex items-center gap-2 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <button
+            onClick={togglePlay}
+            className="w-10 h-10 rounded-full bg-white/90 hover:bg-white flex items-center justify-center transition-colors"
+            aria-label={isPlaying ? "Pausar" : "Reproduzir"}
+          >
+            {isPlaying ? (
+              <Pause className="w-5 h-5 text-solie-green" />
+            ) : (
+              <Play className="w-5 h-5 text-solie-green ml-0.5" />
+            )}
+          </button>
+          <button
+            onClick={toggleMute}
+            className="w-10 h-10 rounded-full bg-white/90 hover:bg-white flex items-center justify-center transition-colors"
+            aria-label={isMuted ? "Ativar som" : "Mutar"}
+          >
+            {isMuted ? (
+              <VolumeX className="w-5 h-5 text-solie-green" />
+            ) : (
+              <Volume2 className="w-5 h-5 text-solie-green" />
+            )}
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 export function Diferenciais() {
   return (
@@ -46,37 +143,82 @@ export function Diferenciais() {
           </p>
         </motion.div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 px-2 md:px-0">
-          {diferenciais.map((item, index) => {
-            const Icon = iconMap[item.icon];
-            return (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Card
-                  variant="elevated"
-                  className="h-full hover:scale-105 transition-transform duration-300"
+        {/* Cards Left | Video | Cards Right */}
+        <div className="flex flex-col lg:flex-row gap-4 md:gap-6 px-2 md:px-0 items-stretch">
+          {/* Left Cards */}
+          <div className="flex-1 flex flex-col gap-3">
+            {diferenciais.slice(0, 3).map((item, index) => {
+              const Icon = iconMap[item.icon];
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="flex-1 [perspective:800px]"
                 >
-                  <div className="flex flex-col items-center text-center">
-                    <div className="w-16 h-16 rounded-full bg-solie-beige flex items-center justify-center mb-4">
-                      {Icon && (
-                        <Icon className="w-8 h-8 text-solie-green" />
-                      )}
+                  <div className="group relative w-full h-full cursor-pointer [transform-style:preserve-3d] transition-transform duration-500 [&:hover]:[transform:rotateY(180deg)]">
+                    {/* Front */}
+                    <div className="absolute inset-0 [backface-visibility:hidden] rounded-xl bg-white shadow-md p-4 flex flex-col items-center justify-center text-center gap-3">
+                      <div className="w-16 h-16 rounded-full bg-solie-beige flex items-center justify-center">
+                        {Icon && <Icon className="w-8 h-8 text-solie-green" />}
+                      </div>
+                      <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-foreground">
+                        {item.title}
+                      </h3>
                     </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-muted">{item.description}</p>
+                    {/* Back */}
+                    <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-xl bg-solie-green shadow-md p-5 flex items-center justify-center text-center">
+                      <p className="text-sm md:text-base lg:text-lg text-white leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
                   </div>
-                </Card>
-              </motion.div>
-            );
-          })}
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Video Institucional */}
+          <div className="w-full lg:w-1/3 flex-shrink-0">
+            <VideoInstitucional />
+          </div>
+
+          {/* Right Cards */}
+          <div className="flex-1 flex flex-col gap-3">
+            {diferenciais.slice(3, 6).map((item, index) => {
+              const Icon = iconMap[item.icon];
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="flex-1 [perspective:800px]"
+                >
+                  <div className="group relative w-full h-full cursor-pointer [transform-style:preserve-3d] transition-transform duration-500 [&:hover]:[transform:rotateY(180deg)]">
+                    {/* Front */}
+                    <div className="absolute inset-0 [backface-visibility:hidden] rounded-xl bg-white shadow-md p-4 flex flex-col items-center justify-center text-center gap-3">
+                      <div className="w-16 h-16 rounded-full bg-solie-beige flex items-center justify-center">
+                        {Icon && <Icon className="w-8 h-8 text-solie-green" />}
+                      </div>
+                      <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-foreground">
+                        {item.title}
+                      </h3>
+                    </div>
+                    {/* Back */}
+                    <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-xl bg-solie-green shadow-md p-5 flex items-center justify-center text-center">
+                      <p className="text-sm md:text-base lg:text-lg text-white leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
 
         {/* CTAs */}
@@ -87,7 +229,7 @@ export function Diferenciais() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center mt-8 md:mt-12 px-4 md:px-0"
         >
-          <Button
+          {/* <Button
             variant="primary"
             size="lg"
             onClick={() =>
@@ -95,22 +237,23 @@ export function Diferenciais() {
             }
           >
             Agende sua Aula
-          </Button>
+          </Button> */}
           <Button
             variant="whatsapp"
             size="lg"
+            className="text-lg md:text-xl px-8 md:px-10 py-4 md:py-5"
             onClick={() =>
               window.open(
                 formatWhatsAppLink(
                   siteConfig.whatsapp,
-                  "Olá! Gostaria de saber mais sobre as aulas de Pilates."
+                  "Olá! Gostaria de agendar uma aula experimental de Pilates."
                 ),
                 "_blank"
               )
             }
           >
-            <MessageCircle className="w-5 h-5" />
-            Fale Conosco
+            <MessageCircle className="w-6 h-6" />
+            Agende sua Aula
           </Button>
         </motion.div>
       </Container>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Quote, ExternalLink, Star, ChevronLeft, ChevronRight, MessageCircle } from "lucide-react";
 import { Card } from "@/components/ui/Card";
@@ -9,6 +10,70 @@ import { Button } from "@/components/ui/Button";
 import { avaliacoes } from "@/data/avaliacoes";
 import { siteConfig } from "@/data/content";
 import { formatWhatsAppLink } from "@/lib/utils";
+
+// Bento grid mosaic: fotos encaixam como quebra-cabeça
+const bentoPhotos = [
+  { src: "/images/alunos/01.PNG", alt: "Alunos Soliê Pilates" },
+  { src: "/images/alunos/02.PNG", alt: "Aula de Pilates Soliê" },
+  { src: "/images/alunos/03.PNG", alt: "Pilates Água Verde Curitiba" },
+  { src: "/images/alunos/04.PNG", alt: "Studio Soliê Pilates" },
+  { src: "/images/alunos/05.PNG", alt: "Pilates personalizado Curitiba" },
+  { src: "/images/alunos/06.PNG", alt: "Pilates clínico Soliê" },
+];
+
+// Layout mosaico 2 rows × 3 cols por tile:
+// [1: 1×2 tall] [2: 1×1] [3: 1×1]
+//               [4: 1×1] [5: 1×1]
+// Depois inverte no próximo tile para variar
+const tileA = [
+  { photo: 0, className: "row-span-2", style: "aspect-[3/4]" },
+  { photo: 1, className: "", style: "" },
+  { photo: 2, className: "", style: "" },
+  { photo: 3, className: "", style: "" },
+  { photo: 4, className: "", style: "" },
+];
+
+const tileB = [
+  { photo: 5, className: "", style: "" },
+  { photo: 0, className: "", style: "" },
+  { photo: 3, className: "row-span-2", style: "aspect-[3/4]" },
+  { photo: 2, className: "", style: "" },
+  { photo: 4, className: "", style: "" },
+];
+
+function BentoTile({ variant, offset }: { variant: "A" | "B"; offset: number }) {
+  const slots = variant === "A" ? tileA : tileB;
+  return (
+    <div className="grid grid-rows-2 grid-cols-3 gap-2 h-[300px] md:h-[400px] flex-shrink-0 w-[460px] md:w-[600px]">
+      {slots.map((slot, i) => (
+        <div
+          key={`${offset}-${i}`}
+          className={`${slot.className} rounded-xl overflow-hidden relative min-h-0`}
+        >
+          <Image
+            src={bentoPhotos[slot.photo].src}
+            alt={bentoPhotos[slot.photo].alt}
+            fill
+            className="object-cover hover:scale-105 transition-transform duration-500"
+            sizes="250px"
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function BentoPhotoCarousel() {
+  return (
+    <div className="relative -mx-[calc(50vw-50%)] w-screen overflow-hidden my-10 [mask-image:linear-gradient(to_right,transparent,black_3%,black_97%,transparent)]">
+      <div className="flex gap-2 animate-marquee-slow w-max">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <BentoTile key={i} variant={i % 2 === 0 ? "A" : "B"} offset={i} />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export function GoogleReviews() {
   const [startIndex, setStartIndex] = useState(0);
@@ -42,10 +107,10 @@ export function GoogleReviews() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-solie-green mb-4">
-            Avaliações no Google
+            5.0 Estrelas no Google — Não somos nós que dizemos
           </h2>
           <p className="text-lg text-muted max-w-2xl mx-auto mb-6">
-            Veja o que nossos alunos estão falando
+            A opinião de quem já experimentou e melhorou MUITO sua qualidade de vida
           </p>
 
           {/* Rating Summary */}
@@ -60,7 +125,11 @@ export function GoogleReviews() {
               ))}
             </div>
           </div>
+
         </motion.div>
+
+        {/* Bento Grid Carousel - full bleed */}
+        <BentoPhotoCarousel />
 
         {/* Reviews Carousel */}
         <div className="relative">
@@ -190,7 +259,7 @@ export function GoogleReviews() {
               Ver todas as avaliações no Google
             </Button>
           </a>
-          <Button
+          {/* <Button
             variant="primary"
             size="lg"
             onClick={() =>
@@ -198,22 +267,23 @@ export function GoogleReviews() {
             }
           >
             Agende sua Aula
-          </Button>
+          </Button> */}
           <Button
             variant="whatsapp"
             size="lg"
+            className="text-lg md:text-xl px-8 md:px-10 py-4 md:py-5"
             onClick={() =>
               window.open(
                 formatWhatsAppLink(
                   siteConfig.whatsapp,
-                  "Olá! Gostaria de saber mais sobre as aulas de Pilates."
+                  "Olá! Gostaria de agendar uma aula experimental de Pilates."
                 ),
                 "_blank"
               )
             }
           >
-            <MessageCircle className="w-5 h-5" />
-            Fale Conosco
+            <MessageCircle className="w-6 h-6" />
+            Agende sua Aula
           </Button>
         </motion.div>
       </Container>

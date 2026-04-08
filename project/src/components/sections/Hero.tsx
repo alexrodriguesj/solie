@@ -12,21 +12,21 @@ import { useBanner } from "@/contexts/BannerContext";
 const slides = [
   {
     image: "/images/hero-1.jpg",
-    title: "Transforme seu",
-    subtitle: "Corpo e Mente",
-    description: "Descubra o poder do Pilates com acompanhamento personalizado.",
+    title: "Sua coluna",
+    subtitle: "Agradece",
+    description: "Pilates clínico para quem vive com dor, tensão ou desconforto. Atendimento individual no Água Verde.",
   },
   {
     image: "/images/hero-2.jpg",
-    title: "Movimento é",
-    subtitle: "Vida",
-    description: "Aulas individuais e em pequenos grupos para resultados reais.",
+    title: "Máximo 2 alunos",
+    subtitle: "Por aula",
+    description: "Aqui você não é só mais um. Atendimento personalizado com profissionais de saúde que entendem seu corpo.",
   },
   {
     image: "/images/hero-3.jpg",
-    title: "Seu bem-estar",
-    subtitle: "Começa Aqui",
-    description: "Profissionais qualificados e ambiente acolhedor.",
+    title: "Sem plateia,",
+    subtitle: "Sem julgamento",
+    description: "Um espaço íntimo e acolhedor para quem tem vergonha de academia, quem nunca fez pilates ou quem precisa recomeçar.",
   },
 ];
 
@@ -127,7 +127,7 @@ export function Hero() {
 
                 {/* CTAs */}
                 <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center md:justify-end px-4 md:px-0">
-                  <Button
+                  {/* <Button
                     variant="secondary"
                     size="lg"
                     className="text-base font-semibold"
@@ -136,23 +136,23 @@ export function Hero() {
                     }
                   >
                     Agende sua Aula
-                  </Button>
+                  </Button> */}
                   <Button
                     variant="whatsapp"
                     size="lg"
-                    className="text-base"
+                    className="text-lg md:text-xl px-8 md:px-10 py-4 md:py-5"
                     onClick={() =>
                       window.open(
                         formatWhatsAppLink(
                           siteConfig.whatsapp,
-                          "Olá! Gostaria de saber mais sobre as aulas de Pilates."
+                          "Olá! Gostaria de agendar uma aula experimental de Pilates."
                         ),
                         "_blank"
                       )
                     }
                   >
-                    <MessageCircle className="w-5 h-5" />
-                    Fale Conosco
+                    <MessageCircle className="w-6 h-6" />
+                    Agende sua Aula
                   </Button>
                 </div>
               </motion.div>

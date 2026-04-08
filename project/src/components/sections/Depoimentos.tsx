@@ -82,7 +82,7 @@ export function Depoimentos() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
-          <Button
+          {/* <Button
             variant="primary"
             size="lg"
             onClick={() =>
@@ -90,22 +90,23 @@ export function Depoimentos() {
             }
           >
             Agende sua Aula
-          </Button>
+          </Button> */}
           <Button
             variant="whatsapp"
             size="lg"
+            className="text-lg md:text-xl px-8 md:px-10 py-4 md:py-5"
             onClick={() =>
               window.open(
                 formatWhatsAppLink(
                   siteConfig.whatsapp,
-                  "Olá! Gostaria de saber mais sobre as aulas de Pilates."
+                  "Olá! Gostaria de agendar uma aula experimental de Pilates."
                 ),
                 "_blank"
               )
             }
           >
-            <MessageCircle className="w-5 h-5" />
-            Fale Conosco
+            <MessageCircle className="w-6 h-6" />
+            Agende sua Aula
           </Button>
         </motion.div>
       </Container>

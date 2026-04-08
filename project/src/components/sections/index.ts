@@ -1,6 +1,6 @@
 export { Hero } from "./Hero";
 export { Diferenciais } from "./Diferenciais";
-export { Depoimentos } from "./Depoimentos";
+// export { Depoimentos } from "./Depoimentos";
 export { OQueEPilates } from "./OQueEPilates";
 export { ConhecaStudio } from "./ConhecaStudio";
 export { GoogleReviews } from "./GoogleReviews";

@@ -27,99 +27,74 @@ export const siteConfig = {
 export const heroContent = {
   headline: "Transforme seu corpo e mente com Pilates",
   subheadline: "Atendimento personalizado em um ambiente acolhedor e exclusivo",
-  badges: [
-    { icon: "Star", text: "4.9 no Google" },
-    { icon: "Award", text: "+5 anos de experiência" },
-    { icon: "Users", text: "+500 alunos" },
-  ],
   ctaPrimary: "Agende sua aula experimental",
   ctaWhatsapp: "Fale conosco",
 };
 
 export const diferenciais = [
   {
-    icon: "UserCheck",
+    icon: "Stethoscope",
     title: "Atendimento Personalizado",
-    description: "Aulas individuais ou em pequenos grupos com atenção total às suas necessidades",
+    description: "Nossas instrutoras aliam conhecimento clínico e prático em cada sessão. Seu corpo em mãos de quem entende de saúde.",
   },
   {
-    icon: "Target",
-    title: "Foco em Resultados",
-    description: "Programas desenvolvidos para alcançar seus objetivos de forma eficiente",
+    icon: "Users",
+    title: "Máximo 2 Alunos por Aula",
+    description: "Atenção total para você. Cada exercício é corrigido, cada movimento é orientado. Sem turmas lotadas.",
   },
   {
-    icon: "Heart",
-    title: "Cuidado Integral",
-    description: "Abordagem que considera corpo e mente para seu bem-estar completo",
+    icon: "ShieldCheck",
+    title: "Pilates Clínico com Ciência",
+    description: "Não é só exercício, é reabilitação, prevenção e fortalecimento com base em evidência científica.",
   },
   {
-    icon: "Sparkles",
-    title: "Ambiente Exclusivo",
-    description: "Espaço moderno e acolhedor projetado para sua prática",
+    icon: "HeartHandshake",
+    title: "Sem Plateia, Sem Julgamento",
+    description: "Espaço íntimo e acolhedor para quem tem vergonha de academia, quem sente dor ou quem nunca fez pilates.",
   },
   {
-    icon: "GraduationCap",
-    title: "Profissionais Qualificados",
-    description: "Equipe com formação especializada e atualização constante",
+    icon: "TrendingUp",
+    title: "Seu Corpo, Sua Evolução",
+    description: "Avaliação postural no início e acompanhamento da sua evolução. Você vê o resultado.",
   },
   {
     icon: "Clock",
-    title: "Horários Flexíveis",
-    description: "Aulas em diversos horários para sua conveniência",
+    title: "Horários que Cabem na Rotina",
+    description: "Aulas de segunda a sábado. Encaixe o pilates na sua vida sem estresse.",
   },
 ];
 
-export const depoimentos = [
-  {
-    name: "Maria Silva",
-    role: "Aluna há 2 anos",
-    text: "O Pilates mudou minha vida! Minhas dores nas costas sumiram e me sinto muito mais disposta.",
-    image: "/images/testimonial-1.jpg",
-  },
-  {
-    name: "João Santos",
-    role: "Aluno há 1 ano",
-    text: "Ambiente incrível e profissionais muito atenciosos. Recomendo para todos!",
-    image: "/images/testimonial-2.jpg",
-  },
-  {
-    name: "Ana Oliveira",
-    role: "Aluna há 3 anos",
-    text: "Melhor decisão que tomei foi começar Pilates aqui. Qualidade excepcional!",
-    image: "/images/testimonial-3.jpg",
-  },
-];
 
 export const oQueEPilates = [
   {
     icon: "Spine",
     title: "Dores na Coluna",
-    description: "Fortalece a musculatura que sustenta a coluna, aliviando dores",
+    description: "Sua lombar trava toda semana? Fortalecemos a musculatura que sustenta a coluna para você viver sem analgésico.",
   },
   {
     icon: "Activity",
     title: "Postura",
-    description: "Corrige desvios posturais e melhora o alinhamento corporal",
+    description: "Trabalha sentada 8h por dia? Corrigimos desvios posturais e devolvemos o alinhamento que o escritório tirou de você.",
   },
   {
     icon: "Zap",
     title: "Flexibilidade",
-    description: "Aumenta a amplitude de movimento e elasticidade muscular",
+    description: "Não consegue nem amarrar o tênis? Recuperamos amplitude de movimento com exercícios seguros e progressivos.",
   },
   {
     icon: "Brain",
     title: "Estresse e Ansiedade",
-    description: "Promove relaxamento e bem-estar mental através do movimento",
+    description: "Sua mente não para? O movimento consciente do pilates acalma o corpo e organiza a cabeça.",
   },
   {
     icon: "Baby",
     title: "Gestantes",
-    description: "Prepara o corpo para a gestação e auxilia na recuperação pós-parto",
+    description: "Pilates na gestação é seguro quando guiado por fisioterapeuta. Preparamos seu corpo para o parto e pós-parto.",
   },
   {
     icon: "Dumbbell",
     title: "Condicionamento",
-    description: "Melhora força, resistência e consciência corporal",
+    description: "Quer mais força e resistência sem impacto? Pilates complementa qualquer treino — de corrida a CrossFit.",
   },
 ];
 

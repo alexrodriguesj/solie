@@ -20,8 +20,9 @@ export function Footer() {
               className="mb-4"
             />
             <p className="text-muted max-w-sm">
-              Transformando vidas através do Pilates. Cuide do seu corpo e mente
-              em um ambiente acolhedor e exclusivo.
+              Transformando vidas através do Pilates.
+              <br />
+              Cuide do seu corpo e mente em um ambiente acolhedor e exclusivo.
             </p>
           </div>
 
