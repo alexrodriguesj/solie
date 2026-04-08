@@ -6,8 +6,11 @@ import { Quote, ExternalLink, MessageCircle } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { depoimentos, siteConfig } from "@/data/content";
+import { siteConfig } from "@/data/content";
 import { formatWhatsAppLink } from "@/lib/utils";
+
+// Seção desativada — depoimentos fictícios removidos. Reativar quando tiver dados reais.
+const depoimentos: { name: string; role: string; text: string; image?: string }[] = [];
 
 export function Depoimentos() {
   return (
