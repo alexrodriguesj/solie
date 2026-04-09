@@ -56,7 +56,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   return (
     <>
-      <ReadingProgress />
+      <ReadingProgress slug={post.slug} />
       <main className="pt-24 md:pt-28 pb-16 bg-white min-h-screen">
         <Container size="md">
           {/* Breadcrumb */}

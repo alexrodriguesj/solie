@@ -29,21 +29,35 @@ export function trackEvent(eventName: string, params?: Record<string, unknown>) 
 }
 
 export const analytics = {
+  // Conversão principal
   cliqueWhatsapp: (origem: string) => {
     trackEvent("clique_whatsapp", { origem });
   },
-  inicioAgendamento: (objetivo: string) => {
-    trackEvent("inicio_agendamento", { objetivo });
-  },
-  selecaoHorario: (dia: string, horario: string) => {
-    trackEvent("selecao_horario", { dia, horario });
-  },
-  agendamentoEnviado: (dia: string, horario: string, objetivo: string) => {
-    trackEvent("agendamento_enviado", { dia, horario, objetivo });
-  },
+
+  // Meta Pixel
   metaContact: (origem: string) => {
     if (typeof window !== "undefined" && window.fbq) {
       window.fbq("track", "Contact", { content_category: origem });
     }
+  },
+
+  // Engajamento: navegação
+  cliqueNavegacao: (item: string) => {
+    trackEvent("clique_navegacao", { item });
+  },
+
+  // Engajamento: mapa / como chegar
+  cliqueComoChegar: () => {
+    trackEvent("clique_como_chegar");
+  },
+
+  // Engajamento: vídeo
+  videoInteracao: (video: string, acao: string) => {
+    trackEvent("video_interacao", { video, acao });
+  },
+
+  // Engajamento: blog
+  blogLeitura: (artigo: string, percentual: number) => {
+    trackEvent("blog_leitura", { artigo, percentual });
   },
 };

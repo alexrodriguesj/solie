@@ -51,6 +51,7 @@ function AgendamentoVideo() {
     if (!video) return;
     video.muted = !video.muted;
     setIsMuted(video.muted);
+    if (!video.muted) analytics.videoInteracao("cta-final", "unmute");
   };
 
   return (

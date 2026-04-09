@@ -18,7 +18,7 @@ import {
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { diferenciais, siteConfig } from "@/data/content";
-import { formatWhatsAppLink } from "@/lib/utils";
+import { formatWhatsAppLink, analytics } from "@/lib/utils";
 
 const iconMap: Record<string, React.ElementType> = {
   Stethoscope,
@@ -72,6 +72,7 @@ function VideoInstitucional() {
     if (!video) return;
     video.muted = !video.muted;
     setIsMuted(video.muted);
+    if (!video.muted) analytics.videoInteracao("institucional", "unmute");
   };
 
   return (

@@ -7,7 +7,7 @@ import { MapPin, Clock, Phone, X, ChevronLeft, ChevronRight, MessageCircle } fro
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/data/content";
-import { formatWhatsAppLink } from "@/lib/utils";
+import { formatWhatsAppLink, analytics } from "@/lib/utils";
 
 const studioImages = [
   "/images/studio-1.jpg",
@@ -240,6 +240,7 @@ export function ConhecaStudio() {
                   href="https://www.google.com/maps/dir//Soli%C3%AA+Pilates,+Av.+Rep.+Argentina,+1237+-+Sala+610+-+%C3%81gua+Verde,+Curitiba+-+PR,+80620-010"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => analytics.cliqueComoChegar()}
                 >
                   <Button variant="outline" size="md">
                     Como chegar
