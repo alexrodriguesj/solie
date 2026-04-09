@@ -15,6 +15,7 @@ export const siteConfig = {
   },
   hours: {
     weekdays: "07h às 21h",
+    friday: "07h às 19h",
     saturday: "08h às 12h",
   },
   social: {

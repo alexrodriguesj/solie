@@ -10,12 +10,13 @@ import { siteConfig } from "@/data/content";
 import { useBanner } from "@/contexts/BannerContext";
 
 const navItems = [
-  { label: "Início", href: "#" },
-  { label: "Diferenciais", href: "#diferenciais" },
-  { label: "Pilates", href: "#pilates" },
-  { label: "Studio", href: "#studio" },
-  { label: "Avaliações", href: "#avaliacoes" },
-  // { label: "Agendar", href: "#agendamento" },
+  { label: "Início", href: "/" },
+  { label: "Diferenciais", href: "/#diferenciais" },
+  { label: "Pilates", href: "/#pilates" },
+  { label: "Studio", href: "/#studio" },
+  { label: "Avaliações", href: "/#avaliacoes" },
+  { label: "Blog", href: "/blog" },
+  // { label: "Agendar", href: "/#agendamento" },
 ];
 
 // Altura do banner promocional
@@ -55,11 +56,11 @@ export function Header() {
             isScrolled ? "h-16" : "h-20"
           )}
         >
-          {/* Logo */}
-          <Link href="/" className="flex-shrink-0 transition-all duration-300">
+          {/* Logo + Subtítulo */}
+          <Link href="/" className="flex-shrink-0 transition-all duration-300 flex items-center gap-3">
             <Image
               src="/images/logo-light.png"
-              alt="Soliê Pilates"
+              alt="Soliê Pilates - Studio de Pilates Clínico no Água Verde Curitiba"
               width={140}
               height={50}
               className={cn(
@@ -68,6 +69,12 @@ export function Header() {
               )}
               priority
             />
+            <span className={cn(
+              "hidden lg:block text-solie-beige/60 font-light border-l border-solie-beige/30 pl-3 transition-all duration-300",
+              isScrolled ? "text-xs" : "text-sm"
+            )}>
+              Pilates Clínico | Água Verde
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -101,7 +108,7 @@ export function Header() {
               )}
             >
               <MessageCircle className={cn(isScrolled ? "w-3.5 h-3.5" : "w-4 h-4")} />
-              Agende sua Aula
+              Agende Grátis
             </button>
           </nav>
 

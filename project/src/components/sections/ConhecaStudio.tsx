@@ -127,7 +127,7 @@ export function ConhecaStudio() {
                       >
                         <Image
                           src={src}
-                          alt={`Studio Soliê Pilates ${globalIndex + 1}`}
+                          alt={`Studio de pilates Soliê no Água Verde Curitiba - foto ${globalIndex + 1}`}
                           fill
                           className="object-cover group-hover:scale-105 transition-transform duration-300"
                           sizes="(max-width: 768px) 50vw, 25vw"
@@ -193,7 +193,9 @@ export function ConhecaStudio() {
                   <div>
                     <h4 className="font-semibold text-foreground">Horário</h4>
                     <p className="text-muted">
-                      Seg-Sex: {siteConfig.hours.weekdays}
+                      Seg-Qui: {siteConfig.hours.weekdays}
+                      <br />
+                      Sexta: {siteConfig.hours.friday}
                       <br />
                       Sábado: {siteConfig.hours.saturday}
                     </p>
@@ -330,7 +332,7 @@ export function ConhecaStudio() {
             >
               <Image
                 src={studioImages[selectedImage]}
-                alt={`Studio Soliê Pilates ${selectedImage + 1}`}
+                alt={`Studio de pilates Soliê no Água Verde Curitiba - foto ${selectedImage + 1}`}
                 fill
                 className="object-contain"
                 sizes="90vw"

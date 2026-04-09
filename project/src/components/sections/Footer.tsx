@@ -14,15 +14,15 @@ export function Footer() {
           <div className="lg:col-span-2">
             <Image
               src="/images/logo-alt.png"
-              alt="Soliê Pilates"
+              alt="Soliê Pilates - Pilates clínico com fisioterapeutas no Água Verde Curitiba"
               width={180}
               height={64}
               className="mb-4"
             />
-            <p className="text-muted max-w-sm">
-              Transformando vidas através do Pilates.
+            <p className="text-muted max-w-lg">
+              Pilates clínico com ciência e cuidado no Água Verde, Curitiba.
               <br />
-              Cuide do seu corpo e mente em um ambiente acolhedor e exclusivo.
+              Agende sua aula experimental gratuita e sinta a diferença.
             </p>
           </div>
 
@@ -65,7 +65,8 @@ export function Footer() {
           <div>
             <h4 className="font-semibold text-foreground mb-4">Horário</h4>
             <ul className="space-y-2 text-muted mb-6">
-              <li>Seg-Sex: {siteConfig.hours.weekdays}</li>
+              <li>Seg-Qui: {siteConfig.hours.weekdays}</li>
+              <li>Sexta: {siteConfig.hours.friday}</li>
               <li>Sábado: {siteConfig.hours.saturday}</li>
             </ul>
 

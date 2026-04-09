@@ -76,7 +76,7 @@ export function Hero() {
           <div className="absolute inset-0">
             <Image
               src={slides[currentSlide].image}
-              alt={slides[currentSlide].subtitle}
+              alt={`Pilates clínico Soliê Água Verde Curitiba - ${slides[currentSlide].subtitle}`}
               fill
               className="object-cover"
               priority
@@ -104,7 +104,7 @@ export function Hero() {
                 >
                   <Image
                     src="/images/logo-light.png"
-                    alt="Soliê Pilates"
+                    alt="Soliê Pilates - Pilates clínico no Água Verde Curitiba"
                     width={240}
                     height={86}
                     className="w-40 md:w-60"
