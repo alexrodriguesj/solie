@@ -82,7 +82,7 @@ function VideoInstitucional() {
       transition={{ duration: 0.6 }}
       className="relative h-full"
     >
-      <div className="relative overflow-hidden rounded-2xl shadow-lg group h-full">
+      <div className="relative overflow-hidden rounded-2xl shadow-lg group h-full" onClick={toggleMute}>
         <video
           ref={videoRef}
           src="/videos/video-institucional.mp4"
@@ -90,7 +90,7 @@ function VideoInstitucional() {
           loop
           playsInline
           preload="metadata"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover cursor-pointer"
         />
         {/* Controls overlay */}
         <div className="absolute bottom-0 left-0 right-0 p-3 flex items-center gap-2 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
