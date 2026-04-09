@@ -14,13 +14,13 @@ const STORAGE_KEY = "solie-promo-banner-closed";
 export function BannerProvider({ children }: { children: ReactNode }) {
   const [isBannerVisible, setIsBannerVisible] = useState(false);
 
-  useEffect(() => {
-    // Verifica se o usuário já fechou o banner nesta sessão
-    const wasClosed = sessionStorage.getItem(STORAGE_KEY);
-    if (!wasClosed) {
-      setIsBannerVisible(true);
-    }
-  }, []);
+  // PromoBanner desativado — manter sempre false
+  // useEffect(() => {
+  //   const wasClosed = sessionStorage.getItem(STORAGE_KEY);
+  //   if (!wasClosed) {
+  //     setIsBannerVisible(true);
+  //   }
+  // }, []);
 
   const handleSetVisible = (visible: boolean) => {
     setIsBannerVisible(visible);

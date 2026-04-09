@@ -1,98 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { MessageCircle, Play, Pause, Volume2, VolumeX } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { VideoPlayer } from "@/components/ui/VideoPlayer";
 import { siteConfig } from "@/data/content";
 import { formatWhatsAppLink, analytics } from "@/lib/utils";
-
-function AgendamentoVideo() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          video.play().catch(() => {});
-          setIsPlaying(true);
-        } else {
-          video.pause();
-          setIsPlaying(false);
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    observer.observe(video);
-    return () => observer.disconnect();
-  }, []);
-
-  const togglePlay = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (video.paused) {
-      video.play();
-      setIsPlaying(true);
-    } else {
-      video.pause();
-      setIsPlaying(false);
-    }
-  };
-
-  const toggleMute = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = !video.muted;
-    setIsMuted(video.muted);
-    if (!video.muted) analytics.videoInteracao("cta-final", "unmute");
-  };
-
-  return (
-    <div className="relative overflow-hidden rounded-2xl group h-full" onClick={toggleMute}>
-      <video
-        ref={videoRef}
-        src="/videos/cta-final.mp4"
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        className="w-full h-full object-cover cursor-pointer"
-      />
-      {/* Controls overlay */}
-      <div className="absolute bottom-0 left-0 right-0 p-3 flex items-center gap-2 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <button
-          onClick={togglePlay}
-          className="w-10 h-10 rounded-full bg-white/90 hover:bg-white flex items-center justify-center transition-colors"
-          aria-label={isPlaying ? "Pausar" : "Reproduzir"}
-        >
-          {isPlaying ? (
-            <Pause className="w-5 h-5 text-solie-green" />
-          ) : (
-            <Play className="w-5 h-5 text-solie-green ml-0.5" />
-          )}
-        </button>
-        <button
-          onClick={toggleMute}
-          className="w-10 h-10 rounded-full bg-white/90 hover:bg-white flex items-center justify-center transition-colors"
-          aria-label={isMuted ? "Ativar som" : "Mutar"}
-        >
-          {isMuted ? (
-            <VolumeX className="w-5 h-5 text-solie-green" />
-          ) : (
-            <Volume2 className="w-5 h-5 text-solie-green" />
-          )}
-        </button>
-      </div>
-    </div>
-  );
-}
 
 export function Agendamento() {
   const handleWhatsApp = () => {
@@ -119,7 +33,7 @@ export function Agendamento() {
             transition={{ duration: 0.6 }}
             className="w-full lg:w-[320px] flex-shrink-0 aspect-[9/16] max-h-[500px] mx-auto lg:mx-0"
           >
-            <AgendamentoVideo />
+            <VideoPlayer src="/videos/cta-final.mp4" name="cta-final" className="h-full" />
           </motion.div>
 
           {/* Conteúdo — coluna direita */}

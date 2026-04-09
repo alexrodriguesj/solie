@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { siteConfig } from "@/data/content";
 import { formatWhatsAppLink } from "@/lib/utils";
 import { ReadingProgress } from "@/components/blog/ReadingProgress";
+import { VideoPlayer } from "@/components/ui/VideoPlayer";
 import type { Metadata } from "next";
 
 interface PageProps {
@@ -104,17 +105,23 @@ export default async function BlogPostPage({ params }: PageProps) {
               {post.description}
             </p>
 
-            {/* Hero Image */}
-            <div className="relative aspect-[16/9] rounded-2xl overflow-hidden mb-10">
-              <Image
-                src={post.image}
-                alt={post.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 720px"
-                priority
-              />
-            </div>
+            {/* Hero Image or Video */}
+            {post.video ? (
+              <div className="mb-10 mx-auto max-w-sm">
+                <VideoPlayer src={post.video} name={post.slug} poster={post.image} />
+              </div>
+            ) : (
+              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden mb-10">
+                <Image
+                  src={post.image}
+                  alt={post.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 720px"
+                  priority
+                />
+              </div>
+            )}
 
             {/* Content */}
             <div

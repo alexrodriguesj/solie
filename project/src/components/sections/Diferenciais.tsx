@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Stethoscope,
@@ -10,15 +9,12 @@ import {
   TrendingUp,
   Clock,
   MessageCircle,
-  Play,
-  Pause,
-  Volume2,
-  VolumeX,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { VideoPlayer } from "@/components/ui/VideoPlayer";
 import { diferenciais, siteConfig } from "@/data/content";
-import { formatWhatsAppLink, analytics } from "@/lib/utils";
+import { formatWhatsAppLink } from "@/lib/utils";
 
 const iconMap: Record<string, React.ElementType> = {
   Stethoscope,
@@ -28,100 +24,6 @@ const iconMap: Record<string, React.ElementType> = {
   TrendingUp,
   Clock,
 };
-
-function VideoInstitucional() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          video.play().catch(() => {});
-          setIsPlaying(true);
-        } else {
-          video.pause();
-          setIsPlaying(false);
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    observer.observe(video);
-    return () => observer.disconnect();
-  }, []);
-
-  const togglePlay = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (video.paused) {
-      video.play();
-      setIsPlaying(true);
-    } else {
-      video.pause();
-      setIsPlaying(false);
-    }
-  };
-
-  const toggleMute = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = !video.muted;
-    setIsMuted(video.muted);
-    if (!video.muted) analytics.videoInteracao("institucional", "unmute");
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      className="relative h-full"
-    >
-      <div className="relative overflow-hidden rounded-2xl shadow-lg group h-full" onClick={toggleMute}>
-        <video
-          ref={videoRef}
-          src="/videos/video-institucional.mp4"
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="w-full h-full object-cover cursor-pointer"
-        />
-        {/* Controls overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-3 flex items-center gap-2 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <button
-            onClick={togglePlay}
-            className="w-10 h-10 rounded-full bg-white/90 hover:bg-white flex items-center justify-center transition-colors"
-            aria-label={isPlaying ? "Pausar" : "Reproduzir"}
-          >
-            {isPlaying ? (
-              <Pause className="w-5 h-5 text-solie-green" />
-            ) : (
-              <Play className="w-5 h-5 text-solie-green ml-0.5" />
-            )}
-          </button>
-          <button
-            onClick={toggleMute}
-            className="w-10 h-10 rounded-full bg-white/90 hover:bg-white flex items-center justify-center transition-colors"
-            aria-label={isMuted ? "Ativar som" : "Mutar"}
-          >
-            {isMuted ? (
-              <VolumeX className="w-5 h-5 text-solie-green" />
-            ) : (
-              <Volume2 className="w-5 h-5 text-solie-green" />
-            )}
-          </button>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
 
 export function Diferenciais() {
   return (
@@ -183,7 +85,7 @@ export function Diferenciais() {
 
           {/* Video Institucional */}
           <div className="w-full lg:w-1/3 flex-shrink-0 order-first lg:order-none">
-            <VideoInstitucional />
+            <VideoPlayer src="/videos/video-institucional.mp4" name="institucional" className="h-full" />
           </div>
 
           {/* Right Cards */}

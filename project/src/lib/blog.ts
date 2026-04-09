@@ -14,6 +14,7 @@ export interface BlogPost {
   date: string;
   author: string;
   image: string;
+  video?: string;
   tags: string[];
   category: string;
   readTime: number;
@@ -45,6 +46,7 @@ export function getAllPosts(): Omit<BlogPost, "contentHtml">[] {
       date: data.date,
       author: data.author || "Soliê Pilates",
       image: data.image,
+      video: data.video || undefined,
       tags: data.tags || [],
       category: data.category || "Pilates Clínico",
       readTime: data.readTime || readTime,
@@ -74,6 +76,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     date: data.date,
     author: data.author || "Soliê Pilates",
     image: data.image,
+    video: data.video || undefined,
     tags: data.tags || [],
     category: data.category || "Pilates Clínico",
     readTime: data.readTime || readTime,
