@@ -146,7 +146,7 @@ export function Diferenciais() {
         {/* Cards Left | Video | Cards Right */}
         <div className="flex flex-col lg:flex-row gap-4 md:gap-6 px-2 md:px-0 items-stretch">
           {/* Left Cards */}
-          <div className="flex-1 flex flex-col gap-3">
+          <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3">
             {diferenciais.slice(0, 3).map((item, index) => {
               const Icon = iconMap[item.icon];
               return (
@@ -156,21 +156,21 @@ export function Diferenciais() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="flex-1 [perspective:800px]"
+                  className="[perspective:800px] min-h-[120px] lg:flex-1"
                 >
                   <div className="group relative w-full h-full cursor-pointer [transform-style:preserve-3d] transition-transform duration-500 [&:hover]:[transform:rotateY(180deg)]">
                     {/* Front */}
                     <div className="absolute inset-0 [backface-visibility:hidden] rounded-xl bg-white shadow-md p-4 flex flex-col items-center justify-center text-center gap-3">
-                      <div className="w-16 h-16 rounded-full bg-solie-beige flex items-center justify-center">
-                        {Icon && <Icon className="w-8 h-8 text-solie-green" />}
+                      <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-solie-beige flex items-center justify-center">
+                        {Icon && <Icon className="w-7 h-7 lg:w-8 lg:h-8 text-solie-green" />}
                       </div>
-                      <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-foreground">
+                      <h3 className="text-sm sm:text-base lg:text-xl xl:text-2xl font-semibold text-foreground">
                         {item.title}
                       </h3>
                     </div>
                     {/* Back */}
-                    <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-xl bg-solie-green shadow-md p-5 flex items-center justify-center text-center">
-                      <p className="text-sm md:text-base lg:text-lg text-white leading-relaxed">
+                    <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-xl bg-solie-green shadow-md p-4 flex items-center justify-center text-center">
+                      <p className="text-xs sm:text-sm lg:text-base xl:text-lg text-white leading-relaxed">
                         {item.description}
                       </p>
                     </div>
@@ -181,12 +181,12 @@ export function Diferenciais() {
           </div>
 
           {/* Video Institucional */}
-          <div className="w-full lg:w-1/3 flex-shrink-0">
+          <div className="w-full lg:w-1/3 flex-shrink-0 order-first lg:order-none">
             <VideoInstitucional />
           </div>
 
           {/* Right Cards */}
-          <div className="flex-1 flex flex-col gap-3">
+          <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3">
             {diferenciais.slice(3, 6).map((item, index) => {
               const Icon = iconMap[item.icon];
               return (
@@ -196,21 +196,21 @@ export function Diferenciais() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="flex-1 [perspective:800px]"
+                  className="[perspective:800px] min-h-[120px] lg:flex-1"
                 >
                   <div className="group relative w-full h-full cursor-pointer [transform-style:preserve-3d] transition-transform duration-500 [&:hover]:[transform:rotateY(180deg)]">
                     {/* Front */}
                     <div className="absolute inset-0 [backface-visibility:hidden] rounded-xl bg-white shadow-md p-4 flex flex-col items-center justify-center text-center gap-3">
-                      <div className="w-16 h-16 rounded-full bg-solie-beige flex items-center justify-center">
-                        {Icon && <Icon className="w-8 h-8 text-solie-green" />}
+                      <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-solie-beige flex items-center justify-center">
+                        {Icon && <Icon className="w-7 h-7 lg:w-8 lg:h-8 text-solie-green" />}
                       </div>
-                      <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-foreground">
+                      <h3 className="text-sm sm:text-base lg:text-xl xl:text-2xl font-semibold text-foreground">
                         {item.title}
                       </h3>
                     </div>
                     {/* Back */}
-                    <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-xl bg-solie-green shadow-md p-5 flex items-center justify-center text-center">
-                      <p className="text-sm md:text-base lg:text-lg text-white leading-relaxed">
+                    <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-xl bg-solie-green shadow-md p-4 flex items-center justify-center text-center">
+                      <p className="text-xs sm:text-sm lg:text-base xl:text-lg text-white leading-relaxed">
                         {item.description}
                       </p>
                     </div>
