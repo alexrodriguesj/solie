@@ -108,7 +108,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             {/* Hero Image or Video */}
             {post.video ? (
               <div className="mb-10 mx-auto max-w-sm">
-                <VideoPlayer src={post.video} name={post.slug} poster={post.image} />
+                <VideoPlayer src={post.video} name={post.slug} poster={post.image} autoUnmute />
               </div>
             ) : (
               <div className="relative aspect-[16/9] rounded-2xl overflow-hidden mb-10">
