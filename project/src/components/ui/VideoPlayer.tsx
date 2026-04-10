@@ -9,12 +9,56 @@ interface VideoPlayerProps {
   name?: string;
   poster?: string;
   className?: string;
+  autoUnmute?: boolean;
 }
 
-export function VideoPlayer({ src, name, poster, className = "" }: VideoPlayerProps) {
+// Flag global para primeira interação
+let userHasInteracted = false;
+const pendingUnmutes: Set<() => void> = new Set();
+
+if (typeof window !== "undefined") {
+  const onFirstInteraction = () => {
+    userHasInteracted = true;
+    pendingUnmutes.forEach((fn) => fn());
+    pendingUnmutes.clear();
+    ["touchend", "click", "scroll"].forEach((e) =>
+      window.removeEventListener(e, onFirstInteraction)
+    );
+  };
+  ["touchend", "click", "scroll"].forEach((e) =>
+    window.addEventListener(e, onFirstInteraction, { once: true, passive: true })
+  );
+}
+
+export function VideoPlayer({ src, name, poster, className = "", autoUnmute = false }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
+  const didAutoUnmute = useRef(false);
+
+  // Auto-unmute após primeira interação (separado do autoplay)
+  useEffect(() => {
+    if (!autoUnmute) return;
+
+    const unmute = () => {
+      const video = videoRef.current;
+      if (!video || didAutoUnmute.current) return;
+      if (!video.paused) {
+        video.muted = false;
+        setIsMuted(false);
+        didAutoUnmute.current = true;
+        if (name) analytics.videoInteracao(name, "auto-unmute");
+      }
+    };
+
+    if (userHasInteracted) {
+      // Pequeno delay para garantir que o vídeo já começou a tocar
+      setTimeout(unmute, 300);
+    } else {
+      pendingUnmutes.add(unmute);
+      return () => { pendingUnmutes.delete(unmute); };
+    }
+  }, [autoUnmute, name]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -23,8 +67,16 @@ export function VideoPlayer({ src, name, poster, className = "" }: VideoPlayerPr
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          video.play().catch(() => {});
-          setIsPlaying(true);
+          video.play().then(() => {
+            setIsPlaying(true);
+            // Auto-unmute quando o vídeo começa a tocar e usuário já interagiu
+            if (autoUnmute && userHasInteracted && !didAutoUnmute.current) {
+              video.muted = false;
+              setIsMuted(false);
+              didAutoUnmute.current = true;
+              if (name) analytics.videoInteracao(name, "auto-unmute");
+            }
+          }).catch(() => {});
         } else {
           video.pause();
           setIsPlaying(false);

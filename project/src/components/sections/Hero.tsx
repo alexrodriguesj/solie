@@ -61,7 +61,7 @@ export function Hero() {
     : "pt-16 md:pt-20";
 
   return (
-    <section className={`relative h-screen w-full overflow-hidden ${paddingTop}`}>
+    <section className={`relative h-[60vh] md:h-screen w-full overflow-hidden ${paddingTop}`}>
       {/* Slides */}
       <AnimatePresence mode="wait">
         <motion.div

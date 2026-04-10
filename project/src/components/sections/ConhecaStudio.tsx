@@ -242,7 +242,7 @@ export function ConhecaStudio() {
                   rel="noopener noreferrer"
                   onClick={() => analytics.cliqueComoChegar()}
                 >
-                  <Button variant="outline" size="md">
+                  <Button variant="outline" size="md" className="w-full sm:w-auto">
                     Como chegar
                   </Button>
                 </a>

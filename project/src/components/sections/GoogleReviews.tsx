@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Quote, ExternalLink, Star, ChevronLeft, ChevronRight, MessageCircle } from "lucide-react";
@@ -75,13 +75,35 @@ function BentoPhotoCarousel() {
   );
 }
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  return isMobile;
+}
+
 export function GoogleReviews() {
   const [startIndex, setStartIndex] = useState(0);
-  const itemsPerPage = 3;
+  const isMobile = useIsMobile();
+  const itemsPerPage = isMobile ? 1 : 3;
   const totalPages = Math.ceil(avaliacoes.length / itemsPerPage);
   const currentPage = Math.floor(startIndex / itemsPerPage);
 
   const visibleAvaliacoes = avaliacoes.slice(startIndex, startIndex + itemsPerPage);
+
+  // Auto-slide a cada 5 segundos
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStartIndex((prev) =>
+        prev + itemsPerPage >= avaliacoes.length ? 0 : prev + itemsPerPage
+      );
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [itemsPerPage]);
 
   const nextSlide = () => {
     setStartIndex((prev) =>
@@ -254,7 +276,7 @@ export function GoogleReviews() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Button variant="outline" size="lg">
+            <Button variant="outline" size="lg" className="w-full sm:w-auto">
               <ExternalLink className="w-4 h-4" />
               Ver todas as avaliações no Google
             </Button>

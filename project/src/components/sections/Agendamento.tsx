@@ -31,9 +31,9 @@ export function Agendamento() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="w-full lg:w-[320px] flex-shrink-0 aspect-[9/16] max-h-[500px] mx-auto lg:mx-0"
+            className="w-full lg:w-[320px] flex-shrink-0 aspect-[5/6] lg:aspect-[9/16] lg:max-h-[500px] mx-auto lg:mx-0 overflow-hidden rounded-2xl"
           >
-            <VideoPlayer src="/videos/cta-final.mp4" name="cta-final" className="h-full" />
+            <VideoPlayer src="/videos/cta-final.mp4" name="cta-final" className="h-full" autoUnmute />
           </motion.div>
 
           {/* Conteúdo — coluna direita */}

@@ -13,6 +13,7 @@ import {
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { VideoPlayer } from "@/components/ui/VideoPlayer";
+import { FlipCard } from "@/components/ui/FlipCard";
 import { diferenciais, siteConfig } from "@/data/content";
 import { formatWhatsAppLink } from "@/lib/utils";
 
@@ -46,10 +47,55 @@ export function Diferenciais() {
           </p>
         </motion.div>
 
-        {/* Cards Left | Video | Cards Right */}
-        <div className="flex flex-col lg:flex-row gap-4 md:gap-6 px-2 md:px-0 items-stretch">
+        {/* Mobile: grid 3x2 + vídeo | Desktop: 3 cards | vídeo | 3 cards */}
+
+        {/* Mobile layout */}
+        <div className="lg:hidden px-2">
+          <div className="grid grid-cols-3 gap-2 mb-4">
+            {diferenciais.map((item, index) => {
+              const Icon = iconMap[item.icon];
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.08 }}
+                  className="min-h-[110px]"
+                >
+                  <FlipCard
+                    className="w-full h-full"
+                    frontClassName="rounded-xl bg-white shadow-md p-2 flex flex-col items-center justify-center text-center gap-1.5"
+                    backClassName="rounded-xl bg-solie-green shadow-md p-2 flex items-center justify-center text-center"
+                    front={
+                      <>
+                        <div className="w-10 h-10 rounded-full bg-solie-beige flex items-center justify-center">
+                          {Icon && <Icon className="w-5 h-5 text-solie-green" />}
+                        </div>
+                        <h3 className="text-[10px] leading-tight font-semibold text-foreground">
+                          {item.title}
+                        </h3>
+                      </>
+                    }
+                    back={
+                      <p className="text-[9px] leading-tight text-white">
+                        {item.description}
+                      </p>
+                    }
+                  />
+                </motion.div>
+              );
+            })}
+          </div>
+          <div className="overflow-hidden rounded-2xl aspect-[5/6]">
+            <VideoPlayer src="/videos/video-institucional.mp4" name="institucional" className="h-full" autoUnmute />
+          </div>
+        </div>
+
+        {/* Desktop layout */}
+        <div className="hidden lg:flex flex-row gap-6 px-0 items-stretch">
           {/* Left Cards */}
-          <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3">
+          <div className="flex-1 flex flex-col gap-3">
             {diferenciais.slice(0, 3).map((item, index) => {
               const Icon = iconMap[item.icon];
               return (
@@ -59,37 +105,40 @@ export function Diferenciais() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="[perspective:800px] min-h-[120px] lg:flex-1"
+                  className="flex-1"
                 >
-                  <div className="group relative w-full h-full cursor-pointer [transform-style:preserve-3d] transition-transform duration-500 [&:hover]:[transform:rotateY(180deg)]">
-                    {/* Front */}
-                    <div className="absolute inset-0 [backface-visibility:hidden] rounded-xl bg-white shadow-md p-4 flex flex-col items-center justify-center text-center gap-3">
-                      <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-solie-beige flex items-center justify-center">
-                        {Icon && <Icon className="w-7 h-7 lg:w-8 lg:h-8 text-solie-green" />}
-                      </div>
-                      <h3 className="text-sm sm:text-base lg:text-xl xl:text-2xl font-semibold text-foreground">
-                        {item.title}
-                      </h3>
-                    </div>
-                    {/* Back */}
-                    <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-xl bg-solie-green shadow-md p-4 flex items-center justify-center text-center">
-                      <p className="text-xs sm:text-sm lg:text-base xl:text-lg text-white leading-relaxed">
+                  <FlipCard
+                    className="w-full h-full"
+                    frontClassName="rounded-xl bg-white shadow-md p-4 flex flex-col items-center justify-center text-center gap-3"
+                    backClassName="rounded-xl bg-solie-green shadow-md p-4 flex items-center justify-center text-center"
+                    front={
+                      <>
+                        <div className="w-16 h-16 rounded-full bg-solie-beige flex items-center justify-center">
+                          {Icon && <Icon className="w-8 h-8 text-solie-green" />}
+                        </div>
+                        <h3 className="text-xl xl:text-2xl font-semibold text-foreground">
+                          {item.title}
+                        </h3>
+                      </>
+                    }
+                    back={
+                      <p className="text-base xl:text-lg text-white leading-relaxed">
                         {item.description}
                       </p>
-                    </div>
-                  </div>
+                    }
+                  />
                 </motion.div>
               );
             })}
           </div>
 
-          {/* Video Institucional */}
-          <div className="w-full lg:w-1/3 flex-shrink-0 order-first lg:order-none">
-            <VideoPlayer src="/videos/video-institucional.mp4" name="institucional" className="h-full" />
+          {/* Video */}
+          <div className="w-1/3 flex-shrink-0">
+            <VideoPlayer src="/videos/video-institucional.mp4" name="institucional" className="h-full" autoUnmute />
           </div>
 
           {/* Right Cards */}
-          <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3">
+          <div className="flex-1 flex flex-col gap-3">
             {diferenciais.slice(3, 6).map((item, index) => {
               const Icon = iconMap[item.icon];
               return (
@@ -99,25 +148,28 @@ export function Diferenciais() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="[perspective:800px] min-h-[120px] lg:flex-1"
+                  className="flex-1"
                 >
-                  <div className="group relative w-full h-full cursor-pointer [transform-style:preserve-3d] transition-transform duration-500 [&:hover]:[transform:rotateY(180deg)]">
-                    {/* Front */}
-                    <div className="absolute inset-0 [backface-visibility:hidden] rounded-xl bg-white shadow-md p-4 flex flex-col items-center justify-center text-center gap-3">
-                      <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-solie-beige flex items-center justify-center">
-                        {Icon && <Icon className="w-7 h-7 lg:w-8 lg:h-8 text-solie-green" />}
-                      </div>
-                      <h3 className="text-sm sm:text-base lg:text-xl xl:text-2xl font-semibold text-foreground">
-                        {item.title}
-                      </h3>
-                    </div>
-                    {/* Back */}
-                    <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-xl bg-solie-green shadow-md p-4 flex items-center justify-center text-center">
-                      <p className="text-xs sm:text-sm lg:text-base xl:text-lg text-white leading-relaxed">
+                  <FlipCard
+                    className="w-full h-full"
+                    frontClassName="rounded-xl bg-white shadow-md p-4 flex flex-col items-center justify-center text-center gap-3"
+                    backClassName="rounded-xl bg-solie-green shadow-md p-4 flex items-center justify-center text-center"
+                    front={
+                      <>
+                        <div className="w-16 h-16 rounded-full bg-solie-beige flex items-center justify-center">
+                          {Icon && <Icon className="w-8 h-8 text-solie-green" />}
+                        </div>
+                        <h3 className="text-xl xl:text-2xl font-semibold text-foreground">
+                          {item.title}
+                        </h3>
+                      </>
+                    }
+                    back={
+                      <p className="text-base xl:text-lg text-white leading-relaxed">
                         {item.description}
                       </p>
-                    </div>
-                  </div>
+                    }
+                  />
                 </motion.div>
               );
             })}
