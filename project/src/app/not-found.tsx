@@ -12,7 +12,7 @@ export default function NotFound() {
       <div className="text-center max-w-md">
         <Image
           src="/images/logo-alt.png"
-          alt="Soliê Pilates - Pilates clínico no Água Verde Curitiba"
+          alt="Soliê Pilates - Pilates no Água Verde Curitiba"
           width={180}
           height={64}
           className="mx-auto mb-8"

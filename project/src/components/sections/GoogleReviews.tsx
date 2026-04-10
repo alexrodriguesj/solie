@@ -18,7 +18,7 @@ const bentoPhotos = [
   { src: "/images/alunos/03.PNG", alt: "Pilates Água Verde Curitiba" },
   { src: "/images/alunos/04.PNG", alt: "Studio Soliê Pilates" },
   { src: "/images/alunos/05.PNG", alt: "Pilates personalizado Curitiba" },
-  { src: "/images/alunos/06.PNG", alt: "Pilates clínico Soliê" },
+  { src: "/images/alunos/06.PNG", alt: "Pilates Soliê" },
 ];
 
 // Layout mosaico 2 rows × 3 cols por tile:

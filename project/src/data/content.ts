@@ -45,7 +45,7 @@ export const diferenciais = [
   },
   {
     icon: "ShieldCheck",
-    title: "Pilates Clínico com Ciência",
+    title: "Pilates com Ciência",
     description: "Não é só exercício, é reabilitação, prevenção e fortalecimento com base em evidência científica.",
   },
   {

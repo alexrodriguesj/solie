@@ -6,9 +6,9 @@ import { Container } from "@/components/ui/Container";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Blog | Soliê Pilates — Pilates Clínico no Água Verde, Curitiba",
+  title: "Blog | Soliê Pilates — Pilates no Água Verde, Curitiba",
   description:
-    "Artigos sobre Pilates clínico, dor na coluna, postura, flexibilidade e bem-estar. Dicas de fisioterapeutas especializadas no Água Verde, Curitiba.",
+    "Artigos sobre Pilates, dor na coluna, postura, flexibilidade e bem-estar. Dicas de fisioterapeutas especializadas no Água Verde, Curitiba.",
 };
 
 export default function BlogPage() {
@@ -30,7 +30,7 @@ export default function BlogPage() {
             e bem-estar
           </h1>
           <p className="text-base md:text-lg text-muted max-w-lg mx-auto">
-            Conteúdo clínico para quem quer se mover melhor,
+            Conteúdo para quem quer se mover melhor,
             sem dor e com qualidade de vida.
           </p>
         </div>

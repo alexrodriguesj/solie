@@ -161,7 +161,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               </h3>
               <p className="text-white/80 mb-6 max-w-md mx-auto">
                 Agende sua aula experimental gratuita e descubra o Pilates
-                clínico na Soliê, no Água Verde.
+                na Soliê, no Água Verde.
               </p>
               <a
                 href={whatsappLink}

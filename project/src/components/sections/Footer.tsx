@@ -14,13 +14,13 @@ export function Footer() {
           <div className="lg:col-span-2">
             <Image
               src="/images/logo-alt.png"
-              alt="Soliê Pilates - Pilates clínico com fisioterapeutas no Água Verde Curitiba"
+              alt="Soliê Pilates - Pilates com fisioterapeutas no Água Verde Curitiba"
               width={180}
               height={64}
               className="mb-4"
             />
             <p className="text-muted max-w-lg">
-              Pilates clínico com ciência e cuidado no Água Verde, Curitiba.
+              Pilates com ciência e cuidado no Água Verde, Curitiba.
               <br />
               Agende sua aula experimental gratuita e sinta a diferença.
             </p>

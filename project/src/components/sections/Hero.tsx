@@ -14,7 +14,7 @@ const slides = [
     image: "/images/hero-1.jpg",
     title: "Sua coluna",
     subtitle: "Agradece",
-    description: "Pilates clínico para quem vive com dor, tensão ou desconforto. Atendimento individual no Água Verde.",
+    description: "Pilates para quem vive com dor, tensão ou desconforto. Atendimento individual no Água Verde.",
   },
   {
     image: "/images/hero-2.jpg",
@@ -76,7 +76,7 @@ export function Hero() {
           <div className="absolute inset-0">
             <Image
               src={slides[currentSlide].image}
-              alt={`Pilates clínico Soliê Água Verde Curitiba - ${slides[currentSlide].subtitle}`}
+              alt={`Pilates Soliê Água Verde Curitiba - ${slides[currentSlide].subtitle}`}
               fill
               className="object-cover"
               priority
@@ -104,7 +104,7 @@ export function Hero() {
                 >
                   <Image
                     src="/images/logo-light.png"
-                    alt="Soliê Pilates - Pilates clínico no Água Verde Curitiba"
+                    alt="Soliê Pilates - Pilates no Água Verde Curitiba"
                     width={240}
                     height={86}
                     className="w-28 md:w-60"

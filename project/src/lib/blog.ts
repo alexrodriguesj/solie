@@ -48,7 +48,7 @@ export function getAllPosts(): Omit<BlogPost, "contentHtml">[] {
       image: data.image,
       video: data.video || undefined,
       tags: data.tags || [],
-      category: data.category || "Pilates Clínico",
+      category: data.category || "Pilates",
       readTime: data.readTime || readTime,
       content,
     };
@@ -78,7 +78,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     image: data.image,
     video: data.video || undefined,
     tags: data.tags || [],
-    category: data.category || "Pilates Clínico",
+    category: data.category || "Pilates",
     readTime: data.readTime || readTime,
     content,
     contentHtml,

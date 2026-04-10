@@ -60,7 +60,7 @@ export function Header() {
           <Link href="/" className="flex-shrink-0 transition-all duration-300 flex items-center gap-3">
             <Image
               src="/images/logo-light.png"
-              alt="Soliê Pilates - Studio de Pilates Clínico no Água Verde Curitiba"
+              alt="Soliê Pilates - Studio de Pilates no Água Verde Curitiba"
               width={140}
               height={50}
               className={cn(
@@ -73,7 +73,7 @@ export function Header() {
               "hidden lg:block text-solie-beige/60 font-light border-l border-solie-beige/30 pl-3 transition-all duration-300",
               isScrolled ? "text-xs" : "text-sm"
             )}>
-              Pilates Clínico | Água Verde
+              Pilates | Água Verde
             </span>
           </Link>
 
