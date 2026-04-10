@@ -82,7 +82,7 @@ export function VideoPlayer({ src, name, poster, className = "", autoUnmute = fa
           setIsPlaying(false);
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.05 }
     );
 
     observer.observe(video);
