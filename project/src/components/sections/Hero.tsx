@@ -61,7 +61,7 @@ export function Hero() {
     : "pt-16 md:pt-20";
 
   return (
-    <section className={`relative min-h-[60vh] h-auto md:h-screen w-full overflow-hidden ${paddingTop} pb-12 md:pb-0`}>
+    <section className={`relative h-[70svh] md:h-screen w-full overflow-hidden ${paddingTop}`}>
       {/* Slides */}
       <AnimatePresence mode="wait">
         <motion.div
@@ -100,28 +100,28 @@ export function Hero() {
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="mb-6 md:mb-8 flex justify-center md:justify-end"
+                  className="mb-3 md:mb-8 flex justify-center md:justify-end"
                 >
                   <Image
                     src="/images/logo-light.png"
                     alt="Soliê Pilates - Pilates clínico no Água Verde Curitiba"
                     width={240}
                     height={86}
-                    className="w-40 md:w-60"
+                    className="w-28 md:w-60"
                     priority
                   />
                 </motion.div>
 
                 {/* Title */}
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-light text-solie-beige leading-tight mb-1 md:mb-2">
+                <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-light text-solie-beige leading-tight mb-1 md:mb-2">
                   <span className="italic">{slides[currentSlide].title}</span>
                 </h1>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-solie-beige leading-tight mb-4 md:mb-6">
+                <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-bold text-solie-beige leading-tight mb-3 md:mb-6">
                   {slides[currentSlide].subtitle}
                 </h2>
 
                 {/* Description */}
-                <p className="text-base md:text-xl text-solie-beige/90 mb-6 md:mb-8 px-4 md:px-0">
+                <p className="text-sm md:text-xl text-solie-beige/90 mb-4 md:mb-8 px-4 md:px-0">
                   {slides[currentSlide].description}
                 </p>
 
