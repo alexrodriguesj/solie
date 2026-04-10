@@ -32,6 +32,10 @@ export const analytics = {
   // Conversão principal
   cliqueWhatsapp: (origem: string) => {
     trackEvent("clique_whatsapp", { origem });
+    // Google Ads conversion event
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "conversion_event_contact", {});
+    }
   },
 
   // Meta Pixel
