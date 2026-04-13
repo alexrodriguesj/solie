@@ -18,6 +18,7 @@ export interface BlogPost {
   tags: string[];
   category: string;
   readTime: number;
+  featured?: boolean;
   content: string;
   contentHtml: string;
 }
@@ -50,6 +51,7 @@ export function getAllPosts(): Omit<BlogPost, "contentHtml">[] {
       tags: data.tags || [],
       category: data.category || "Pilates",
       readTime: data.readTime || readTime,
+      featured: data.featured === true,
       content,
     };
   });
@@ -80,6 +82,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     tags: data.tags || [],
     category: data.category || "Pilates",
     readTime: data.readTime || readTime,
+    featured: data.featured === true,
     content,
     contentHtml,
   };

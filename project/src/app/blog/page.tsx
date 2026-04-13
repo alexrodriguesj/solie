@@ -13,7 +13,10 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   const posts = getAllPosts();
-  const [featured, ...rest] = posts;
+  const manualFeaturedIndex = posts.findIndex((p) => p.featured);
+  const featuredIndex = manualFeaturedIndex >= 0 ? manualFeaturedIndex : 0;
+  const featured = posts[featuredIndex];
+  const rest = posts.filter((_, i) => i !== featuredIndex);
 
   return (
     <main className="pt-24 md:pt-28 pb-16 bg-solie-beige-light min-h-screen">
