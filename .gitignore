@@ -40,3 +40,9 @@ yarn-error.log*
 data/
 documentation/
 nul
+
+# Arquivos locais de dev (fora do project/)
+*.png
+estrategia-de-rebranding.md
+plano-de-acao.md
+resumo-agencias.md

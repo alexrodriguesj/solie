@@ -24,7 +24,7 @@ export interface BlogPost {
 }
 
 async function markdownToHtml(markdown: string): Promise<string> {
-  const result = await remark().use(gfm).use(html).process(markdown);
+  const result = await remark().use(gfm).use(html, { sanitize: false }).process(markdown);
   return result.toString();
 }
 

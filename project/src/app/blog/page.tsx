@@ -42,7 +42,7 @@ export default function BlogPage() {
         {featured && (
           <Link href={`/blog/${featured.slug}`} className="group block mb-10 px-4 md:px-0">
             <article className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 md:grid md:grid-cols-2 md:gap-0">
-              <div className="relative aspect-[16/9] md:aspect-auto md:min-h-[360px] overflow-hidden">
+              <div className="relative aspect-[3/4] overflow-hidden">
                 <Image
                   src={featured.image}
                   alt={featured.title}
@@ -55,10 +55,10 @@ export default function BlogPage() {
                   {featured.category}
                 </span>
               </div>
-              <div className="p-6 md:p-8 flex flex-col justify-center">
-                <div className="flex items-center gap-4 text-sm text-muted mb-4">
+              <div className="p-6 md:p-10 flex flex-col justify-center">
+                <div className="flex items-center gap-4 text-sm md:text-base text-muted mb-4">
                   <span className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
+                    <Calendar className="w-4 h-4 md:w-5 md:h-5" />
                     {new Date(featured.date).toLocaleDateString("pt-BR", {
                       day: "2-digit",
                       month: "long",
@@ -66,19 +66,19 @@ export default function BlogPage() {
                     })}
                   </span>
                   <span className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
+                    <Clock className="w-4 h-4 md:w-5 md:h-5" />
                     ~{featured.readTime} min de leitura
                   </span>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3 group-hover:text-solie-green transition-colors font-serif">
+                <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 group-hover:text-solie-green transition-colors font-serif leading-tight">
                   {featured.title}
                 </h2>
-                <p className="text-muted mb-6 leading-relaxed">
+                <p className="text-muted mb-6 leading-relaxed md:text-lg lg:text-xl">
                   {featured.description}
                 </p>
-                <div className="flex items-center gap-1 text-solie-green font-medium">
+                <div className="flex items-center gap-1 text-solie-green font-medium md:text-lg">
                   Ler artigo completo
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
             </article>
@@ -95,7 +95,7 @@ export default function BlogPage() {
                 className="group"
               >
                 <article className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
-                  <div className="relative aspect-[16/9] overflow-hidden">
+                  <div className="relative aspect-[3/4] overflow-hidden">
                     <Image
                       src={post.image}
                       alt={post.title}
