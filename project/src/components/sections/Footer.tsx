@@ -67,7 +67,6 @@ export function Footer() {
             <ul className="space-y-2 text-muted mb-6">
               <li>Seg-Qui: {siteConfig.hours.weekdays}</li>
               <li>Sexta: {siteConfig.hours.friday}</li>
-              <li>Sábado: {siteConfig.hours.saturday}</li>
             </ul>
 
             <h4 className="font-semibold text-foreground mb-4">Redes Sociais</h4>

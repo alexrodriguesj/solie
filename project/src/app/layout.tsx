@@ -102,12 +102,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   opens: "07:00",
                   closes: "19:00",
                 },
-                {
-                  "@type": "OpeningHoursSpecification",
-                  dayOfWeek: "Saturday",
-                  opens: "08:00",
-                  closes: "12:00",
-                },
               ],
               aggregateRating: {
                 "@type": "AggregateRating",

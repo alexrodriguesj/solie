@@ -19,12 +19,15 @@ const bentoPhotos = [
   { src: "/images/alunos/04.PNG", alt: "Studio Soliê Pilates" },
   { src: "/images/alunos/05.PNG", alt: "Pilates personalizado Curitiba" },
   { src: "/images/alunos/06.PNG", alt: "Pilates Soliê" },
+  { src: "/images/alunos/07.PNG", alt: "Aluna Soliê Pilates" },
+  { src: "/images/alunos/08.PNG", alt: "Treino de Pilates Soliê" },
+  { src: "/images/alunos/09.PNG", alt: "Pilates personalizado Soliê" },
 ];
 
 // Layout mosaico 2 rows × 3 cols por tile:
 // [1: 1×2 tall] [2: 1×1] [3: 1×1]
 //               [4: 1×1] [5: 1×1]
-// Depois inverte no próximo tile para variar
+// Três variantes para distribuir as 9 fotos
 const tileA = [
   { photo: 0, className: "row-span-2", style: "aspect-[3/4]" },
   { photo: 1, className: "", style: "" },
@@ -35,14 +38,22 @@ const tileA = [
 
 const tileB = [
   { photo: 5, className: "", style: "" },
+  { photo: 6, className: "", style: "" },
+  { photo: 7, className: "row-span-2", style: "aspect-[3/4]" },
+  { photo: 8, className: "", style: "" },
   { photo: 0, className: "", style: "" },
-  { photo: 3, className: "row-span-2", style: "aspect-[3/4]" },
-  { photo: 2, className: "", style: "" },
-  { photo: 4, className: "", style: "" },
 ];
 
-function BentoTile({ variant, offset }: { variant: "A" | "B"; offset: number }) {
-  const slots = variant === "A" ? tileA : tileB;
+const tileC = [
+  { photo: 8, className: "row-span-2", style: "aspect-[3/4]" },
+  { photo: 2, className: "", style: "" },
+  { photo: 6, className: "", style: "" },
+  { photo: 1, className: "", style: "" },
+  { photo: 7, className: "", style: "" },
+];
+
+function BentoTile({ variant, offset }: { variant: "A" | "B" | "C"; offset: number }) {
+  const slots = variant === "A" ? tileA : variant === "B" ? tileB : tileC;
   return (
     <div className="grid grid-rows-2 grid-cols-3 gap-2 h-[300px] md:h-[400px] flex-shrink-0 w-[460px] md:w-[600px]">
       {slots.map((slot, i) => (
@@ -67,8 +78,12 @@ function BentoPhotoCarousel() {
   return (
     <div className="relative -mx-[calc(50vw-50%)] w-screen overflow-hidden my-10 [mask-image:linear-gradient(to_right,transparent,black_3%,black_97%,transparent)]">
       <div className="flex gap-2 animate-marquee-slow w-max">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <BentoTile key={i} variant={i % 2 === 0 ? "A" : "B"} offset={i} />
+        {Array.from({ length: 9 }).map((_, i) => (
+          <BentoTile
+            key={i}
+            variant={i % 3 === 0 ? "A" : i % 3 === 1 ? "B" : "C"}
+            offset={i}
+          />
         ))}
       </div>
     </div>

@@ -196,8 +196,6 @@ export function ConhecaStudio() {
                       Seg-Qui: {siteConfig.hours.weekdays}
                       <br />
                       Sexta: {siteConfig.hours.friday}
-                      <br />
-                      Sábado: {siteConfig.hours.saturday}
                     </p>
                   </div>
                 </div>
