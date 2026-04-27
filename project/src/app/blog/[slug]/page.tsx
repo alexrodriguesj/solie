@@ -2,11 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Calendar, Clock, MessageCircle, Tag, ChevronRight } from "lucide-react";
-import { getAllPosts, getPostBySlug } from "@/lib/blog";
+import { getAllPosts, getPostBySlug, getRelatedPosts, slugify } from "@/lib/blog";
 import { Container } from "@/components/ui/Container";
 import { siteConfig } from "@/data/content";
 import { formatWhatsAppLink } from "@/lib/utils";
 import { ReadingProgress } from "@/components/blog/ReadingProgress";
+import { RelatedPosts } from "@/components/blog/RelatedPosts";
+import { ShareButtons } from "@/components/blog/ShareButtons";
 import { VideoPlayer } from "@/components/ui/VideoPlayer";
 import type { Metadata } from "next";
 
@@ -24,16 +26,31 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const post = await getPostBySlug(slug);
   if (!post) return {};
 
+  const url = `https://soliepilates.com.br/blog/${post.slug}`;
+
   return {
     title: `${post.title} | Soliê Pilates`,
     description: post.description,
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
       title: post.title,
       description: post.description,
       type: "article",
       locale: "pt_BR",
       siteName: "Soliê Pilates",
+      url,
+      publishedTime: post.date,
+      authors: [post.author],
+      tags: post.tags,
       images: [{ url: post.image }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+      images: [post.image],
     },
   };
 }
@@ -48,6 +65,42 @@ export default async function BlogPostPage({ params }: PageProps) {
     "Olá! Li o artigo sobre Pilates no blog e gostaria de agendar uma aula experimental."
   );
 
+  const related = getRelatedPosts(post.slug, 3);
+  const categorySlug = slugify(post.category);
+  const postUrl = `https://soliepilates.com.br/blog/${post.slug}`;
+  const imageUrl = post.image.startsWith("http")
+    ? post.image
+    : `https://soliepilates.com.br${post.image}`;
+
+  const blogPostingSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    image: imageUrl,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      "@type": "Organization",
+      name: post.author,
+      url: "https://soliepilates.com.br",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Soliê Pilates",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://soliepilates.com.br/images/logo.png",
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": postUrl,
+    },
+    keywords: post.tags.join(", "),
+    articleSection: post.category,
+  };
+
   // Inject mid-article CTA after ~50% of paragraphs
   const paragraphs = post.contentHtml.split("</p>");
   const midPoint = Math.floor(paragraphs.length / 2);
@@ -57,6 +110,10 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingSchema) }}
+      />
       <ReadingProgress slug={post.slug} />
       <main className="pt-24 md:pt-28 pb-16 bg-white min-h-screen">
         <Container size="md">
@@ -78,9 +135,12 @@ export default async function BlogPostPage({ params }: PageProps) {
           <article className="px-4 md:px-0">
             {/* Meta */}
             <div className="flex flex-wrap items-center gap-3 text-sm text-muted mb-4">
-              <span className="bg-solie-green text-white px-3 py-1 rounded-full text-xs font-medium">
+              <Link
+                href={`/blog/categoria/${categorySlug}`}
+                className="bg-solie-green hover:bg-solie-green/90 text-white px-3 py-1 rounded-full text-xs font-medium transition-colors"
+              >
                 {post.category}
-              </span>
+              </Link>
               <span className="flex items-center gap-1">
                 <Calendar className="w-4 h-4" />
                 {new Date(post.date).toLocaleDateString("pt-BR", {
@@ -141,18 +201,22 @@ export default async function BlogPostPage({ params }: PageProps) {
 
             {/* Tags */}
             {post.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-10 pt-6 border-t border-solie-beige">
+              <div className="flex flex-wrap gap-2 mb-6 pt-6 border-t border-solie-beige">
                 {post.tags.map((tag) => (
-                  <span
+                  <Link
                     key={tag}
+                    href={`/blog/tag/${slugify(tag)}`}
                     className="inline-flex items-center gap-1 text-xs bg-solie-beige-light text-solie-green px-3 py-1.5 rounded-full hover:bg-solie-beige transition-colors"
                   >
                     <Tag className="w-3 h-3" />
                     {tag}
-                  </span>
+                  </Link>
                 ))}
               </div>
             )}
+
+            {/* Share */}
+            <ShareButtons title={post.title} slug={post.slug} />
 
             {/* CTA Final */}
             <div className="bg-solie-green rounded-2xl p-8 md:p-10 text-center">
@@ -176,6 +240,9 @@ export default async function BlogPostPage({ params }: PageProps) {
                 Duvidamos muito você não querer voltar pra segunda aula...
               </p>
             </div>
+
+            {/* Related posts */}
+            <RelatedPosts posts={related} />
           </article>
         </Container>
       </main>

@@ -23,12 +23,26 @@ export interface BlogPost {
   contentHtml: string;
 }
 
+export type BlogPostListItem = Omit<BlogPost, "contentHtml">;
+
+export function slugify(value: string): string {
+  return value
+    .toString()
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+}
+
 async function markdownToHtml(markdown: string): Promise<string> {
   const result = await remark().use(gfm).use(html, { sanitize: false }).process(markdown);
   return result.toString();
 }
 
-export function getAllPosts(): Omit<BlogPost, "contentHtml">[] {
+export function getAllPosts(): BlogPostListItem[] {
   const files = fs.readdirSync(BLOG_DIR).filter((f) => f.endsWith(".mdx"));
 
   const posts = files.map((filename) => {
@@ -86,4 +100,85 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     content,
     contentHtml,
   };
+}
+
+export function getRelatedPosts(slug: string, limit = 3): BlogPostListItem[] {
+  const all = getAllPosts();
+  const current = all.find((p) => p.slug === slug);
+  if (!current) return [];
+
+  const others = all.filter((p) => p.slug !== slug);
+
+  const scored = others.map((p) => {
+    let score = 0;
+    if (p.category === current.category) score += 10;
+    const sharedTags = p.tags.filter((t) => current.tags.includes(t)).length;
+    score += sharedTags * 3;
+    return { post: p, score };
+  });
+
+  scored.sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score;
+    return new Date(b.post.date).getTime() - new Date(a.post.date).getTime();
+  });
+
+  return scored.slice(0, limit).map((s) => s.post);
+}
+
+export function getAllCategories(): { name: string; slug: string; count: number }[] {
+  const all = getAllPosts();
+  const map = new Map<string, { name: string; count: number }>();
+
+  for (const post of all) {
+    const slug = slugify(post.category);
+    const existing = map.get(slug);
+    if (existing) {
+      existing.count += 1;
+    } else {
+      map.set(slug, { name: post.category, count: 1 });
+    }
+  }
+
+  return Array.from(map.entries())
+    .map(([slug, { name, count }]) => ({ name, slug, count }))
+    .sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
+}
+
+export function getAllTags(): { name: string; slug: string; count: number }[] {
+  const all = getAllPosts();
+  const map = new Map<string, { name: string; count: number }>();
+
+  for (const post of all) {
+    for (const tag of post.tags) {
+      const slug = slugify(tag);
+      const existing = map.get(slug);
+      if (existing) {
+        existing.count += 1;
+      } else {
+        map.set(slug, { name: tag, count: 1 });
+      }
+    }
+  }
+
+  return Array.from(map.entries())
+    .map(([slug, { name, count }]) => ({ name, slug, count }))
+    .sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
+}
+
+export function getPostsByCategory(categorySlug: string): BlogPostListItem[] {
+  return getAllPosts().filter((p) => slugify(p.category) === categorySlug);
+}
+
+export function getPostsByTag(tagSlug: string): BlogPostListItem[] {
+  return getAllPosts().filter((p) => p.tags.some((t) => slugify(t) === tagSlug));
+}
+
+export function getCategoryName(categorySlug: string): string | null {
+  const found = getAllCategories().find((c) => c.slug === categorySlug);
+  return found ? found.name : null;
+}
+
+export function getTagName(tagSlug: string): string | null {
+  const found = getAllTags().find((t) => t.slug === tagSlug);
+  return found ? found.name : null;
 }

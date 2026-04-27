@@ -18,8 +18,43 @@ export default function BlogPage() {
   const featured = posts[featuredIndex];
   const rest = posts.filter((_, i) => i !== featuredIndex);
 
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: "Blog Soliê Pilates",
+    description:
+      "Artigos sobre Pilates, dor na coluna, postura, flexibilidade e bem-estar. Dicas de fisioterapeutas especializadas no Água Verde, Curitiba.",
+    url: "https://soliepilates.com.br/blog",
+    publisher: {
+      "@type": "Organization",
+      name: "Soliê Pilates",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://soliepilates.com.br/images/logo.png",
+      },
+    },
+    blogPost: posts.map((post) => ({
+      "@type": "BlogPosting",
+      headline: post.title,
+      description: post.description,
+      datePublished: post.date,
+      url: `https://soliepilates.com.br/blog/${post.slug}`,
+      image: post.image.startsWith("http")
+        ? post.image
+        : `https://soliepilates.com.br${post.image}`,
+      author: {
+        "@type": "Organization",
+        name: post.author,
+      },
+    })),
+  };
+
   return (
     <main className="pt-24 md:pt-28 pb-16 bg-solie-beige-light min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
+      />
       <Container>
         {/* Header */}
         <div className="text-center mb-14 px-4">
