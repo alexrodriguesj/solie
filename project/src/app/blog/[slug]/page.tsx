@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Calendar, Clock, MessageCircle, Tag, ChevronRight } from "lucide-react";
@@ -9,6 +8,8 @@ import { formatWhatsAppLink } from "@/lib/utils";
 import { ReadingProgress } from "@/components/blog/ReadingProgress";
 import { RelatedPosts } from "@/components/blog/RelatedPosts";
 import { ShareButtons } from "@/components/blog/ShareButtons";
+import { BlogContent } from "@/components/blog/BlogContent";
+import { HeroImage } from "@/components/blog/HeroImage";
 import { VideoPlayer } from "@/components/ui/VideoPlayer";
 import type { Metadata } from "next";
 
@@ -171,20 +172,12 @@ export default async function BlogPostPage({ params }: PageProps) {
                 <VideoPlayer src={post.video} name={post.slug} poster={post.image} autoUnmute />
               </div>
             ) : (
-              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden mb-10">
-                <Image
-                  src={post.image}
-                  alt={post.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 720px"
-                  priority
-                />
-              </div>
+              <HeroImage src={post.hero ?? post.image} alt={post.title} />
             )}
 
             {/* Content */}
-            <div
+            <BlogContent
+              html={contentWithCta}
               className="prose prose-lg max-w-none
                 prose-headings:font-serif prose-headings:text-solie-green prose-headings:font-bold
                 prose-h2:border-l-[3px] prose-h2:border-solie-green prose-h2:pl-4 prose-h2:mt-10 prose-h2:mb-4
@@ -196,7 +189,6 @@ export default async function BlogPostPage({ params }: PageProps) {
                 prose-blockquote:border-l-4 prose-blockquote:border-solie-green prose-blockquote:bg-solie-beige-light prose-blockquote:rounded-r-xl prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:not-italic
                 prose-img:rounded-xl
                 mb-12"
-              dangerouslySetInnerHTML={{ __html: contentWithCta }}
             />
 
             {/* Tags */}

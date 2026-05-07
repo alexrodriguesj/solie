@@ -14,6 +14,7 @@ export interface BlogPost {
   date: string;
   author: string;
   image: string;
+  hero?: string;
   video?: string;
   tags: string[];
   category: string;
@@ -61,6 +62,7 @@ export function getAllPosts(): BlogPostListItem[] {
       date: data.date,
       author: data.author || "Soliê Pilates",
       image: data.image,
+      hero: data.hero || undefined,
       video: data.video || undefined,
       tags: data.tags || [],
       category: data.category || "Pilates",
@@ -92,6 +94,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     date: data.date,
     author: data.author || "Soliê Pilates",
     image: data.image,
+    hero: data.hero || undefined,
     video: data.video || undefined,
     tags: data.tags || [],
     category: data.category || "Pilates",
