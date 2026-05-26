@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Check, Copy, Instagram, MessageCircle, Share2 } from "lucide-react";
 import { trackEvent } from "@/lib/utils";
 
@@ -9,14 +9,17 @@ interface ShareButtonsProps {
   slug: string;
 }
 
+const DEFAULT_ORIGIN = "https://soliepilates.com.br";
+
 export function ShareButtons({ title, slug }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
+  const [origin, setOrigin] = useState(DEFAULT_ORIGIN);
 
-  const url =
-    typeof window !== "undefined"
-      ? `${window.location.origin}/blog/${slug}`
-      : `https://soliepilates.com.br/blog/${slug}`;
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
 
+  const url = `${origin}/blog/${slug}`;
   const whatsappText = `${title}\n\n${url}`;
   const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(whatsappText)}`;
 
@@ -49,9 +52,7 @@ export function ShareButtons({ title, slug }: ShareButtonsProps) {
   const handleCopy = async () => {
     trackEvent("blog_share", { canal: "copy", artigo: slug });
     try {
-      const liveUrl =
-        typeof window !== "undefined" ? `${window.location.origin}/blog/${slug}` : url;
-      await navigator.clipboard.writeText(liveUrl);
+      await navigator.clipboard.writeText(url);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
