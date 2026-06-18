@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { PROMO_ATIVA } from "@/data/promos";
 
 interface BannerContextType {
   isBannerVisible: boolean;
@@ -11,16 +12,25 @@ const BannerContext = createContext<BannerContextType | undefined>(undefined);
 
 const STORAGE_KEY = "solie-promo-banner-closed";
 
-export function BannerProvider({ children }: { children: ReactNode }) {
+export function BannerProvider({
+  children,
+  disabled = false,
+}: {
+  children: ReactNode;
+  /** Quando true, o banner nunca aparece (usar em páginas sem PromoBanner). */
+  disabled?: boolean;
+}) {
   const [isBannerVisible, setIsBannerVisible] = useState(false);
 
-  // PromoBanner desativado — manter sempre false
-  // useEffect(() => {
-  //   const wasClosed = sessionStorage.getItem(STORAGE_KEY);
-  //   if (!wasClosed) {
-  //     setIsBannerVisible(true);
-  //   }
-  // }, []);
+  // Banner aparece só com a promo ligada (PROMO_ATIVA), na página que de fato
+  // renderiza o <PromoBanner /> (disabled=false), e se o usuário não o fechou.
+  useEffect(() => {
+    if (disabled || !PROMO_ATIVA) return;
+    const wasClosed = sessionStorage.getItem(STORAGE_KEY);
+    if (!wasClosed) {
+      setIsBannerVisible(true);
+    }
+  }, [disabled]);
 
   const handleSetVisible = (visible: boolean) => {
     setIsBannerVisible(visible);

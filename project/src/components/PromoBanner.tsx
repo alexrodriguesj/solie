@@ -1,30 +1,27 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, X, MessageCircle } from "lucide-react";
-import { siteConfig } from "@/data/content";
-import { trackEvent, formatWhatsAppLink, analytics } from "@/lib/utils";
+import { Sparkles, X, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { trackEvent } from "@/lib/utils";
 import { useBanner } from "@/contexts/BannerContext";
+import { getPromoAtiva } from "@/data/promos";
 
 export function PromoBanner() {
   const { isBannerVisible, setIsBannerVisible } = useBanner();
+  const promo = getPromoAtiva();
 
   const handleClose = () => {
     setIsBannerVisible(false);
-    trackEvent("promo_banner_closed", { categoria: "engagement", campanha: "promo_abril" });
+    trackEvent("promo_banner_closed", { categoria: "engagement", campanha: promo?.slug });
   };
 
   const handleClick = () => {
-    trackEvent("promo_banner_click", { categoria: "engagement", campanha: "promo_abril" });
-    analytics.metaContact("promo_banner");
-    window.open(
-      formatWhatsAppLink(
-        siteConfig.whatsapp,
-        "Olá! Vi a promoção de Abril no site e quero garantir meu desconto de 10% na primeira mensalidade!"
-      ),
-      "_blank"
-    );
+    trackEvent("promo_banner_click", { categoria: "engagement", campanha: promo?.slug });
   };
+
+  // Sem promo ativa, não renderiza nada.
+  if (!promo) return null;
 
   return (
     <AnimatePresence>
@@ -44,22 +41,19 @@ export function PromoBanner() {
                 <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-solie-beige-light flex-shrink-0 animate-pulse" />
 
                 <p className="text-white text-xs sm:text-sm font-medium text-center">
-                  <span className="hidden sm:inline">
-                    <strong>PROMOÇÃO DE ABRIL:</strong> 10% de desconto na primeira mensalidade!
-                  </span>
-                  <span className="sm:hidden">
-                    <strong>ABRIL:</strong> 10% na 1ª mensalidade!
-                  </span>
+                  <span className="hidden sm:inline">{promo.bannerTexto}</span>
+                  <span className="sm:hidden">{promo.bannerTextoMobile}</span>
                 </p>
 
-                <button
+                <Link
+                  href={`/${promo.slug}`}
                   onClick={handleClick}
-                  className="flex items-center gap-1.5 bg-[#25D366] hover:bg-[#128C7E] text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all hover:scale-105 flex-shrink-0"
+                  className="flex items-center gap-1.5 bg-white hover:bg-solie-beige-light text-[#A01830] px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all hover:scale-105 flex-shrink-0"
                 >
-                  <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  <span className="hidden sm:inline">QUERO MEU DESCONTO</span>
+                  <span className="hidden sm:inline">QUERO PARTICIPAR</span>
                   <span className="sm:hidden">QUERO</span>
-                </button>
+                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                </Link>
               </div>
 
               {/* Close Button */}

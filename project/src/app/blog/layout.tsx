@@ -9,7 +9,7 @@ export default function BlogLayout({
   children: React.ReactNode;
 }) {
   return (
-    <BannerProvider>
+    <BannerProvider disabled>
       <Header />
       {children}
       <Footer />
