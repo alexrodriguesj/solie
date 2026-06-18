@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { ImageLightbox } from "./ImageLightbox";
 
 interface HeroImageProps {
@@ -17,16 +16,17 @@ export function HeroImage({ src, alt }: HeroImageProps) {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden mb-10 group cursor-zoom-in"
+        className="block w-full mb-10 group cursor-zoom-in"
         aria-label="Ampliar imagem"
       >
-        <Image
+        {/* Imagem exibida na íntegra (sem corte), com altura limitada.
+            <img> nativo para respeitar a proporção natural de qualquer capa. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={src}
           alt={alt}
-          fill
-          className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-          sizes="(max-width: 768px) 100vw, 720px"
-          priority
+          loading="eager"
+          className="mx-auto w-auto max-w-full max-h-[78vh] rounded-2xl shadow-sm object-contain transition-transform duration-300 group-hover:scale-[1.02]"
         />
       </button>
       <ImageLightbox
