@@ -8,6 +8,7 @@ import {
 } from "@/lib/blog";
 import { Container } from "@/components/ui/Container";
 import { PostGrid } from "@/components/blog/PostGrid";
+import { CategoryPills } from "@/components/blog/CategoryPills";
 import type { Metadata } from "next";
 
 interface PageProps {
@@ -48,9 +49,37 @@ export default async function CategoryPage({ params }: PageProps) {
   if (!name) notFound();
 
   const posts = getPostsByCategory(slug);
+  const categories = getAllCategories();
+
+  const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `${name} | Blog Soliê Pilates`,
+    description: `Artigos da categoria ${name} no blog da Soliê Pilates, no Água Verde, Curitiba.`,
+    url: `https://soliepilates.com.br/blog/categoria/${slug}`,
+    isPartOf: {
+      "@type": "Blog",
+      name: "Blog Soliê Pilates",
+      url: "https://soliepilates.com.br/blog",
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: posts.length,
+      itemListElement: posts.map((post, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `https://soliepilates.com.br/blog/${post.slug}`,
+        name: post.title,
+      })),
+    },
+  };
 
   return (
     <main className="pt-24 md:pt-28 pb-16 bg-solie-beige-light min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
       <Container>
         <nav className="px-4 md:px-0 mb-6 flex items-center gap-1 text-sm text-muted">
           <Link href="/" className="hover:text-solie-green transition-colors">
@@ -76,6 +105,8 @@ export default async function CategoryPage({ params }: PageProps) {
             {posts.length} {posts.length === 1 ? "artigo" : "artigos"} nessa categoria.
           </p>
         </div>
+
+        <CategoryPills categories={categories} activeSlug={slug} />
 
         <PostGrid posts={posts} />
 

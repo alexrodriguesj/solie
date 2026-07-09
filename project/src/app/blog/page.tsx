@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
-import { getAllPosts } from "@/lib/blog";
+import { getAllCategories, getAllPosts } from "@/lib/blog";
 import { Container } from "@/components/ui/Container";
+import { CategoryPills } from "@/components/blog/CategoryPills";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   const posts = getAllPosts();
+  const categories = getAllCategories();
   const manualFeaturedIndex = posts.findIndex((p) => p.featured);
   const featuredIndex = manualFeaturedIndex >= 0 ? manualFeaturedIndex : 0;
   const featured = posts[featuredIndex];
@@ -119,6 +121,9 @@ export default function BlogPage() {
             </article>
           </Link>
         )}
+
+        {/* Navegação por categoria */}
+        <CategoryPills categories={categories} />
 
         {/* Grid de posts */}
         {rest.length > 0 && (
