@@ -1,4 +1,4 @@
-import { getAllCategories, getAllPosts, getAllTags } from "@/lib/blog";
+import { getAllCategories, getAllPosts, getTagsIndexaveis } from "@/lib/blog";
 import type { MetadataRoute } from "next";
 
 const BASE_URL = "https://soliepilates.com.br";
@@ -6,7 +6,6 @@ const BASE_URL = "https://soliepilates.com.br";
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts();
   const categories = getAllCategories();
-  const tags = getAllTags();
 
   const blogPages = posts.map((post) => ({
     url: `${BASE_URL}/blog/${post.slug}`,
@@ -22,7 +21,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  const tagPages = tags.map((t) => ({
+  // Só as tags fortes entram no sitemap. As demais continuam navegáveis por
+  // URL direta, mas com noindex, para não gerar thin content.
+  const tagPages = getTagsIndexaveis().map((t) => ({
     url: `${BASE_URL}/blog/tag/${t.slug}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,

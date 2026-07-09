@@ -4,8 +4,84 @@ import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
 import gfm from "remark-gfm";
+import { z } from "zod";
 
 const BLOG_DIR = path.join(process.cwd(), "src/content/blog");
+
+/**
+ * Vocabulário controlado de tags. Fonte única da verdade.
+ *
+ * Uma tag fora desta lista quebra o build com erro explícito. Para criar uma
+ * tag nova, adicione aqui primeiro. Regra de curadoria: a tag descreve corpo,
+ * condição ou público, nunca o que a categoria já diz.
+ */
+export const BLOG_TAGS = [
+  // Corpo
+  "lombar",
+  "coluna",
+  "core",
+  "quadril",
+  "glúteo",
+  "punho e mão",
+  // Condição
+  "hérnia de disco",
+  "nervo ciático",
+  "artrose",
+  "neuromuscular",
+  // Conceito
+  "postura",
+  "mobilidade",
+  "controle motor",
+  // Público
+  "gestante",
+  "melhor idade",
+  "jovens",
+  "sedentarismo",
+] as const;
+
+export type BlogTag = (typeof BLOG_TAGS)[number];
+
+/**
+ * Mínimo de posts para uma página de tag ser indexável e entrar no sitemap.
+ * Abaixo disso a página continua navegável, mas com noindex.
+ */
+export const TAG_MIN_POSTS_INDEXAVEL = 3;
+
+const frontmatterSchema = z.object({
+  title: z.string().min(1, "obrigatório"),
+  description: z.string().min(1, "obrigatório"),
+  date: z.string().min(1, "obrigatório"),
+  image: z.string().min(1, "obrigatório"),
+  author: z.string().optional(),
+  hero: z.string().optional(),
+  video: z.string().optional(),
+  category: z.string().optional(),
+  tags: z.array(z.enum(BLOG_TAGS)).optional(),
+  readTime: z.number().optional(),
+  featured: z.boolean().optional(),
+});
+
+type Frontmatter = z.infer<typeof frontmatterSchema>;
+
+function parseFrontmatter(data: unknown, filename: string): Frontmatter {
+  const result = frontmatterSchema.safeParse(data);
+
+  if (!result.success) {
+    const problemas = result.error.issues
+      .map((issue) => {
+        const campo = issue.path.join(".") || "(raiz)";
+        return `  - ${campo}: ${issue.message}`;
+      })
+      .join("\n");
+
+    throw new Error(
+      `Frontmatter inválido em "${filename}":\n${problemas}\n\n` +
+        `Tags permitidas: ${BLOG_TAGS.join(", ")}`
+    );
+  }
+
+  return result.data;
+}
 
 export interface BlogPost {
   slug: string;
@@ -16,7 +92,7 @@ export interface BlogPost {
   image: string;
   hero?: string;
   video?: string;
-  tags: string[];
+  tags: BlogTag[];
   category: string;
   readTime: number;
   featured?: boolean;
@@ -50,7 +126,8 @@ export function getAllPosts(): BlogPostListItem[] {
     const slug = filename.replace(/\.mdx$/, "");
     const filePath = path.join(BLOG_DIR, filename);
     const fileContent = fs.readFileSync(filePath, "utf-8");
-    const { data, content } = matter(fileContent);
+    const { data: rawData, content } = matter(fileContent);
+    const data = parseFrontmatter(rawData, filename);
 
     const wordCount = content.split(/\s+/).length;
     const readTime = Math.max(1, Math.ceil(wordCount / 200));
@@ -81,7 +158,8 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   if (!fs.existsSync(filePath)) return null;
 
   const fileContent = fs.readFileSync(filePath, "utf-8");
-  const { data, content } = matter(fileContent);
+  const { data: rawData, content } = matter(fileContent);
+  const data = parseFrontmatter(rawData, `${slug}.mdx`);
   const contentHtml = await markdownToHtml(content);
 
   const wordCount = content.split(/\s+/).length;
@@ -184,4 +262,14 @@ export function getCategoryName(categorySlug: string): string | null {
 export function getTagName(tagSlug: string): string | null {
   const found = getAllTags().find((t) => t.slug === tagSlug);
   return found ? found.name : null;
+}
+
+/** Tags com posts suficientes para virar página de cluster indexável. */
+export function getTagsIndexaveis(): { name: string; slug: string; count: number }[] {
+  return getAllTags().filter((t) => t.count >= TAG_MIN_POSTS_INDEXAVEL);
+}
+
+export function isTagIndexavel(tagSlug: string): boolean {
+  const found = getAllTags().find((t) => t.slug === tagSlug);
+  return found ? found.count >= TAG_MIN_POSTS_INDEXAVEL : false;
 }

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight, Tag } from "lucide-react";
-import { getAllTags, getPostsByTag, getTagName } from "@/lib/blog";
+import { getAllTags, getPostsByTag, getTagName, isTagIndexavel } from "@/lib/blog";
 import { Container } from "@/components/ui/Container";
 import { PostGrid } from "@/components/blog/PostGrid";
 import type { Metadata } from "next";
@@ -27,6 +27,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     alternates: { canonical: url },
+    // Só tags com posts suficientes são indexadas. As demais continuam
+    // navegáveis, mas fora do índice de busca, para evitar thin content.
+    robots: { index: isTagIndexavel(slug), follow: true },
     openGraph: {
       title,
       description,
