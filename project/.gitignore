@@ -32,6 +32,9 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# Exceção: o template sem segredos é versionado. Precisa vir DEPOIS de .env*
+# para reabrir o padrão; a ordem importa no .gitignore.
+!.env.example
 
 # vercel
 .vercel
