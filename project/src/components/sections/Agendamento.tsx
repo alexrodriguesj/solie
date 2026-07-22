@@ -77,25 +77,3 @@ export function Agendamento() {
     </section>
   );
 }
-
-/*
- * ============================================================
- * VERSÃO COM FORMULÁRIO + INTEGRAÇÃO GOOGLE SHEETS
- * Descomentar abaixo e comentar a versão acima para reativar
- * ============================================================
- *
- * import { useState, useEffect } from "react";
- * import { useForm } from "react-hook-form";
- * import { zodResolver } from "@hookform/resolvers/zod";
- * import { z } from "zod";
- * import { Clock, Users, Loader2, User, Phone, Target, ChevronRight, ChevronLeft } from "lucide-react";
- * import { ctaFinal } from "@/data/content";
- *
- * // URL da planilha publicada como CSV (aba "agenda" - gid=0)
- * const SHEET_URL = "https://docs.google.com/spreadsheets/d/1r5rfUjJdxYfLcjqnl13mwxvpkTdo7UtCHDVHtEOqTE0/export?format=csv&gid=0";
- *
- * // URL do Google Apps Script para salvar contatos
- * const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwFr02SHDm5KG36dG0qB7yUar_nEcXwPXEc5cXM2RcGZXx7ZYNb_BXBw7z23avmhjE/exec";
- *
- * // ... resto do código do formulário comentado
- */

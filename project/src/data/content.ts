@@ -4,7 +4,6 @@ export const siteConfig = {
   name: "Soliê Pilates",
   description: "Studio de Pilates com atendimento personalizado",
   whatsapp: "5541999047534",
-  email: "contato@soliepilates.com.br",
   phone: "(41) 99904-7534",
   address: {
     street: "Av. Rep. Argentina, 1237 - Sala 610",

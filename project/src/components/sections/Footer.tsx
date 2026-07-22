@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { Instagram, Facebook, Mail, Phone, MapPin } from "lucide-react";
+import Link from "next/link";
+import { Instagram, Facebook, Phone, MapPin } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { siteConfig, footer } from "@/data/content";
 
@@ -37,15 +38,6 @@ export function Footer() {
                 >
                   <Phone className="w-4 h-4" />
                   {siteConfig.phone}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`mailto:${siteConfig.email}`}
-                  className="flex items-center gap-2 text-muted hover:text-solie-green transition-colors"
-                >
-                  <Mail className="w-4 h-4" />
-                  {siteConfig.email}
                 </a>
               </li>
               <li>
@@ -96,6 +88,14 @@ export function Footer() {
         {/* Copyright */}
         <div className="border-t border-solie-beige mt-12 pt-8 text-center">
           <p className="text-sm text-muted">{footer.copyright}</p>
+          <p className="mt-2 text-sm">
+            <Link
+              href="/privacidade"
+              className="text-muted hover:text-solie-green transition-colors"
+            >
+              Política de Privacidade
+            </Link>
+          </p>
         </div>
       </Container>
     </footer>

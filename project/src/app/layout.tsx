@@ -75,7 +75,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 "Studio de Pilates com fisioterapeutas no Água Verde, Curitiba. Atendimento individual, máximo 2 alunos por aula.",
               url: "https://soliepilates.com.br",
               telephone: "+5541999047534",
-              email: "contato@soliepilates.com.br",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Av. Rep. Argentina, 1237 - Sala 610",

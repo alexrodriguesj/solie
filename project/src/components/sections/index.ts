@@ -5,5 +5,4 @@ export { OQueEPilates } from "./OQueEPilates";
 export { ConhecaStudio } from "./ConhecaStudio";
 export { GoogleReviews } from "./GoogleReviews";
 export { Agendamento } from "./Agendamento";
-export { CTAFinal } from "./CTAFinal";
 export { Footer } from "./Footer";
