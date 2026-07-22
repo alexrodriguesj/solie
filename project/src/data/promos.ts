@@ -19,7 +19,7 @@
 // =============================================================================
 
 /** Liga/desliga TODAS as promos de uma vez. */
-export const PROMO_ATIVA = true;
+export const PROMO_ATIVA = false;
 
 /** Slug da promo exibida hoje (precisa existir em `promos`). */
 export const PROMO_SLUG_ATIVA = "promo-ensaio";
@@ -50,12 +50,17 @@ export interface Promo {
 }
 
 export const promos: Record<string, Promo> = {
+  // ENCERRADA: sorteio realizado em 18/07/2026. Mantida como modelo para a
+  // próxima campanha. Antes de religar (PROMO_ATIVA = true), atualize datas,
+  // prêmio, regulamento e textos do banner.
   "promo-ensaio": {
     slug: "promo-ensaio",
     titulo: "Sorteio de Ensaio Fotográfico",
     subtitulo: "Feche seu plano semestral 2x na semana até 18/07 e concorra",
-    videoUrl: "/videos/promo-ensaio.mp4",
-    imagemUrl: "/images/promo/promo-ensaio.jpg",
+    // Artes da campanha encerrada foram removidas do repo. Preencha com os
+    // arquivos da próxima promo antes de religar.
+    videoUrl: "",
+    imagemUrl: "",
     premio: [
       "1h de sessão",
       "20 fotos editadas em alta resolução",
