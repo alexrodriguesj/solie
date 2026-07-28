@@ -86,14 +86,14 @@ export const promos: Record<string, Promo> = {
     beneficiosTitulo: "O que você vai viver",
     beneficios: [
       "Aula experimental de Pilates, 100% personalizada",
-      "Turma reduzida: só 4 pessoas por edição",
+      "Turma reduzida: só 4 pessoas por aula",
       "Café da manhã especial num ambiente leve e acolhedor",
       "Brindes exclusivos pra quem participa (é surpresa!)",
     ],
     data: "2026-08-12",
     dataLabel: "Próxima turma",
     recorrencia: "Acontece na segunda semana de cada mês",
-    vagas: "Apenas 4 vagas por edição, e é gratuito",
+    vagas: "Apenas 4 vagas por aula, e é gratuito",
     local: "Água Verde, Curitiba",
     ctaTexto: "Quero minha vaga",
     whatsappMensagem:
@@ -108,9 +108,9 @@ export const promos: Record<string, Promo> = {
 - Brindes exclusivos pra quem participa
 
 COMO FUNCIONA
-- Turma reduzida: apenas 4 alunos por edição
+- Turma reduzida: apenas 4 alunos por aula
 - Acontece na segunda semana de cada mês
-- Próxima edição: 12/08/2026 (próximas datas a confirmar)
+- Próxima turma: 12/08/2026 (próximas datas a confirmar)
 - Gratuito, mediante inscrição; as vagas são limitadas
 
 ONDE
