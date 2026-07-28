@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils";
 
 interface RegulamentoAccordionProps {
   texto: string;
+  /** Título do accordion. Ex: "Como funciona" ou "Regulamento completo". */
+  titulo?: string;
 }
 
 // É um título de seção quando a linha está toda em maiúsculas (sem ser bullet).
@@ -66,7 +68,10 @@ function renderRegulamento(texto: string): ReactNode[] {
   return blocos;
 }
 
-export function RegulamentoAccordion({ texto }: RegulamentoAccordionProps) {
+export function RegulamentoAccordion({
+  texto,
+  titulo = "Regulamento completo",
+}: RegulamentoAccordionProps) {
   const [aberto, setAberto] = useState(false);
 
   return (
@@ -77,7 +82,7 @@ export function RegulamentoAccordion({ texto }: RegulamentoAccordionProps) {
         aria-expanded={aberto}
         className="w-full flex items-center justify-between gap-3 px-5 py-4 text-left text-solie-green font-semibold hover:bg-solie-beige-light/60 transition-colors"
       >
-        <span>Regulamento completo</span>
+        <span>{titulo}</span>
         <ChevronDown
           className={cn(
             "w-5 h-5 flex-shrink-0 transition-transform duration-300",

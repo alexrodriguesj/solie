@@ -1,5 +1,6 @@
 import {
   Hero,
+  PromoDestaque,
   Diferenciais,
   OQueEPilates,
   ConhecaStudio,
@@ -18,6 +19,7 @@ export default function Home() {
       <PromoBanner />
       <Header />
       <Hero />
+      <PromoDestaque />
       <Diferenciais />
       <OQueEPilates />
       <ConhecaStudio />

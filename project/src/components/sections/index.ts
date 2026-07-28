@@ -1,4 +1,5 @@
 export { Hero } from "./Hero";
+export { PromoDestaque } from "./PromoDestaque";
 export { Diferenciais } from "./Diferenciais";
 // export { Depoimentos } from "./Depoimentos";
 export { OQueEPilates } from "./OQueEPilates";

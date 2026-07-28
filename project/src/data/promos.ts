@@ -1,28 +1,34 @@
 // =============================================================================
-// SISTEMA DE PROMOÇÕES — Soliê Pilates
+// SISTEMA DE PROMOÇÕES / CAMPANHAS — Soliê Pilates
 // =============================================================================
 //
 // COMO LIGAR/DESLIGAR A PROMO:
 //   Mude PROMO_ATIVA abaixo para `true` (liga) ou `false` (desliga).
-//   Desligada => a rota /promo-ensaio retorna 404 e o banner do site some.
+//   Desligada => a rota /<slug> retorna 404, o banner do topo e o bloco de
+//   destaque na home somem.
 //
 // COMO EDITAR O CONTEÚDO:
-//   Edite o objeto dentro de `promos` (título, subtítulo, vídeo, prêmio,
-//   regulamento, etc.). Nenhum layout precisa ser tocado.
+//   Edite o objeto dentro de `promos` (título, subtítulo, vídeo, benefícios,
+//   datas, detalhes, textos do banner). Nenhum layout precisa ser tocado — a
+//   PromoLanding e o bloco da home são 100% data-driven.
 //
 // COMO ADICIONAR UMA PROMO FUTURA:
-//   1. Duplique o objeto "promo-ensaio" dentro de `promos` com um novo slug.
+//   1. Duplique o objeto ativo dentro de `promos` com um novo slug.
 //   2. Aponte PROMO_SLUG_ATIVA para o novo slug.
-//   3. Crie a rota: copie src/app/promo-ensaio/page.tsx para
-//      src/app/<novo-slug>/page.tsx e troque o slug na chamada getPromo().
+//   3. Crie a rota: copie src/app/cafe-com-pilates/page.tsx para
+//      src/app/<novo-slug>/page.tsx e troque o slug na constante SLUG.
 //   O mecanismo (layout, componentes) é compartilhado — não muda.
+//
+// O modelo é genérico: serve tanto um EVENTO (recorrência + vagas) quanto um
+// SORTEIO (prazo + regulamento). Campos como `recorrencia`, `vagas` e `local`
+// são opcionais — deixe "" para escondê-los.
 // =============================================================================
 
 /** Liga/desliga TODAS as promos de uma vez. */
-export const PROMO_ATIVA = false;
+export const PROMO_ATIVA = true;
 
 /** Slug da promo exibida hoje (precisa existir em `promos`). */
-export const PROMO_SLUG_ATIVA = "promo-ensaio";
+export const PROMO_SLUG_ATIVA = "cafe-com-pilates";
 
 export interface Promo {
   /** Slug da URL: /<slug> */
@@ -34,72 +40,87 @@ export interface Promo {
    * para esconder o player e cair na imagem.
    */
   videoUrl: string;
-  /** Imagem da campanha (poster do vídeo + arte exibida no bloco do prêmio). */
+  /** Imagem da campanha (poster do vídeo + arte exibida nos blocos). */
   imagemUrl: string;
-  /** Bullets do bloco "O prêmio". */
-  premio: string[];
+  /** Selo curto acima do título no hero. Ex: "Evento Soliê". */
+  selo: string;
+  /** Bullets do bloco de destaques (o que você vive/ganha). */
+  beneficios: string[];
+  /** Título da seção de benefícios. Ex: "O que você vai viver". */
+  beneficiosTitulo: string;
+  /** Data de referência (ISO): próxima edição ou encerramento. */
+  data: string;
+  /** Rótulo da data no hero. Ex: "Próxima turma" ou "Campanha até". */
+  dataLabel: string;
+  /** Texto de recorrência (opcional). Ex: "Toda segunda semana do mês". */
+  recorrencia: string;
+  /** Texto de vagas/escassez (opcional). Ex: "Apenas 4 vagas por turma". */
+  vagas: string;
+  /** Local curto exibido no hero (opcional). Ex: "Água Verde, Curitiba". */
+  local: string;
+  /** Texto do botão de CTA. Ex: "Quero minha vaga". */
+  ctaTexto: string;
   /** Mensagem pré-preenchida do WhatsApp (o número vem de siteConfig.whatsapp). */
   whatsappMensagem: string;
   /** Texto curto do banner do site (topo). */
   bannerTexto: string;
   bannerTextoMobile: string;
-  /** Data de fim da campanha (ISO). Usada no aviso de prazo. */
-  dataFim: string;
-  /** Regulamento completo (renderizado com quebras de linha preservadas). */
-  regulamento: string;
+  /**
+   * Texto longo do accordion (como funciona / regulamento). Linhas em
+   * MAIÚSCULAS viram títulos; linhas começando com "-" viram bullets.
+   */
+  detalhes: string;
+  /** Título do accordion. Ex: "Como funciona" ou "Regulamento completo". */
+  detalhesTitulo: string;
 }
 
 export const promos: Record<string, Promo> = {
-  // ENCERRADA: sorteio realizado em 18/07/2026. Mantida como modelo para a
-  // próxima campanha. Antes de religar (PROMO_ATIVA = true), atualize datas,
-  // prêmio, regulamento e textos do banner.
-  "promo-ensaio": {
-    slug: "promo-ensaio",
-    titulo: "Sorteio de Ensaio Fotográfico",
-    subtitulo: "Feche seu plano semestral 2x na semana até 18/07 e concorra",
-    // Artes da campanha encerrada foram removidas do repo. Preencha com os
-    // arquivos da próxima promo antes de religar.
-    videoUrl: "",
-    imagemUrl: "",
-    premio: [
-      "1h de sessão",
-      "20 fotos editadas em alta resolução",
-      "Estilos à escolha: profissional, casual ou pré-aniversário",
-      "Sorteio ao vivo dia 18/07 nos Stories do @soliepilates",
+  "cafe-com-pilates": {
+    slug: "cafe-com-pilates",
+    titulo: "Café com Pilates",
+    subtitulo:
+      "Uma manhã pra você experimentar o Pilates da Soliê:\naula em turma reduzida, café especial e brindes.\nLeve, acolhedor e 100% personalizado.",
+    videoUrl: "/videos/cafe-com-pilates.mp4",
+    imagemUrl: "/images/cafe-com-pilates.jpg",
+    selo: "Evento Soliê",
+    beneficiosTitulo: "O que você vai viver",
+    beneficios: [
+      "Aula experimental de Pilates, 100% personalizada",
+      "Turma reduzida: só 4 pessoas por edição",
+      "Café da manhã especial num ambiente leve e acolhedor",
+      "Brindes exclusivos pra quem participa (é surpresa!)",
     ],
+    data: "2026-08-12",
+    dataLabel: "Próxima turma",
+    recorrencia: "Acontece na segunda semana de cada mês",
+    vagas: "Apenas 4 vagas por edição, e é gratuito",
+    local: "Água Verde, Curitiba",
+    ctaTexto: "Quero minha vaga",
     whatsappMensagem:
-      "Olá! Quero participar do sorteio de ensaio fotográfico e fechar meu plano semestral 2x na semana.",
-    bannerTexto: "SORTEIO DE ENSAIO FOTOGRÁFICO: feche seu plano semestral até 18/07 e concorra!",
-    bannerTextoMobile: "Sorteio de ensaio fotográfico até 18/07!",
-    dataFim: "2026-07-18",
-    regulamento: `A Soliê Pilates, em parceria com a fotógrafa Erica, vai sortear um ensaio fotográfico profissional. Confira as regras:
+      "Olá! Quero garantir minha vaga no Café com Pilates. Pode me passar as informações da próxima turma?",
+    bannerTexto:
+      "CAFÉ COM PILATES: aula experimental gratuita, café e brindes em turma de 4 pessoas. Vagas limitadas!",
+    bannerTextoMobile: "Café com Pilates: vaga grátis, turma de 4!",
+    detalhes: `O QUE É
+- Uma manhã pra você experimentar o Pilates da Soliê, sem compromisso
+- Aula experimental guiada pelas nossas instrutoras, 100% personalizada
+- Café da manhã especial num ambiente leve e acolhedor
+- Brindes exclusivos pra quem participa
 
-QUEM PODE PARTICIPAR
-- Novos alunos que fecharem plano semestral 2x na semana no período da campanha
-- Alunos atuais que fizerem upgrade para o plano semestral 2x na semana
+COMO FUNCIONA
+- Turma reduzida: apenas 4 alunos por edição
+- Acontece na segunda semana de cada mês
+- Próxima edição: 12/08/2026 (próximas datas a confirmar)
+- Gratuito, mediante inscrição; as vagas são limitadas
 
-PERÍODO DA CAMPANHA
-- De 17/06/2026 a 18/07/2026
-- Contratos fechados fora desse período não participam
+ONDE
+- Studio Soliê Pilates
+- Av. Rep. Argentina, 1237 - Sala 610, Água Verde, Curitiba - PR
 
-O PRÊMIO
-- 1 ensaio fotográfico profissional com a Erica
-- Duração: 1 hora
-- 20 fotos editadas em alta resolução
-- Tipos de ensaio: pré-aniversário, profissional ou casual
-- Local: ar livre ou estúdio (por conta do sorteado, valor médio de R$ 130 a R$ 150/hora caso opte por estúdio)
-- Ensaio individual, fotos feitas somente com o sorteado
-
-SORTEIO
-- Data: 18/07/2026 (ao vivo nos Stories do @soliepilates)
-- Cada contrato = 1 número no sorteio
-- O sorteado será comunicado por WhatsApp e divulgado nos Stories
-
-CONDIÇÕES
-- O contrato precisa estar assinado e com o primeiro pagamento realizado
-- O sorteado deve estar com o plano ativo e em dia no momento do sorteio
-- O ensaio deve ser realizado em até 30 dias após o sorteio
-- O prêmio é transferível para maiores de 18 anos`,
+COMO GARANTIR SUA VAGA
+- Clique em "Quero minha vaga" e fale com a gente no WhatsApp
+- Confirmamos sua vaga e passamos os detalhes da próxima turma`,
+    detalhesTitulo: "Como funciona",
   },
 };
 
@@ -109,7 +130,7 @@ export function getPromo(slug: string): Promo | null {
   return promos[slug] ?? null;
 }
 
-/** Promo ativa atual (para o banner do site). */
+/** Promo ativa atual (para o banner e o bloco de destaque da home). */
 export function getPromoAtiva(): Promo | null {
   if (!PROMO_ATIVA) return null;
   return promos[PROMO_SLUG_ATIVA] ?? null;

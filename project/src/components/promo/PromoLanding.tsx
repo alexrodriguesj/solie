@@ -2,11 +2,14 @@
 
 import Image from "next/image";
 import {
-  Clock,
-  Images,
-  Palette,
-  Instagram,
+  Dumbbell,
+  Users,
+  Coffee,
+  Gift,
   CalendarClock,
+  Repeat,
+  Ticket,
+  MapPin,
   Sparkles,
   MessageCircle,
 } from "lucide-react";
@@ -24,10 +27,10 @@ interface PromoLandingProps {
   promo: Promo;
 }
 
-// Ícones para cada bullet do prêmio (na ordem do array `premio`).
-const premioIcons = [Clock, Images, Palette, Instagram];
+// Ícones para cada bullet de benefício (na ordem do array `beneficios`).
+const beneficioIcons = [Dumbbell, Users, Coffee, Gift];
 
-function formatarDataFim(iso: string): string {
+function formatarData(iso: string): string {
   const [ano, mes, dia] = iso.split("-");
   if (!ano || !mes || !dia) return iso;
   return `${dia}/${mes}/${ano}`;
@@ -43,6 +46,14 @@ export function PromoLanding({ promo }: PromoLandingProps) {
     window.open(whatsappLink, "_blank");
   };
 
+  // Chips de informação exibidos no hero (só os que têm conteúdo).
+  const infoChips = [
+    { icon: CalendarClock, texto: `${promo.dataLabel}: ${formatarData(promo.data)}` },
+    promo.recorrencia ? { icon: Repeat, texto: promo.recorrencia } : null,
+    promo.vagas ? { icon: Ticket, texto: promo.vagas } : null,
+    promo.local ? { icon: MapPin, texto: promo.local } : null,
+  ].filter((c): c is { icon: typeof CalendarClock; texto: string } => c !== null);
+
   return (
     <BannerProvider disabled>
       <Header />
@@ -54,14 +65,14 @@ export function PromoLanding({ promo }: PromoLandingProps) {
             <div className="text-center">
               <span className="inline-flex items-center gap-2 text-xs md:text-sm uppercase tracking-[0.3em] text-solie-beige/80 font-medium">
                 <Sparkles className="w-4 h-4" />
-                Campanha Soliê
+                {promo.selo}
               </span>
               <div className="w-16 h-px bg-solie-beige/30 mx-auto my-5" />
 
               <h1 className="font-serif font-light text-white leading-tight text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
                 {promo.titulo}
               </h1>
-              <p className="mt-5 text-base sm:text-lg text-solie-beige/90 max-w-xl mx-auto leading-relaxed">
+              <p className="mt-5 text-base sm:text-lg text-solie-beige/90 max-w-xl mx-auto leading-relaxed whitespace-normal md:whitespace-pre-line">
                 {promo.subtitulo}
               </p>
 
@@ -88,34 +99,43 @@ export function PromoLanding({ promo }: PromoLandingProps) {
                 )}
               </div>
 
-              {/* CTA + prazo (empilhados) */}
-              <div className="mt-9 flex flex-col items-center gap-4">
+              {/* CTA */}
+              <div className="mt-9 flex flex-col items-center gap-5">
                 <button
                   onClick={() => participar("hero")}
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] hover:bg-[#128C7E] text-white font-semibold px-9 py-3.5 text-base min-h-[48px] shadow-lg transition-all hover:scale-[1.02]"
                 >
                   <MessageCircle className="w-5 h-5" />
-                  Quero participar
+                  {promo.ctaTexto}
                 </button>
-                <span className="inline-flex items-center gap-1.5 text-sm text-solie-beige/70">
-                  <CalendarClock className="w-4 h-4" />
-                  Campanha até {formatarDataFim(promo.dataFim)}
-                </span>
+
+                {/* Chips de data / recorrência / vagas / local */}
+                <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+                  {infoChips.map(({ icon: Icon, texto }) => (
+                    <span
+                      key={texto}
+                      className="inline-flex items-center gap-1.5 text-sm text-solie-beige/80"
+                    >
+                      <Icon className="w-4 h-4 flex-shrink-0" />
+                      {texto}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </Container>
         </section>
 
-        {/* ---------------- O prêmio ---------------- */}
+        {/* ---------------- Benefícios ---------------- */}
         <section className="py-14 md:py-20">
           <Container size="lg">
             <div className="text-center mb-10 md:mb-12">
               <span className="text-xs md:text-sm uppercase tracking-[0.3em] text-solie-green font-medium">
-                O que você ganha
+                Sua manhã na Soliê
               </span>
               <div className="w-16 h-px bg-solie-green/30 mx-auto my-4" />
               <h2 className="font-serif font-light text-solie-green text-3xl md:text-4xl leading-tight">
-                O prêmio
+                {promo.beneficiosTitulo}
               </h2>
             </div>
 
@@ -124,18 +144,18 @@ export function PromoLanding({ promo }: PromoLandingProps) {
               <div className="relative aspect-[4/5] max-w-[420px] w-full mx-auto rounded-2xl overflow-hidden shadow-md">
                 <Image
                   src={promo.imagemUrl}
-                  alt="Arte da campanha de sorteio do ensaio fotográfico, parceria Soliê Pilates e Erica Melo Fotografia"
+                  alt={`Café com Pilates, evento experimental da Soliê Pilates em Curitiba`}
                   fill
                   className="object-cover"
                   sizes="(min-width: 768px) 420px, 100vw"
                 />
               </div>
 
-              {/* Bullets do prêmio */}
+              {/* Bullets dos benefícios */}
               <div>
                 <ul className="space-y-4">
-                  {promo.premio.map((item, i) => {
-                    const Icon = premioIcons[i] ?? Sparkles;
+                  {promo.beneficios.map((item, i) => {
+                    const Icon = beneficioIcons[i] ?? Sparkles;
                     return (
                       <li
                         key={item}
@@ -153,21 +173,21 @@ export function PromoLanding({ promo }: PromoLandingProps) {
                 </ul>
 
                 <button
-                  onClick={() => participar("premio")}
+                  onClick={() => participar("beneficios")}
                   className="mt-7 w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] hover:bg-[#128C7E] text-white font-semibold px-9 py-3.5 text-base min-h-[48px] shadow transition-all hover:scale-[1.02]"
                 >
                   <MessageCircle className="w-5 h-5" />
-                  Quero participar
+                  {promo.ctaTexto}
                 </button>
               </div>
             </div>
           </Container>
         </section>
 
-        {/* ---------------- Regulamento ---------------- */}
+        {/* ---------------- Detalhes (como funciona) ---------------- */}
         <section className="pb-16 md:pb-24">
           <Container size="sm">
-            <RegulamentoAccordion texto={promo.regulamento} />
+            <RegulamentoAccordion texto={promo.detalhes} titulo={promo.detalhesTitulo} />
           </Container>
         </section>
       </main>
@@ -181,7 +201,7 @@ export function PromoLanding({ promo }: PromoLandingProps) {
           className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] hover:bg-[#128C7E] text-white font-semibold py-3.5 text-base min-h-[48px] transition-colors"
         >
           <MessageCircle className="w-5 h-5" />
-          Quero participar
+          {promo.ctaTexto}
         </button>
       </div>
     </BannerProvider>
