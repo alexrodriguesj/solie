@@ -23,6 +23,7 @@ export const BLOG_TAGS = [
   "quadril",
   "glúteo",
   "punho e mão",
+  "pé e tornozelo",
   // Condição
   "hérnia de disco",
   "nervo ciático",
