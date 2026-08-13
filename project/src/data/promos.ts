@@ -25,7 +25,7 @@
 // =============================================================================
 
 /** Liga/desliga TODAS as promos de uma vez. */
-export const PROMO_ATIVA = true;
+export const PROMO_ATIVA = false;
 
 /** Slug da promo exibida hoje (precisa existir em `promos`). */
 export const PROMO_SLUG_ATIVA = "cafe-com-pilates";
@@ -75,6 +75,11 @@ export interface Promo {
 }
 
 export const promos: Record<string, Promo> = {
+  // PAUSADA: a turma de 12/08/2026 aconteceu e a campanha saiu do ar nessa
+  // data. O evento é recorrente (segunda semana de cada mês), então o objeto e
+  // as artes (vídeo + imagem) ficam no repo prontos pra religar.
+  // Pra voltar ao ar: atualize `data` e a linha "Próxima turma" em `detalhes`,
+  // depois mude PROMO_ATIVA para true.
   "cafe-com-pilates": {
     slug: "cafe-com-pilates",
     titulo: "Café com Pilates",
