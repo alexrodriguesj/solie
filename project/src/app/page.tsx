@@ -1,6 +1,6 @@
 import {
   Hero,
-  // PromoDestaque, // pausado com o Café com Pilates (ver PROMO_ATIVA em src/data/promos.ts)
+  PromoDestaque,
   Diferenciais,
   OQueEPilates,
   ConhecaStudio,
@@ -19,7 +19,7 @@ export default function Home() {
       <PromoBanner />
       <Header />
       <Hero />
-      {/* <PromoDestaque /> pausado com o Café com Pilates; religue junto com PROMO_ATIVA */}
+      <PromoDestaque />
       <Diferenciais />
       <OQueEPilates />
       <ConhecaStudio />

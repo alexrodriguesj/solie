@@ -25,7 +25,7 @@
 // =============================================================================
 
 /** Liga/desliga TODAS as promos de uma vez. */
-export const PROMO_ATIVA = false;
+export const PROMO_ATIVA = true;
 
 /** Slug da promo exibida hoje (precisa existir em `promos`). */
 export const PROMO_SLUG_ATIVA = "cafe-com-pilates";
@@ -75,11 +75,10 @@ export interface Promo {
 }
 
 export const promos: Record<string, Promo> = {
-  // PAUSADA: a turma de 12/08/2026 aconteceu e a campanha saiu do ar nessa
-  // data. O evento é recorrente (segunda semana de cada mês), então o objeto e
-  // as artes (vídeo + imagem) ficam no repo prontos pra religar.
-  // Pra voltar ao ar: atualize `data` e a linha "Próxima turma" em `detalhes`,
-  // depois mude PROMO_ATIVA para true.
+  // NO AR: 2ª edição, turma de 16/09/2026 (a 1ª foi em 12/08/2026).
+  // O evento é mensal, então quando esta turma acontecer: atualize `data` e a
+  // linha "Próxima turma" em `detalhes` para a edição seguinte, ou mude
+  // PROMO_ATIVA para false se for ficar sem data definida.
   "cafe-com-pilates": {
     slug: "cafe-com-pilates",
     titulo: "Café com Pilates",
@@ -95,9 +94,9 @@ export const promos: Record<string, Promo> = {
       "Café da manhã especial num ambiente leve e acolhedor",
       "Brindes exclusivos pra quem participa (é surpresa!)",
     ],
-    data: "2026-08-12",
+    data: "2026-09-16",
     dataLabel: "Próxima turma",
-    recorrencia: "Acontece na segunda semana de cada mês",
+    recorrencia: "Acontece uma vez por mês",
     vagas: "Apenas 4 vagas por aula, e é gratuito",
     local: "Água Verde, Curitiba",
     ctaTexto: "Quero minha vaga",
@@ -114,8 +113,8 @@ export const promos: Record<string, Promo> = {
 
 COMO FUNCIONA
 - Turma reduzida: apenas 4 alunos por aula
-- Acontece na segunda semana de cada mês
-- Próxima turma: 12/08/2026 (próximas datas a confirmar)
+- Acontece uma vez por mês
+- Próxima turma: 16/09/2026 (próximas datas a confirmar)
 - Gratuito, mediante inscrição; as vagas são limitadas
 
 ONDE
