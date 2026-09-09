@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Vídeos originais (não comprimidos)
 public/videos/originals/
+
+# Fotos originais (alta resolução, antes da compressão)
+public/images/originais/
