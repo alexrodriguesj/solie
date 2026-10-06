@@ -1,0 +1,160 @@
+# Narrativa do relatorio de 2026-06-30 a 2026-10-05 (versao 2).
+# Regras: nenhum algarismo fora de marcador. {chave} = valor calculado (ver contexto.json);
+# {lit:...} = numero literal (horario, data, nome com numero, referencia ao framework).
+# Base: reports/meta/2026-09/analise.md (meta-ads-analyst), dados da coleta e respostas do estudio:
+#   - fim de semana sem anuncio: decisao do estudio;
+#   - fuso de Los Angeles na programacao de horario: erro de configuracao;
+#   - anotacao no texto do Novo Horario - Almoco: erro de publicacao.
+# Frases de causa que nao foram comprovadas comecam com "Hipótese:".
+#
+# IDs usados (para leitura):
+#   Cafe com Pilates 52548434011148 | Cafe com Pilates - Setembro 52561700135948
+#   Roberto e Duda 52558011875148 | Depoimento Luciane 52554793339548
+#   Por que 2 alunos 52545181028548 | Novo Horario - Almoco 52566323943948
+#   4-motivos-solie 52564360311148 | bem-vindos-Solie 52564366362948
+#   Persona - Programador 52546910930548
+#   Conjuntos: Inverno-Julho-Frio 52540179245948 | Casal 52558011657548
+#              Setembro - Novo 52564360311348 | Persona Programador 52546910929948
+
+evolucao:
+  subtitulo: "Quanto pagamos, quanto virou anúncio e quantas conversas vieram."
+  leitura:
+    - "Pagamos {periodo.pago} em recargas. Desse valor, {periodo.gasto} virou anúncio. A diferença, {periodo.pago_menos_gasto}, é quase toda imposto cobrado em cada recarga, mais o saldo que ainda não foi usado."
+    - "Cada conversa custou {periodo.cpr_pago} se olharmos o que pagamos, ou {periodo.cpr} se olharmos só o que virou anúncio."
+    - "Agosto ({mes.2026-08.cpr} por conversa) e setembro ({mes.2026-09.cpr}) ficaram praticamente iguais: a diferença é pequena demais para dizer que algo mudou. Outubro ainda tem poucos dias para comparar."
+
+meses:
+  "2026-07":
+    certo:
+      - "**Café com Pilates** estreou no fim do mês e trouxe {mes.2026-07.anuncio.52548434011148.conversas} conversas a {mes.2026-07.anuncio.52548434011148.cpr} cada, o menor custo do mês. É um convite para um evento: ainda não sabemos se essas conversas viraram matrícula."
+      - "**Por que {lit:2} alunos por aula?** trouxe {mes.2026-07.anuncio.52545181028548.conversas} conversas a {mes.2026-07.anuncio.52545181028548.cpr}, perto da média da conta."
+    errado:
+      - "**Persona - Programador**, feito para quem trabalha sentado no computador, gerou só {mes.2026-07.anuncio.52546910930548.conversas} conversas a {mes.2026-07.anuncio.52546910930548.cpr} e foi pausado em menos de uma semana."
+      - "{mes.2026-07.dias_uteis_fora} dias úteis ficaram sem anúncio porque o saldo acabou."
+    porque: "Hipótese: o Café com Pilates dá um motivo concreto para mandar mensagem agora (um encontro com data marcada), enquanto os outros anúncios falam do estúdio em geral. O Persona - Programador rodou poucos dias: com tão poucas conversas, não dá para saber se o problema foi o público."
+  "2026-08":
+    certo:
+      - "**Café com Pilates** continuou barato: {mes.2026-08.anuncio.52548434011148.conversas} conversas a {mes.2026-08.anuncio.52548434011148.cpr}. Lembrando: é convite para evento, e ainda não sabemos se essas conversas viraram matrícula."
+      - "**Roberto e Duda** estreou no fim do mês com {mes.2026-08.anuncio.52558011875148.conversas} conversas a {mes.2026-08.anuncio.52558011875148.cpr}."
+    errado:
+      - "**Depoimento Luciane** recebeu o maior investimento do mês ({mes.2026-08.anuncio.52554793339548.gasto}) e foi o mais caro: {mes.2026-08.anuncio.52554793339548.cpr} por conversa."
+      - "{mes.2026-08.dias_uteis_fora} dias úteis ficaram sem anúncio porque o saldo acabou, o maior número do período."
+    porque: "O Depoimento Luciane foi o vídeo que mais fez as pessoas pararem para assistir ({anuncio.52554793339548.hook} pararam, o maior número da conta), mas poucas mandaram mensagem, e o custo por conversa dele subiu a cada semana no ar. Hipótese: o vídeo prende a atenção, mas não termina com um motivo claro para chamar no WhatsApp."
+  "2026-09":
+    certo:
+      - "**Café com Pilates - Setembro**, convite para o novo encontro, trouxe {mes.2026-09.anuncio.52561700135948.conversas} conversas a {mes.2026-09.anuncio.52561700135948.cpr}, o menor custo do mês. Ainda não sabemos se essas conversas viraram matrícula."
+      - "**Roberto e Duda** sustentou o mês: {mes.2026-09.anuncio.52558011875148.conversas} conversas a {mes.2026-09.anuncio.52558011875148.cpr}."
+      - "Só {mes.2026-09.dias_uteis_fora} dia útil ficou sem anúncio. O feriado de {lit:7 de setembro} conta como dia de descanso."
+    errado:
+      - "Os dois anúncios do conjunto novo, criado em {lit:22/09}, foram caros: **{anuncio.52564360311148.nome}** fez {mes.2026-09.anuncio.52564360311148.conversas} conversas a {mes.2026-09.anuncio.52564360311148.cpr} e **bem-vindos-Solie** fez {mes.2026-09.anuncio.52564366362948.conversas} a {mes.2026-09.anuncio.52564366362948.cpr}. São poucas conversas para concluir."
+      - "Roberto e Duda recebeu o maior investimento do mês ({mes.2026-09.anuncio.52558011875148.gasto}) e foi caro para aparecer na tela: cada mil aparições custaram {mes.2026-09.anuncio.52558011875148.cpm}, contra {mes.2026-09.cpm} na média do mês."
+    porque: "Hipótese: cada conjunto novo começa com uma fase de aprendizado, em que a Meta ainda está descobrindo para quem mostrar o anúncio. As semanas mais caras da conta coincidem com a estreia de conjuntos novos, mas os anúncios desse conjunto também tiveram poucos dias para mostrar resultado."
+  "2026-10":
+    certo:
+      - "O anúncio do horário de almoço combina com uma novidade real do estúdio: desde outubro há aulas às {lit:12h} e às {lit:13h}."
+      - "Nenhum dia útil sem anúncio até agora."
+    errado:
+      - "O único anúncio no ar, **Novo Horário - Almoço**, foi publicado por engano com uma anotação interna no começo do texto (\"Resolve a objeção de tempo, que é a mais comum em quem trabalha sentado\")."
+      - "Menos gente parou para assistir o começo do vídeo: {anuncio.52566323943948.hook}, contra {periodo.hook} na média da conta."
+    porque: "Mês ainda no começo: são só {mes.2026-10.conversas} conversas, pouco demais para dizer se o custo de {mes.2026-10.cpr} por conversa é bom ou ruim. O texto, por outro lado, já pode ser corrigido."
+
+criativos:
+  subtitulo: "Custo por conversa de cada anúncio no período inteiro, do mais barato para o mais caro. A primeira linha junta os dois anúncios do Café com Pilates."
+  conclusao: "**Café com Pilates** é o único anúncio com conversa mais barata confirmada: {grupo.cafe.cpr} por conversa nos dois anúncios juntos, contra {grupo.cafe.resto.cpr} no resto da conta. Mas ele é um **convite para um evento**, não uma oferta de aula, e ainda **não sabemos quantas dessas conversas viraram matrícula**. Conversa barata não quer dizer aluna barata. Nos outros anúncios, as conversas ainda são poucas, ou a diferença é pequena demais, para apontar um vencedor."
+  grupos:
+    cafe:
+      nome: "Café com Pilates (os {lit:2} anúncios juntos)"
+      ids: ["52548434011148", "52561700135948"]
+
+conjuntos:
+  vereditos:
+    "52564360311348": "mais caro, confirmado; causa ainda em aberto"
+  leitura: "**Setembro - Novo** saiu mais caro que o resto, e isso está confirmado. A causa, não: ele ficou só {conjunto.52564360311348.dias_no_ar} dias com anúncio no ar, estreou no fim de setembro sem rodar ao mesmo tempo que os outros, e contém o anúncio do almoço, publicado com a anotação interna por engano. **Casal** teve a menor taxa de resposta ({conjunto.52558011657548.taxa_resposta}, contra {conjunto.52540179245948.taxa_resposta} do Inverno-Julho-Frio). Hipótese: isso pode acontecer porque ele é o único que não esconde o anúncio de quem já interage com o Instagram do Soliê. Também pode ser o anúncio, que era outro. Com os dados de hoje, não dá para separar as duas causas."
+
+fora_do_ar:
+  subtitulo: "Cada quadrado é um dia, de {periodo.inicio} a {periodo.fim}."
+  texto:
+    - "Fim de semana e feriado sem anúncio são **decisão do estúdio**: {periodo.descanso_fora} dias no período."
+    - "Os dias úteis sem anúncio **não foram intencionais**: {periodo.dias_uteis_fora} de {periodo.dias_uteis}. Aconteceram porque o saldo pré-pago acabou."
+    - "Os {periodo.dias_uteis_fora} dias úteis sem anúncio aconteceram em {periodo.paradas_uteis} paradas. Em todas, o anúncio só voltou no dia de uma nova recarga."
+    - "Nesses dias o anúncio simplesmente não apareceu para ninguém. O dinheiro não foi gasto."
+    - "{periodo.fds_no_ar} sábados tiveram anúncio ({periodo.fds_no_ar_datas}). A programação dos conjuntos antigos permitia sábado das {conjunto.52558011657548.prog_sabado_inicio_br} às {conjunto.52558011657548.prog_sabado_fim_br}."
+
+horario:
+  subtitulo: "Programação de cada conjunto, convertida para o horário de Brasília."
+  estudio: "Segunda a quinta: {lit:7h às 12h} e {lit:14h às 21h}.\nSexta: {lit:7h às 12h} e {lit:14h às 19h}.\nSábado: fechado.\nDesde outubro, também há aulas às {lit:12h} e às {lit:13h}."
+  texto:
+    - "Por um **erro de configuração**, a programação de Casal, Inverno-Julho-Frio e Persona Programador foi feita no horário de Los Angeles: das {conjunto.52558011657548.prog_util_inicio_conta} às {conjunto.52558011657548.prog_util_fim_conta} de lá."
+    - "Por isso, nos dias úteis, os anúncios desses conjuntos só apareceram das {conjunto.52558011657548.prog_util_inicio_br} à {conjunto.52558011657548.prog_util_fim_br} de Brasília, **nunca de manhã**, quando o estúdio já está aberto."
+    - "A partir de {lit:01/11}, com o fim do horário de verão americano, a diferença entre os dois horários passa a {lit:5} horas."
+    - "Esses três conjuntos estão **pausados hoje**. O único anúncio ativo, Novo Horário - Almoço, está no Setembro - Novo, que **não tem programação de horário**."
+
+ajustes:
+  subtitulo: "Mudanças de configuração, sem mexer nos vídeos. Cada uma aponta para a evidência que a sustenta."
+  itens:
+    - acao: "Pausar o fim de semana pela programação de horário, no fuso de quem vê o anúncio (horário de Brasília), em vez de deixar o saldo zerar. E manter saldo para todos os dias úteis."
+      evidencia: "{periodo.dias_uteis_fora} dias úteis ficaram sem anúncio sem querer, e nas {periodo.paradas_uteis} vezes o anúncio só voltou com uma nova recarga (slide {slide.fora_do_ar}). Atenção: para permitir programação de horário, a Meta pode exigir orçamento total do período, em vez de orçamento por dia."
+      confianca: "alta"
+    - acao: "Corrigir o texto do anúncio ativo, tirando a anotação interna publicada por engano."
+      evidencia: "O texto do Novo Horário - Almoço começa com uma anotação de planejamento, que não fala com a aluna (slide {slide.mes_2026-10}). É o único anúncio no ar hoje."
+      confianca: "alta"
+    - acao: "Antes de reativar Casal, Inverno-Julho-Frio ou Persona Programador, refazer a programação de horário no fuso de quem vê."
+      evidencia: "Por erro de configuração, esses conjuntos nunca apareceram de manhã em Brasília (slide {slide.horario}). Ainda não sabemos se a manhã traz conversas baratas: isso só aparece depois de testar."
+      confianca: "alta"
+    - acao: "Usar o mesmo público em todos os conjuntos, escondendo o anúncio de quem já interage com o Instagram também no Casal."
+      evidencia: "O Casal, único sem essa regra, teve a menor taxa de resposta ({conjunto.52558011657548.taxa_resposta}, slide {slide.conjuntos}). Hipótese: a causa pode ser o público ou o anúncio."
+      confianca: "média"
+    - acao: "Colocar anúncios novos dentro de um conjunto que já está rodando, em vez de criar um conjunto novo a cada tema."
+      evidencia: "O conjunto criado em {lit:22/09} começou caro, com {conjunto.52564360311348.cpr} por conversa (slide {slide.conjuntos}). Hipótese: cada conjunto novo passa por uma fase de aprendizado. São poucas conversas para ter certeza."
+      confianca: "baixa"
+
+ideias:
+  subtitulo: "Ideias para os próximos vídeos, apoiadas no que a conta mostrou e no framework de marcas pessoais."
+  itens:
+    - titulo: "Um novo Café com Pilates, com começo mais forte"
+      ideia: "Para o próximo encontro, gravar um vídeo que abra com uma cena ou frase que gere curiosidade, com texto grande na tela, antes de explicar o evento. Manter um único pedido no final: chamar no WhatsApp."
+      evidencia: "Os dois Café com Pilates juntos custaram {grupo.cafe.cpr} por conversa, contra {grupo.cafe.resto.cpr} no resto da conta. Mas só {grupo.cafe.hook} das pessoas pararam para assistir, contra {periodo.hook} na média: quem parou ficou, e parou pouca gente. Ressalva: é convite para evento, e não sabemos se essas conversas viram matrícula."
+      framework: "{lit:Passo 02}, seção {lit:1.3}: o segundo {lit:3} é onde a pessoa decide se para, e o ajuste é o gancho. Exercício {lit:E13}: as quatro camadas do gancho (falado, escrito, visual e sonoro) dizendo a mesma coisa."
+      confianca: "média"
+    - titulo: "Refazer o anúncio do almoço começando pelo sintoma"
+      ideia: "Abrir com o que a pessoa sente às {lit:16h} no escritório (a lombar travada, as pernas pesadas) e só depois apresentar a aula no horário de almoço. O resultado que ela quer (voltar para a tarde sem dor) entra no começo, não no meio do texto."
+      evidencia: "A conta já testou abertura com sintoma e não foi bem: **{anuncio.52564360311148.nome}** (\"Sua dor nas costas piora no fim do dia de trabalho?\") custou {anuncio.52564360311148.cpr} por conversa e **bem-vindos-Solie** (\"Você termina o dia de trabalho com dor nas costas?\"), {anuncio.52564366362948.cpr}, contra {periodo.cpr} na média. Os dois têm poucas conversas. O anúncio do almoço foi criado a partir de uma cópia do bem-vindos-Solie e está com {anuncio.52566323943948.conversas} conversas a {anuncio.52566323943948.cpr}."
+      framework: "{lit:Passo 02}, seção {lit:1.5}: sintoma, não nome técnico. Exercício {lit:E13}, estrutura {lit:4}: \"esse é o maior motivo de [situação dolorosa]\", sem entregar a resposta na primeira frase. Exercício {lit:E17}: vender o furo (a tarde sem dor), não a furadeira (a aula)."
+      confianca: "baixa"
+    - titulo: "Depoimento que termina com um convite claro"
+      ideia: "Manter o formato de depoimento, que prende a atenção, e fechar com um único pedido concreto. Por exemplo: \"se você também sente isso, manda a palavra COSTAS no WhatsApp\"."
+      evidencia: "No Depoimento Luciane, {anuncio.52554793339548.hook} das pessoas pararam para assistir, o maior número da conta. Mesmo assim, cada conversa custou {anuncio.52554793339548.cpr}, contra {periodo.cpr} na média. Hipótese: prendeu a atenção, mas não levou à mensagem."
+      framework: "{lit:Passo 02}, seção {lit:1.3}: no final do vídeo, sem uma chamada clara, a pessoa vai embora. Exercício {lit:E14}: uma única chamada para ação. Exercício {lit:E18}: a palavra-chave no fim do vídeo faz a pessoa levantar a mão."
+      confianca: "baixa"
+    - titulo: "Ficar mais tempo no tema que funciona, variando o ângulo"
+      ideia: "Em vez de trocar de assunto a cada quinzena, fazer vários vídeos sobre o mesmo convite (o encontro do Café com Pilates) com ângulos diferentes: um dado, um caso real, um mito, uma pergunta, uma opinião forte."
+      evidencia: "Metade dos anúncios ficou {periodo.mediana_dias_anuncio} dias ou menos no ar, e a análise de setembro não encontrou sinal de cansaço do público em nenhum deles. O tema Café com Pilates teve a conversa mais barata ({grupo.cafe.cpr}), com a mesma ressalva de ser convite para evento."
+      framework: "{lit:Passo 02}, seção {lit:1.6}: repetir o território não é repetir o conteúdo, e a familiaridade gera confiança. Exercício {lit:E12}: cinco ângulos para um mesmo tema."
+      confianca: "baixa"
+
+medir:
+  subtitulo: "Para cada mudança, o número que vamos acompanhar e quando dá para tirar conclusão."
+  itens:
+    - acao: "Fim de semana pausado pela programação e saldo para os dias úteis"
+      olhar: "Dias úteis sem anúncio (o objetivo é zero) e conversas por semana."
+      quando: "Depois de {lit:4} semanas, comparando com as {lit:4} anteriores."
+    - acao: "Texto corrigido e nova abertura do anúncio do almoço"
+      olhar: "Quantas pessoas param para assistir o começo do vídeo."
+      quando: "Em poucos dias: cerca de {lit:800} aparições de cada versão já mostram a diferença."
+    - acao: "Novo Café com Pilates"
+      olhar: "Custo por conversa (principal) e quantas pessoas param para assistir."
+      quando: "Quando cada versão somar perto de {lit:40} conversas. No ritmo atual, algumas semanas."
+    - acao: "Programação refeita no horário de Brasília"
+      olhar: "Conversas e custo por conversa antes das {lit:11h}."
+      quando: "Quando a manhã somar pelo menos {lit:5} conversas."
+    - acao: "Mesmo público em todos os conjuntos"
+      olhar: "Taxa de resposta e quanto custa aparecer na tela."
+      quando: "Só com bem mais conversas: perto de {lit:60} por versão. Com o investimento atual, leva meses."
+    - acao: "Qualquer mudança"
+      olhar: "Matrículas que vieram de cada anúncio, quando a planilha de contatos existir."
+      quando: "É a medida que falta para saber se conversa barata vira aluna."
+
+fontes_extra:
+  - "O valor pago vem do histórico da conta: {periodo.recargas} recargas no período, somando {periodo.pago}. A diferença para o que virou anúncio ({periodo.pago_menos_gasto}) é quase toda imposto cobrado em cada recarga, mais o saldo ainda não usado."
+  - "**Estimativa** (comparando o gasto e as recargas de {estimativa.semanas} semanas completas): cada {lit:R$ 100} de recarga virou cerca de {estimativa.vira_anuncio_por_100} de anúncio. Ou seja, cerca de {estimativa.imposto_pct} foi imposto, perto de {estimativa.imposto} no período, e o restante, perto de {estimativa.saldo_nao_usado}, é saldo ainda não usado."
+  - "Confirmado pelo estúdio: fim de semana sem anúncio é decisão; o horário de Los Angeles na programação e a anotação no texto do anúncio do almoço foram erros."

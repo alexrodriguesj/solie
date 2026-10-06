@@ -1,0 +1,14 @@
+[OK] gasto total (slide final) x serie diaria: PDF=2056.42 | dados=2056.42
+[OK] gasto total (slide final) x serie mensal: PDF=2056.42 | dados=2056.42
+[OK] conversas totais (slide final) x serie diaria: PDF=168 | dados=168
+[OK] conversas totais (slide final) x serie mensal: PDF=168 | dados=168
+[OK] pago em recargas (slide final) x logs de atividade: PDF=2400.0 | dados=2400.0
+[OK] soma dos 4 slides de mes (gasto) x serie diaria: PDF=2056.42 | dados=2056.42
+[OK] soma dos 4 slides de mes (conversas) x serie diaria: PDF=168 | dados=168
+[OK] 2026-08 no PDF x analise do meta-ads-analyst (gasto): PDF=596.39 | dados=596.39
+[OK] 2026-08 no PDF x analise do meta-ads-analyst (conversas): PDF=45 | dados=45
+[OK] 2026-09 no PDF x analise do meta-ads-analyst (gasto): PDF=545.72 | dados=545.72
+[OK] 2026-09 no PDF x analise do meta-ads-analyst (conversas): PDF=42 | dados=42
+Paginas no PDF: 25
+Meses lidos no PDF: Julho (desde 30/06) = 790.64 / 75 conversas; Agosto = 596.39 / 45 conversas; Setembro = 545.72 / 42 conversas; Outubro (até 05/10, parcial) = 123.67 / 6 conversas
+RESULTADO: todos os totais batem

@@ -1,0 +1,119 @@
+# Textos fixos do relatorio (fase 1, capa e slide final).
+# Regras: nenhum algarismo fora de marcador. {chave} = valor calculado; {lit:...} = texto literal com numero.
+# Sem travessao longo e sem emoji. **negrito** e permitido.
+
+capa:
+  titulo: "Meta Ads do Soliê"
+  subtitulo: "Como foram os nossos anúncios de {periodo.inicio} a {periodo.fim}"
+  linha: "Relatório para as sócias. Linguagem simples, números calculados direto da conta de anúncios."
+
+como_ler:
+  titulo: "Como ler este relatório"
+  itens:
+    - "O resultado que medimos é a **conversa iniciada no WhatsApp**: a pessoa viu o anúncio, tocou no botão e mandou mensagem para o estúdio."
+    - "**Faixa** é o intervalo onde o valor verdadeiro provavelmente está. Se as faixas de dois anúncios se cruzam, ainda não dá para dizer qual é melhor."
+    - "**Amostra pequena** quer dizer que aconteceram poucas conversas. Com poucas conversas a sorte pesa muito, e qualquer conclusão seria um palpite."
+    - "Os números foram calculados por um programa a partir dos dados da Meta. Nenhum valor foi digitado à mão."
+  sem_leads: "Ainda não medimos quantas dessas conversas viraram aula experimental ou matrícula. Uma conversa barata não é, necessariamente, uma aluna barata."
+  com_leads: "Também cruzamos as conversas com a planilha de contatos do estúdio para contar agendamentos e matrículas."
+
+fase1:
+  fase: "Fase {lit:1}"
+  titulo: "Como o Meta Ads funciona"
+  resumo: "As peças da conta, o caminho que a pessoa faz até mandar mensagem e as medidas que usamos para saber se um anúncio foi bem."
+
+pecas:
+  titulo: "Campanha, conjunto e anúncio"
+  subtitulo: "Toda conta de anúncios é organizada em três níveis, um dentro do outro."
+  niveis:
+    - nome: "Campanha"
+      texto: "A gaveta. Define o objetivo de tudo o que está dentro dela. No Soliê, o objetivo é gerar conversas no WhatsApp."
+    - nome: "Conjunto de anúncios"
+      texto: "As pastas dentro da gaveta. Cada conjunto decide **para quem** o anúncio aparece, **onde** e **em que horário**, e **quanto gastar por dia**."
+    - nome: "Anúncio (criativo)"
+      texto: "As folhas dentro de cada pasta. É o que a pessoa vê: o vídeo ou a foto, o texto e o botão de mandar mensagem."
+  rodape: "Quando um anúncio vai bem, a gente mexe nele. Quando o público está errado, a gente mexe no conjunto."
+
+estrutura:
+  titulo: "Como está montada a conta do Soliê"
+  subtitulo: "Uma campanha, {periodo.n_conjuntos} conjuntos e {periodo.n_anuncios} anúncios que tiveram gasto no período. Valor investido em cada um."
+
+funil:
+  titulo: "O caminho até a conversa"
+  subtitulo: "Tudo o que aconteceu de {periodo.inicio} a {periodo.fim}, somando todos os anúncios."
+  etapas:
+    - rotulo: "Vezes que o anúncio apareceu"
+      chave: "periodo.impressoes"
+    - rotulo: "Vezes que a pessoa parou para ver o vídeo"
+      chave: "periodo.plays_3s"
+      nota: "pelo menos {lit:3 segundos}"
+    - rotulo: "Vezes que assistiu boa parte"
+      chave: "periodo.thruplays"
+      nota: "{lit:15 segundos} ou o vídeo inteiro"
+    - rotulo: "Toques no botão"
+      chave: "periodo.cliques_link"
+    - rotulo: "Conversas iniciadas"
+      chave: "periodo.conversas"
+    - rotulo: "Conversas com primeira resposta"
+      chave: "periodo.primeira_resposta"
+      nota: "contagem aproximada da Meta"
+  rodape: "A cada etapa, uma parte das pessoas fica pelo caminho. Cada medida do glossário olha para uma dessas passagens."
+
+glossario:
+  titulo: "Glossário: as medidas que usamos"
+  regra_exemplo: "Exemplos escolhidos só entre anúncios com volume suficiente: {lit:mil} exibições para taxas e {lit:10} conversas para custo e resposta."
+  metricas:
+    - chave: cpm
+      sufixo: cpm
+      nome: "CPM"
+      definicao: "Quanto custa para o anúncio aparecer mil vezes na tela de alguém."
+      serve: "Mostra se está caro ou barato aparecer. Sobe quando muita gente disputa o mesmo público. Aqui, menor é melhor."
+    - chave: cpr
+      sufixo: cpr
+      nome: "Custo por conversa"
+      definicao: "Quanto investimos, em média, para cada conversa que começou no WhatsApp."
+      serve: "É a nossa régua principal. Junta tudo o que acontece antes da mensagem. Menor é melhor."
+    - chave: hook
+      sufixo: hook
+      nome: "Hook (gancho)"
+      definicao: "De cada {lit:100} vezes que o vídeo apareceu, em quantas a pessoa parou para assistir pelo menos {lit:3 segundos}."
+      serve: "Mede se o começo do vídeo prende a atenção. Se o hook é baixo, o problema está na primeira cena ou na primeira frase."
+    - chave: hold
+      sufixo: hold
+      nome: "Hold (retenção)"
+      definicao: "De quem parou para ver, quantos assistiram {lit:15 segundos} ou o vídeo inteiro."
+      serve: "Mede se o vídeo segura quem começou a assistir. Hook bom com hold ruim quer dizer: chamou atenção, mas perdeu a pessoa no meio."
+    - chave: ctr_link
+      sufixo: ctr_link
+      nome: "CTR de link"
+      definicao: "De cada {lit:100} vezes que o anúncio apareceu, em quantas alguém tocou no botão de mensagem."
+      serve: "Mede se o anúncio dá vontade de agir, e não só de assistir."
+    - chave: taxa_conversa
+      sufixo: taxa_conversa_mil
+      nome: "Taxa de conversa"
+      definicao: "A cada mil vezes que o anúncio apareceu, quantas conversas começaram no WhatsApp."
+      serve: "Resume o anúncio inteiro: chamar atenção, convencer e levar até a mensagem."
+    - chave: taxa_resposta
+      sufixo: taxa_resposta
+      nome: "Taxa de resposta"
+      definicao: "Das conversas que começaram, em quantas houve uma primeira resposta, segundo a contagem da Meta."
+      serve: "Ajuda a separar conversa de verdade de toque sem querer. É uma medida aproximada: o número pode não bater com o WhatsApp do estúdio."
+
+fase2:
+  fase: "Fase {lit:2}"
+  titulo: "Panorama do Soliê"
+  resumo: "Mês a mês, o que investimos, quantas conversas vieram, quais anúncios rodaram e o que aprendemos com eles."
+
+fase3:
+  fase: "Fase {lit:3}"
+  titulo: "O que fazer agora"
+  resumo: "Ajustes na configuração da conta e ideias de novos anúncios, cada um ligado a uma evidência e com o grau de confiança."
+
+fontes:
+  titulo: "De onde vêm os números"
+  itens:
+    - "Todos os valores saem da conta de anúncios do Soliê, consultada pela ferramenta oficial da Meta, só em modo de leitura. Nada foi alterado na conta."
+    - "**Fuso horário.** A conta está configurada no horário de Los Angeles, {periodo.diferenca_horas} horas atrás de Brasília. A Meta fecha cada dia nesse horário. Por isso, o que acontece entre meia-noite e {periodo.diferenca_horas} da manhã no Brasil entra na conta do dia anterior, e os meses começam e terminam com essa mesma diferença."
+    - "Algumas contagens, como as vezes que a pessoa parou para ver e as primeiras respostas, a Meta não entrega prontas. Elas foram calculadas a partir do custo de cada ação, então são aproximadas."
+    - "A Meta atribui ao anúncio a conversa iniciada até {lit:7} dias depois de a pessoa tocar nele."
+  sem_leads: "Ainda não temos os dados de matrícula. Quando a planilha de contatos existir, o relatório passa a mostrar agendamentos e matrículas."

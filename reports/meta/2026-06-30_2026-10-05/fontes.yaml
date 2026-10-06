@@ -1,0 +1,14 @@
+# Fontes do relatorio de 2026-06-30 a 2026-10-05. Caminhos relativos a raiz do projeto.
+raiz_projeto: ../../..
+campanha_nome: "Campanha - Setembro"
+# contrato do meta-ads-analyst: estrutura, configuracao dos conjuntos, textos dos anuncios
+analise_dados_json: reports/meta/2026-09/dados.json
+# logs de atividade (recargas de saldo e status da campanha)
+logs_atividade:
+  - reports/meta/2026-09/raw/19_activity_logs.json
+  - reports/meta/2026-06-30_2026-10-05/coleta/eventos_conta_complemento.json
+# feriados no periodo: contam como fim de semana (sem anuncio por decisao), nao como dia util parado
+feriados:
+  - "2026-09-07"
+# opcional: planilha de contatos (data, origem, agendou, compareceu, matriculou)
+leads_csv: data/leads.csv
