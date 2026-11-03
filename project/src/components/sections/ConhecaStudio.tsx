@@ -9,36 +9,22 @@ import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/data/content";
 import { formatWhatsAppLink, analytics } from "@/lib/utils";
 
+// Mosaico: as classes definem o encaixe; dense preenche os vãos em qualquer largura
 const studioImages = [
-  "/images/studio-1.jpg",
-  "/images/studio-2.jpg",
-  "/images/studio-3.jpg",
-  "/images/studio-4.jpg",
-  "/images/studio-5.jpg",
-  "/images/studio-6.jpg",
-  "/images/studio-7.jpg",
-  "/images/studio-8.jpg",
+  { src: "/images/studio-logo.jpg", alt: "Logo da Soliê Pilates na parede verde do estúdio", className: "col-span-2 row-span-2", position: "center 55%" },
+  { src: "/images/studio-bolas.jpg", alt: "Bolas suíças azuis junto à janela do estúdio" },
+  { src: "/images/studio-anel.jpg", alt: "Anel de Pilates entre plantas" },
+  { src: "/images/studio-reformer.jpg", alt: "Aluna no reformer diante dos espelhos em arco", className: "row-span-2" },
+  { src: "/images/studio-acessorios.jpg", alt: "Halteres e disco de equilíbrio no estúdio" },
+  { src: "/images/studio-instrutoras.jpg", alt: "Instrutoras da Soliê Pilates no estúdio", className: "col-span-2", position: "center 30%" },
+  { src: "/images/studio-1.jpg", alt: "Instrutoras sentadas no estúdio com bolas e anéis" },
+  { src: "/images/studio-4.jpg", alt: "Instrutora acompanha aluno no equipamento" },
+  { src: "/images/studio-5.jpg", alt: "Aluna com anel de Pilates e instrutora", className: "col-span-2", position: "center 52%" },
+  { src: "/images/studio-8.jpg", alt: "Aula no estúdio com instrutora ao lado do aluno" },
 ];
 
 export function ConhecaStudio() {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
-  const [carouselIndex, setCarouselIndex] = useState(0);
-  const imagesPerPage = 4;
-  const totalPages = Math.ceil(studioImages.length / imagesPerPage);
-
-  const visibleImages = studioImages.slice(
-    carouselIndex * imagesPerPage,
-    carouselIndex * imagesPerPage + imagesPerPage
-  );
-
-  const nextCarousel = () => {
-    setCarouselIndex((prev) => (prev + 1) % totalPages);
-  };
-
-  const prevCarousel = () => {
-    setCarouselIndex((prev) => (prev - 1 + totalPages) % totalPages);
-  };
-
   const openLightbox = (index: number) => {
     setSelectedImage(index);
     document.body.style.overflow = "hidden";
@@ -81,90 +67,43 @@ export function ConhecaStudio() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center px-2 md:px-0">
-            {/* Gallery Carousel */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="relative"
-            >
-              {/* Carousel Navigation */}
-              {totalPages > 1 && (
-                <>
-                  <button
-                    onClick={prevCarousel}
-                    className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center text-solie-green hover:bg-solie-green hover:text-white transition-colors"
-                    aria-label="Fotos anteriores"
-                  >
-                    <ChevronLeft className="w-6 h-6" />
-                  </button>
-                  <button
-                    onClick={nextCarousel}
-                    className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center text-solie-green hover:bg-solie-green hover:text-white transition-colors"
-                    aria-label="Próximas fotos"
-                  >
-                    <ChevronRight className="w-6 h-6" />
-                  </button>
-                </>
-              )}
-
-              {/* Images Grid */}
-              <div className="grid grid-cols-2 gap-4">
-                <AnimatePresence mode="wait">
-                  {visibleImages.map((src, i) => {
-                    const globalIndex = carouselIndex * imagesPerPage + i;
-                    return (
-                      <motion.div
-                        key={`${carouselIndex}-${i}`}
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        transition={{ duration: 0.3, delay: i * 0.05 }}
-                        className="aspect-square rounded-2xl overflow-hidden relative cursor-pointer group"
-                        onClick={() => openLightbox(globalIndex)}
-                      >
-                        <Image
-                          src={src}
-                          alt={`Studio de pilates Soliê no Água Verde Curitiba - foto ${globalIndex + 1}`}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                          sizes="(max-width: 768px) 50vw, 25vw"
-                        />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                          <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm font-medium">
-                            Clique para ampliar
-                          </span>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </AnimatePresence>
-              </div>
-
-              {/* Pagination Dots */}
-              {totalPages > 1 && (
-                <div className="flex justify-center gap-2 mt-4">
-                  {Array.from({ length: totalPages }).map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCarouselIndex(index)}
-                      className={`w-3 h-3 rounded-full transition-colors ${
-                        carouselIndex === index
-                          ? "bg-solie-green"
-                          : "bg-solie-beige hover:bg-solie-green/50"
-                      }`}
-                      aria-label={`Página ${index + 1}`}
-                    />
-                  ))}
+          {/* Mosaico de fotos: desliza na horizontal até lg, grade fixa no desktop */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="grid grid-flow-col-dense grid-rows-[170px_170px] md:grid-rows-[230px_230px] auto-cols-[44vw] md:auto-cols-[240px] gap-3 mb-8 md:mb-12 -mx-4 sm:-mx-6 px-4 sm:px-6 overflow-x-auto snap-x scroll-px-4 sm:scroll-px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:grid-flow-dense lg:grid-cols-4 lg:grid-rows-none lg:auto-rows-[230px] lg:auto-cols-auto lg:mx-0 lg:px-0 lg:overflow-visible"
+          >
+            {studioImages.map((image, index) => (
+              <button
+                key={image.src}
+                type="button"
+                onClick={() => openLightbox(index)}
+                className={`snap-start rounded-2xl overflow-hidden relative cursor-zoom-in group ${image.className ?? ""}`}
+                aria-label={`Ampliar foto: ${image.alt}`}
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  style={image.position ? { objectPosition: image.position } : undefined}
+                  sizes="(max-width: 1024px) 88vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                  <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm font-medium">
+                    Clique para ampliar
+                  </span>
                 </div>
-              )}
-            </motion.div>
+              </button>
+            ))}
+          </motion.div>
 
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center px-2 md:px-0">
             {/* Info & Map */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
@@ -211,28 +150,6 @@ export function ConhecaStudio() {
                 </div>
               </div>
 
-              {/* Google Maps Embed */}
-              <div className="rounded-2xl overflow-hidden h-64 bg-solie-beige/30">
-                {siteConfig.googleMapsEmbed ? (
-                  <iframe
-                    src={siteConfig.googleMapsEmbed}
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="Localização Soliê Pilates"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <p className="text-solie-green/50 text-center p-4">
-                      Adicionar embed do Google Maps
-                    </p>
-                  </div>
-                )}
-              </div>
-
               <div className="flex flex-col sm:flex-row gap-3">
                 <a
                   href="https://www.google.com/maps/dir//Soli%C3%AA+Pilates,+Av.+Rep.+Argentina,+1237+-+Sala+610+-+%C3%81gua+Verde,+Curitiba+-+PR,+80620-010"
@@ -271,6 +188,36 @@ export function ConhecaStudio() {
                   Agende sua Aula
                 </Button>
               </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              {/* Google Maps Embed */}
+              <div className="rounded-2xl overflow-hidden h-64 bg-solie-beige/30">
+                {siteConfig.googleMapsEmbed ? (
+                  <iframe
+                    src={siteConfig.googleMapsEmbed}
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Localização Soliê Pilates"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <p className="text-solie-green/50 text-center p-4">
+                      Adicionar embed do Google Maps
+                    </p>
+                  </div>
+                )}
+              </div>
+
             </motion.div>
           </div>
         </Container>
@@ -330,8 +277,8 @@ export function ConhecaStudio() {
               onClick={(e) => e.stopPropagation()}
             >
               <Image
-                src={studioImages[selectedImage]}
-                alt={`Studio de pilates Soliê no Água Verde Curitiba - foto ${selectedImage + 1}`}
+                src={studioImages[selectedImage].src}
+                alt={studioImages[selectedImage].alt}
                 fill
                 className="object-contain"
                 sizes="90vw"

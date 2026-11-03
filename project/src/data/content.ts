@@ -94,8 +94,16 @@ export const oQueEPilates = [
   {
     icon: "Dumbbell",
     title: "Condicionamento",
-    description: "Quer mais força e resistência sem impacto? Pilates complementa qualquer treino — de corrida a CrossFit.",
+    description: "Quer mais força e resistência sem impacto? Pilates complementa qualquer treino, de corrida a CrossFit.",
   },
+];
+
+// inicio e fim (segundos) de cada motivo, medidos pelas legendas do vídeo
+export const quatroMotivos = [
+  { title: "No coração do Água Verde", description: "Na República Argentina", inicio: 3, fim: 7 },
+  { title: "Máximo 2 alunos", description: "Por instrutora", inicio: 7, fim: 12 },
+  { title: "Atendimento de verdade", description: "Cuidado, respeito e simpatia", inicio: 12, fim: 20 },
+  { title: "Aula feita para você", description: "Suas necessidades, objetivos e limitações", inicio: 20, fim: 26 },
 ];
 
 export const ctaFinal = {

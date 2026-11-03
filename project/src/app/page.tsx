@@ -3,7 +3,9 @@ import {
   // PromoDestaque, // pausado com o Café com Pilates (ver PROMO_ATIVA em src/data/promos.ts)
   Diferenciais,
   OQueEPilates,
+  QuatroMotivos,
   ConhecaStudio,
+  BlogHome,
   GoogleReviews,
   Agendamento,
   Footer,
@@ -22,8 +24,10 @@ export default function Home() {
       {/* <PromoDestaque /> pausado com o Café com Pilates; religue junto com PROMO_ATIVA */}
       <Diferenciais />
       <OQueEPilates />
-      <ConhecaStudio />
+      <QuatroMotivos />
       <GoogleReviews />
+      <ConhecaStudio />
+      <BlogHome />
       <Agendamento />
       <Footer />
       <WhatsAppButton />

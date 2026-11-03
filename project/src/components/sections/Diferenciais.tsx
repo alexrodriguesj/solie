@@ -88,7 +88,7 @@ export function Diferenciais() {
             })}
           </div>
           <div className="overflow-hidden rounded-2xl aspect-[5/6]">
-            <VideoPlayer src="/videos/video-institucional.mp4" name="institucional" className="h-full" autoUnmute />
+            <VideoPlayer src="/videos/video-home.mp4" name="institucional" className="h-full" autoUnmute />
           </div>
         </div>
 
@@ -134,7 +134,7 @@ export function Diferenciais() {
 
           {/* Video */}
           <div className="w-1/3 flex-shrink-0">
-            <VideoPlayer src="/videos/video-institucional.mp4" name="institucional" className="h-full" autoUnmute />
+            <VideoPlayer src="/videos/video-home.mp4" name="institucional" className="h-full" autoUnmute />
           </div>
 
           {/* Right Cards */}

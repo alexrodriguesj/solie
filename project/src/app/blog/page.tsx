@@ -7,7 +7,7 @@ import { CategoryPills } from "@/components/blog/CategoryPills";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Blog | Soliê Pilates — Pilates no Água Verde, Curitiba",
+  title: "Blog | Soliê Pilates: Pilates no Água Verde, Curitiba",
   description:
     "Artigos sobre Pilates, dor na coluna, postura, flexibilidade e bem-estar. Dicas de fisioterapeutas especializadas no Água Verde, Curitiba.",
 };

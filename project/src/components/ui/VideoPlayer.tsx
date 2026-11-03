@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 import { analytics } from "@/lib/utils";
 
@@ -10,6 +10,8 @@ interface VideoPlayerProps {
   poster?: string;
   className?: string;
   autoUnmute?: boolean;
+  videoRef?: RefObject<HTMLVideoElement | null>;
+  onTimeUpdate?: (segundos: number) => void;
 }
 
 // Flag global para primeira interação
@@ -30,8 +32,9 @@ if (typeof window !== "undefined") {
   );
 }
 
-export function VideoPlayer({ src, name, poster, className = "", autoUnmute = false }: VideoPlayerProps) {
-  const videoRef = useRef<HTMLVideoElement>(null);
+export function VideoPlayer({ src, name, poster, className = "", autoUnmute = false, videoRef: externalRef, onTimeUpdate }: VideoPlayerProps) {
+  const internalRef = useRef<HTMLVideoElement>(null);
+  const videoRef = externalRef ?? internalRef;
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const didAutoUnmute = useRef(false);
@@ -118,6 +121,7 @@ export function VideoPlayer({ src, name, poster, className = "", autoUnmute = fa
         ref={videoRef}
         src={src}
         poster={poster}
+        onTimeUpdate={onTimeUpdate ? (e) => onTimeUpdate(e.currentTarget.currentTime) : undefined}
         muted
         loop
         playsInline
