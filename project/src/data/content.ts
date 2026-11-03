@@ -39,7 +39,7 @@ export const diferenciais = [
   },
   {
     icon: "Users",
-    title: "Máximo 2 Alunos por Aula",
+    title: "Máximo 2 Alunos por Instrutora",
     description: "Atenção total para você. Cada exercício é corrigido, cada movimento é orientado. Sem turmas lotadas.",
   },
   {

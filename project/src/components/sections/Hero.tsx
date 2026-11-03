@@ -19,7 +19,7 @@ const slides = [
   {
     image: "/images/hero-2.jpg",
     title: "Máximo 2 alunos",
-    subtitle: "Por aula",
+    subtitle: "Por instrutora",
     description: "Aqui você não é só mais um. Atendimento personalizado com profissionais de saúde que entendem seu corpo.",
   },
   {

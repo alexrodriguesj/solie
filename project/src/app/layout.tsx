@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://soliepilates.com.br"),
   title: "Soliê Pilates | Pilates no Água Verde, Curitiba",
   description:
-    "Studio de Pilates com fisioterapeutas no Água Verde, Curitiba. Atendimento individual, máximo 2 alunos por aula. Agende sua aula experimental gratuita.",
+    "Studio de Pilates com fisioterapeutas no Água Verde, Curitiba. Atendimento individual, máximo 2 alunos por instrutora. Agende sua aula experimental gratuita.",
   keywords: [
     "pilates água verde",
     "pilates curitiba",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Soliê Pilates | Pilates no Água Verde, Curitiba",
     description:
-      "Studio de Pilates com fisioterapeutas no Água Verde, Curitiba. Atendimento individual, máximo 2 alunos por aula. Agende sua aula experimental gratuita.",
+      "Studio de Pilates com fisioterapeutas no Água Verde, Curitiba. Atendimento individual, máximo 2 alunos por instrutora. Agende sua aula experimental gratuita.",
     type: "website",
     locale: "pt_BR",
     siteName: "Soliê Pilates",
@@ -72,7 +72,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               "@type": "HealthAndBeautyBusiness",
               name: "Soliê Pilates",
               description:
-                "Studio de Pilates com fisioterapeutas no Água Verde, Curitiba. Atendimento individual, máximo 2 alunos por aula.",
+                "Studio de Pilates com fisioterapeutas no Água Verde, Curitiba. Atendimento individual, máximo 2 alunos por instrutora.",
               url: "https://soliepilates.com.br",
               telephone: "+5541999047534",
               email: "contato@soliepilates.com.br",
