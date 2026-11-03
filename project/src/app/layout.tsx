@@ -41,6 +41,11 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_BR",
     siteName: "Soliê Pilates",
+    images: [{ url: "https://www.soliepilates.com.br/images/og-solie.jpg", width: 1200, height: 630, alt: "Soliê Pilates" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["https://www.soliepilates.com.br/images/og-solie.jpg"],
   },
 };
 

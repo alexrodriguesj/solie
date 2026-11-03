@@ -66,10 +66,11 @@ export function QuatroMotivos() {
             <div className="md:hidden px-5 pt-6 pb-4 text-center">{cabecalho}</div>
 
             {/* Vídeo */}
-            <div className="relative aspect-[4/5] md:aspect-auto md:min-h-[620px]">
+            <div className="relative pb-[125%] md:pb-0 md:min-h-[620px]">
               <VideoPlayer
                 src="/videos/video-4-motivos.mp4"
                 name="4-motivos"
+                poster="/images/poster-video-4-motivos.jpg"
                 className="!absolute inset-0 !rounded-none !shadow-none"
                 autoUnmute
                 videoRef={videoRef}

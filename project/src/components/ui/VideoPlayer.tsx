@@ -39,6 +39,23 @@ export function VideoPlayer({ src, name, poster, className = "", autoUnmute = fa
   const [isMuted, setIsMuted] = useState(true);
   const didAutoUnmute = useRef(false);
 
+  // iOS pausa o vídeo ao ativar o som sem toque direto: nesse caso volta ao mudo e segue tocando
+  const tentarAtivarSom = (video: HTMLVideoElement) => {
+    didAutoUnmute.current = true;
+    video.muted = false;
+    video
+      .play()
+      .then(() => {
+        setIsMuted(false);
+        if (name) analytics.videoInteracao(name, "auto-unmute");
+      })
+      .catch(() => {
+        video.muted = true;
+        setIsMuted(true);
+        video.play().catch(() => {});
+      });
+  };
+
   // Auto-unmute após primeira interação (separado do autoplay)
   useEffect(() => {
     if (!autoUnmute) return;
@@ -47,10 +64,7 @@ export function VideoPlayer({ src, name, poster, className = "", autoUnmute = fa
       const video = videoRef.current;
       if (!video || didAutoUnmute.current) return;
       if (!video.paused) {
-        video.muted = false;
-        setIsMuted(false);
-        didAutoUnmute.current = true;
-        if (name) analytics.videoInteracao(name, "auto-unmute");
+        tentarAtivarSom(video);
       }
     };
 
@@ -74,10 +88,7 @@ export function VideoPlayer({ src, name, poster, className = "", autoUnmute = fa
             setIsPlaying(true);
             // Auto-unmute quando o vídeo começa a tocar e usuário já interagiu
             if (autoUnmute && userHasInteracted && !didAutoUnmute.current) {
-              video.muted = false;
-              setIsMuted(false);
-              didAutoUnmute.current = true;
-              if (name) analytics.videoInteracao(name, "auto-unmute");
+              tentarAtivarSom(video);
             }
           }).catch(() => {});
         } else {
@@ -107,6 +118,13 @@ export function VideoPlayer({ src, name, poster, className = "", autoUnmute = fa
   const toggleMute = () => {
     const video = videoRef.current;
     if (!video) return;
+    // Sem autoplay (ex.: modo de pouca energia no iPhone), o toque inicia o vídeo com som
+    if (video.paused) {
+      video.muted = false;
+      setIsMuted(false);
+      video.play().then(() => setIsPlaying(true)).catch(() => {});
+      return;
+    }
     video.muted = !video.muted;
     setIsMuted(video.muted);
     if (!video.muted && name) analytics.videoInteracao(name, "unmute");
